@@ -928,6 +928,9 @@
     <Property Type="String" Name="JobCardCriteria" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Type="Int32" Name="CriteriaData" />
     <Property Type="Boolean" Name="Status" />
+    <Property Type="DateTime" Name="TimeIn" Precision="3" />
+    <Property Type="DateTime" Name="TimeOut" Precision="3" />
+    <Property Type="Int16" Name="WorkMin" />
   </EntityType>
   <EntityType Name="JobCardEmp">
     <Key>
@@ -945,6 +948,9 @@
     <Property Type="Boolean" Name="Rejected" />
     <Property Type="DateTime" Name="DateCreated" Precision="3" />
     <Property Type="String" Name="Remarks" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="TimeIn" Precision="3" />
+    <Property Type="DateTime" Name="TimeOut" Precision="3" />
+    <Property Type="Int16" Name="WorkMin" />
   </EntityType>
   <EntityType Name="JobTitle">
     <Key>

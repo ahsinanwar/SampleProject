@@ -1997,6 +1997,9 @@
           <Property Name="JobCardCriteria" Type="char" MaxLength="1" />
           <Property Name="CriteriaData" Type="int" />
           <Property Name="Status" Type="bit" />
+          <Property Name="TimeIn" Type="datetime" />
+          <Property Name="TimeOut" Type="datetime" />
+          <Property Name="WorkMin" Type="smallint" />
         </EntityType>
         <EntityType Name="JobCardEmp">
           <Key>
@@ -2014,6 +2017,9 @@
           <Property Name="Rejected" Type="bit" />
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="50" />
+          <Property Name="TimeIn" Type="datetime" />
+          <Property Name="TimeOut" Type="datetime" />
+          <Property Name="WorkMin" Type="smallint" />
         </EntityType>
         <EntityType Name="JobTitle">
           <Key>
@@ -5269,6 +5275,9 @@
           <Property Type="String" Name="JobCardCriteria" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Type="Int32" Name="CriteriaData" />
           <Property Type="Boolean" Name="Status" />
+          <Property Type="DateTime" Name="TimeIn" Precision="3" />
+          <Property Type="DateTime" Name="TimeOut" Precision="3" />
+          <Property Type="Int16" Name="WorkMin" />
         </EntityType>
         <EntityType Name="JobCardEmp">
           <Key>
@@ -5286,6 +5295,9 @@
           <Property Type="Boolean" Name="Rejected" />
           <Property Type="DateTime" Name="DateCreated" Precision="3" />
           <Property Type="String" Name="Remarks" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="TimeIn" Precision="3" />
+          <Property Type="DateTime" Name="TimeOut" Precision="3" />
+          <Property Type="Int16" Name="WorkMin" />
         </EntityType>
         <EntityType Name="JobTitle">
           <Key>
@@ -8205,6 +8217,9 @@
           <EntitySetMapping Name="JobCardApps">
             <EntityTypeMapping TypeName="TAS2013Model.JobCardApp">
               <MappingFragment StoreEntitySet="JobCardApp">
+                <ScalarProperty Name="WorkMin" ColumnName="WorkMin" />
+                <ScalarProperty Name="TimeOut" ColumnName="TimeOut" />
+                <ScalarProperty Name="TimeIn" ColumnName="TimeIn" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="CriteriaData" ColumnName="CriteriaData" />
                 <ScalarProperty Name="JobCardCriteria" ColumnName="JobCardCriteria" />
@@ -8220,6 +8235,9 @@
           <EntitySetMapping Name="JobCardEmps">
             <EntityTypeMapping TypeName="TAS2013Model.JobCardEmp">
               <MappingFragment StoreEntitySet="JobCardEmp">
+                <ScalarProperty Name="WorkMin" ColumnName="WorkMin" />
+                <ScalarProperty Name="TimeOut" ColumnName="TimeOut" />
+                <ScalarProperty Name="TimeIn" ColumnName="TimeIn" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Rejected" ColumnName="Rejected" />

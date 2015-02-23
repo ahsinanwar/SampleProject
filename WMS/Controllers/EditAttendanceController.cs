@@ -78,6 +78,8 @@ namespace WMS.Controllers
                             ViewBag.EarlyIn = TimeSpan.FromMinutes((double)_attData.EarlyIn);
                         if (_attData.OTMin != null)
                             ViewBag.OT = TimeSpan.FromMinutes((double)_attData.OTMin);
+                        if (_attData.GZOTMin != null)
+                            ViewBag.GZOT = TimeSpan.FromMinutes((double)_attData.GZOTMin);
                         return View(_attData);
                     }
                     else
@@ -160,7 +162,7 @@ namespace WMS.Controllers
                     if (_attData.OTMin != null)
                         ViewBag.OT = TimeSpan.FromMinutes((double)_attData.OTMin);
                     if(_attData.StatusGZOT == true)
-                        ViewBag.OT = TimeSpan.FromMinutes((double)_attData.GZOTMin);
+                        ViewBag.GZOT = TimeSpan.FromMinutes((double)_attData.GZOTMin);
                     return View("EditAttWizardOne", _attData);
                 }
                 else
@@ -233,6 +235,8 @@ namespace WMS.Controllers
                             ViewBag.EarlyIn = TimeSpan.FromMinutes((double)_attData.EarlyIn);
                         if (_attData.OTMin != null)
                             ViewBag.OT = TimeSpan.FromMinutes((double)_attData.OTMin);
+                        if (_attData.StatusGZOT == true)
+                            ViewBag.GZOT = TimeSpan.FromMinutes((double)_attData.GZOTMin);
                         return View("EditAttWizardOne", _attData);
                     }
                     else
@@ -283,6 +287,8 @@ namespace WMS.Controllers
                             ViewBag.EarlyIn = TimeSpan.FromMinutes((double)_attData.EarlyIn);
                         if (_attData.OTMin != null)
                             ViewBag.OT = TimeSpan.FromMinutes((double)_attData.OTMin);
+                        if (_attData.StatusGZOT == true)
+                            ViewBag.GZOT = TimeSpan.FromMinutes((double)_attData.GZOTMin);
                         return View("EditAttWizardOne", _attData);
                     }
                     else

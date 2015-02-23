@@ -26,5 +26,8 @@ namespace WMS.Models
         public Nullable<bool> Rejected { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public string Remarks { get; set; }
+        public Nullable<System.DateTime> TimeIn { get; set; }
+        public Nullable<System.DateTime> TimeOut { get; set; }
+        public Nullable<short> WorkMin { get; set; }
     }
 }

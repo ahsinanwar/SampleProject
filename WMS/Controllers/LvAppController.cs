@@ -160,30 +160,35 @@ namespace WMS.Controllers
                 else
                 {
                     lvapplication.NoOfDays = (float)0.5;
-                    if (LvProcessController.CheckDuplicateLeave(lvapplication))
+                    if (lvapplication.FromDate.Date == lvapplication.ToDate.Date)
                     {
-                        if (LvProcessController.CheckHalfLeaveBalance(lvapplication))
+                        if (LvProcessController.CheckDuplicateLeave(lvapplication))
                         {
-                            lvapplication.LvDate = DateTime.Today;
-                            int _userID = Convert.ToInt32(Session["LogedUserID"].ToString());
-                            lvapplication.CreatedBy = _userID;
-                            lvapplication.CompanyID = LoggedInUser.CompanyID;
-                            lvapplication.Active = true;
-                            db.LvApplications.Add(lvapplication);
-                            if (db.SaveChanges()>0)
+                            if (LvProcessController.CheckHalfLeaveBalance(lvapplication))
                             {
-                                HelperClass.MyHelper.SaveAuditLog(_userID, (byte)MyEnums.FormName.Leave, (byte)MyEnums.Operation.Add, DateTime.Now);
-                                LvProcessController.AddHalfLeaveToLeaveData(lvapplication);
-                                LvProcessController.AddHalfLeaveToAttData(lvapplication);
+                                lvapplication.LvDate = DateTime.Today;
+                                int _userID = Convert.ToInt32(Session["LogedUserID"].ToString());
+                                lvapplication.CreatedBy = _userID;
+                                lvapplication.CompanyID = LoggedInUser.CompanyID;
+                                lvapplication.Active = true;
+                                db.LvApplications.Add(lvapplication);
+                                if (db.SaveChanges() > 0)
+                                {
+                                    HelperClass.MyHelper.SaveAuditLog(_userID, (byte)MyEnums.FormName.Leave, (byte)MyEnums.Operation.Add, DateTime.Now);
+                                    LvProcessController.AddHalfLeaveToLeaveData(lvapplication);
+                                    LvProcessController.AddHalfLeaveToAttData(lvapplication);
+                                }
+
+                                return RedirectToAction("Index");
                             }
-                            
-                            return RedirectToAction("Index");
+                            else
+                                ModelState.AddModelError("LvType", "Leave Balance Exceeds, Please check the balance");
                         }
                         else
-                            ModelState.AddModelError("LvType", "Leave Balance Exceeds, Please check the balance");
+                            ModelState.AddModelError("FromDate", "This Employee already has leave of this date ");
                     }
                     else
-                        ModelState.AddModelError("FromDate", "This Employee already has leave of this date ");
+                        ModelState.AddModelError("FromDate", "Half Leave should be entered of same date");
                 }
             }
             ViewBag.EmpID = new SelectList(db.Emps, "EmpID", "EmpNo", lvapplication.EmpID);

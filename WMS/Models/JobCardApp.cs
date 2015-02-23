@@ -23,5 +23,8 @@ namespace WMS.Models
         public string JobCardCriteria { get; set; }
         public Nullable<int> CriteriaData { get; set; }
         public Nullable<bool> Status { get; set; }
+        public Nullable<System.DateTime> TimeIn { get; set; }
+        public Nullable<System.DateTime> TimeOut { get; set; }
+        public Nullable<short> WorkMin { get; set; }
     }
 }

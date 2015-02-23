@@ -33,4 +33,11 @@ $(document).ready(function () {
             $("#Option4").show();
         }
     });
+    $('#JobCardType').change(function () {
+        var test = $(this).val();
+        if (test == '5') {
+            alert("woohoo");
+            $("#TimeIn").show();
+        }
+    });
 });

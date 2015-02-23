@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WMS.HelperClass;
 using WMS.Models;
 
 namespace WMS.Controllers
@@ -27,7 +28,8 @@ namespace WMS.Controllers
             int _RosterType = Convert.ToInt32(Request.Form["RosterType"].ToString());
             DateTime _StartDate = Convert.ToDateTime(Request.Form["dateStart"]);
             DateTime _EndDate = Convert.ToDateTime(Request.Form["dateEnd"]);
-            TimeSpan _DutyTime = new TimeSpan(2, 0, 0);
+            TimeSpan _DutyTime = MyHelper.ConvertTime(Request.Form["dutyTime"]);
+            int _WorkMin = Convert.ToInt16(Request.Form["mints"]);
             bool _Repeat = false;
             if (Request.Form["chkBox"].ToString() == "0")
             {
@@ -57,7 +59,7 @@ namespace WMS.Controllers
                         
                         break;
                 }
-                return View(CalculateRosterFields(_RosterType, _StartDate, 560, _DutyTime));
+                return View(CalculateRosterFields(_RosterType, _StartDate, _WorkMin, _DutyTime));
             }
             else
             {

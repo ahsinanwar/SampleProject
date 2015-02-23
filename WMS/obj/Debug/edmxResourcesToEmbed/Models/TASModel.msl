@@ -607,6 +607,9 @@
     <EntitySetMapping Name="JobCardApps">
       <EntityTypeMapping TypeName="TAS2013Model.JobCardApp">
         <MappingFragment StoreEntitySet="JobCardApp">
+          <ScalarProperty Name="WorkMin" ColumnName="WorkMin" />
+          <ScalarProperty Name="TimeOut" ColumnName="TimeOut" />
+          <ScalarProperty Name="TimeIn" ColumnName="TimeIn" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="CriteriaData" ColumnName="CriteriaData" />
           <ScalarProperty Name="JobCardCriteria" ColumnName="JobCardCriteria" />
@@ -622,6 +625,9 @@
     <EntitySetMapping Name="JobCardEmps">
       <EntityTypeMapping TypeName="TAS2013Model.JobCardEmp">
         <MappingFragment StoreEntitySet="JobCardEmp">
+          <ScalarProperty Name="WorkMin" ColumnName="WorkMin" />
+          <ScalarProperty Name="TimeOut" ColumnName="TimeOut" />
+          <ScalarProperty Name="TimeIn" ColumnName="TimeIn" />
           <ScalarProperty Name="Remarks" ColumnName="Remarks" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
           <ScalarProperty Name="Rejected" ColumnName="Rejected" />

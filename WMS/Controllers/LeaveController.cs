@@ -295,13 +295,14 @@ namespace WMS.Controllers
                 if (db.AttProcesses.Where(aa => aa.ProcessDate == datetime).Count() > 0)
                 {
                     AttData _EmpAttData = new AttData();
+                    _EmpAttData.Remarks.Replace("[Abesnt]", "");
                     _EmpAttData = db.AttDatas.First(aa => aa.EmpDate == _EmpDate);
                     if (lvappl.LvType == "A")//Casual Leave
-                        _EmpAttData.Remarks = _EmpAttData.Remarks+"[HCL]";
+                        _EmpAttData.Remarks = _EmpAttData.Remarks+"[H-CL]";
                     if (lvappl.LvType == "B")//Sick Leave
-                        _EmpAttData.Remarks = _EmpAttData.Remarks+"[HSL]";
+                        _EmpAttData.Remarks = _EmpAttData.Remarks+"[H-SL]";
                     if (lvappl.LvType == "C")//Casual Leave
-                        _EmpAttData.Remarks = _EmpAttData.Remarks+"[HAL]";
+                        _EmpAttData.Remarks = _EmpAttData.Remarks+"[H-AL]";
                     _EmpAttData.StatusAB = false;
                     _EmpAttData.StatusLeave = true;
                     _EmpAttData.StatusP = true;
@@ -526,9 +527,9 @@ namespace WMS.Controllers
                         if (_AttData != null)
                         {
                             _AttData.FirstOrDefault().StatusLeave = false;
-                            _AttData.FirstOrDefault().Remarks.Replace("[HSL]", "");
-                            _AttData.FirstOrDefault().Remarks.Replace("[HCL]", "");
-                            _AttData.FirstOrDefault().Remarks.Replace("[HAL]", "");
+                            _AttData.FirstOrDefault().Remarks.Replace("[H-SL]", "");
+                            _AttData.FirstOrDefault().Remarks.Replace("[H-CL]", "");
+                            _AttData.FirstOrDefault().Remarks.Replace("[H-AL]", "");
                             if (_AttData.FirstOrDefault().TimeIn == null && _AttData.FirstOrDefault().TimeOut == null && _AttData.FirstOrDefault().DutyCode == "D")
                             {
                                 _AttData.FirstOrDefault().Remarks = "[Absent]";

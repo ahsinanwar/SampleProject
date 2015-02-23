@@ -1992,6 +1992,9 @@
     <Property Name="JobCardCriteria" Type="char" MaxLength="1" />
     <Property Name="CriteriaData" Type="int" />
     <Property Name="Status" Type="bit" />
+    <Property Name="TimeIn" Type="datetime" />
+    <Property Name="TimeOut" Type="datetime" />
+    <Property Name="WorkMin" Type="smallint" />
   </EntityType>
   <EntityType Name="JobCardEmp">
     <Key>
@@ -2009,6 +2012,9 @@
     <Property Name="Rejected" Type="bit" />
     <Property Name="DateCreated" Type="datetime" />
     <Property Name="Remarks" Type="nvarchar" MaxLength="50" />
+    <Property Name="TimeIn" Type="datetime" />
+    <Property Name="TimeOut" Type="datetime" />
+    <Property Name="WorkMin" Type="smallint" />
   </EntityType>
   <EntityType Name="JobTitle">
     <Key>
