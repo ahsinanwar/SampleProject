@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Roster";
+}
+
+<h2>Create</h2>
+@using (Html.BeginForm("CreateRoster", "Roster"))
+{
+
+    var grid = new WebGrid(Model._RosterAttributes, canSort: false, canPage: false);
+    int rowNum = 0;
+    <div>
+        @grid.GetHtml(columns:
+            grid.Columns
+            (
+                grid.Column("Sr.No", format: item => rowNum = rowNum + 1),
+                grid.Column("Day", format: item => (string)item.Day),
+                grid.Column("Date", format: (item) => Html.Label("StudentList[" + (rowNum - 1).ToString() + "].Date", (string)item.DateString)),
+                grid.Column("Duty Time", format: (item) => Html.TextBox("StudentList[" + (rowNum - 1).ToString() + "].DutyTime", (string)item.DutyTimeString)),
+                grid.Column("Work Minutes", format: (item) => Html.TextBox("StudentList[" + (rowNum - 1).ToString() + "].WorkMin", (object)item.WorkMin))
+            ), mode: WebGridPagerModes.Numeric)
+    </div>
+    <input type="submit" value="Submit" />
+}
+
+<style type="text/css">
+    table
+    {
+        font-family: verdana,arial,sans-serif;
+        font-size: 11px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+    }
+    table th
+    {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #dedede;
+    }
+    table td
+    {
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #666666;
+        background-color: #ffffff;
+    }
+    input
+    {
+        width:100px;
+    }
+</style>
