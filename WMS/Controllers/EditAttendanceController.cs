@@ -55,7 +55,12 @@ namespace WMS.Controllers
                     DateTime _AttDataFrom = Convert.ToDateTime(Request.Form["DateFrom"].ToString());
                     Session["EditAttendanceDate"] = Request.Form["DateFrom"].ToString();
                     AttData _attData = new AttData();
-                    _attData = db.AttDatas.FirstOrDefault(aa => aa.EmpNo == _EmpNo && aa.AttDate == _AttDataFrom);
+                    List<Emp> _Emp = new List<Emp>();
+                    int EmpID = 0;
+                    _Emp = db.Emps.Where(aa => aa.EmpNo == _EmpNo).ToList();
+                    if (_Emp.Count > 0)
+                        EmpID = _Emp.FirstOrDefault().EmpID;
+                    _attData = db.AttDatas.FirstOrDefault(aa => aa.EmpID == EmpID && aa.AttDate == _AttDataFrom);
                     if (_attData != null)
                     {
                         List<PollData> _Polls = new List<PollData>();

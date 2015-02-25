@@ -275,6 +275,7 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\rosterScript.js" />
     <Content Include="Scripts\site.avatar.js" />
     <Content Include="Scripts\wingSection.js" />
     <Content Include="Web.config">
@@ -373,6 +374,15 @@
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Crew.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DailySumDept.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DailySumSection.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DailySumShift.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DaysName.cs">
@@ -489,10 +499,13 @@
     <Compile Include="Models\Roster.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\RosterDetail.cs">
+    <Compile Include="Models\RosterApp.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RosterType.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RotaSubApp.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Section.cs">
@@ -505,15 +518,6 @@
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Site.cs">
-      <DependentUpon>TASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SummaryDepartment.cs">
-      <DependentUpon>TASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SummarySection.cs">
-      <DependentUpon>TASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SummaryShift.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">

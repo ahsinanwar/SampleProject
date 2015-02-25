@@ -22,6 +22,9 @@
     <EntitySet Name="City" EntityType="TAS2013Model.Store.City" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Company" EntityType="TAS2013Model.Store.Company" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Crew" EntityType="TAS2013Model.Store.Crew" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DailySumDept" EntityType="TAS2013Model.Store.DailySumDept" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DailySumSection" EntityType="TAS2013Model.Store.DailySumSection" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DailySumShift" EntityType="TAS2013Model.Store.DailySumShift" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="DaysName" EntityType="TAS2013Model.Store.DaysName" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Department" EntityType="TAS2013Model.Store.Department" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Designation" EntityType="TAS2013Model.Store.Designation" store:Type="Tables" Schema="dbo" />
@@ -59,15 +62,13 @@
     <EntitySet Name="Reason" EntityType="TAS2013Model.Store.Reason" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Region" EntityType="TAS2013Model.Store.Region" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Roster" EntityType="TAS2013Model.Store.Roster" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="RosterDetail" EntityType="TAS2013Model.Store.RosterDetail" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RosterApp" EntityType="TAS2013Model.Store.RosterApp" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="RosterType" EntityType="TAS2013Model.Store.RosterType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RotaSubApp" EntityType="TAS2013Model.Store.RotaSubApp" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Section" EntityType="TAS2013Model.Store.Section" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ServiceLog" EntityType="TAS2013Model.Store.ServiceLog" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Shift" EntityType="TAS2013Model.Store.Shift" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Site" EntityType="TAS2013Model.Store.Site" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SummaryDepartment" EntityType="TAS2013Model.Store.SummaryDepartment" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SummarySection" EntityType="TAS2013Model.Store.SummarySection" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SummaryShift" EntityType="TAS2013Model.Store.SummaryShift" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="sysdiagrams" EntityType="TAS2013Model.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="User" EntityType="TAS2013Model.Store.User" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserModule" EntityType="TAS2013Model.Store.UserModule" store:Type="Tables" Schema="dbo" />
@@ -1354,9 +1355,17 @@
       <End Role="ReaderVendor" EntitySet="ReaderVendor" />
       <End Role="ReaderType" EntitySet="ReaderType" />
     </AssociationSet>
-    <AssociationSet Name="FK_RosterDetail_RosterType" Association="TAS2013Model.Store.FK_RosterDetail_RosterType">
+    <AssociationSet Name="FK_Roster_RotaSubApp" Association="TAS2013Model.Store.FK_Roster_RotaSubApp">
+      <End Role="RotaSubApp" EntitySet="RotaSubApp" />
+      <End Role="Roster" EntitySet="Roster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RosterApp_RosterType" Association="TAS2013Model.Store.FK_RosterApp_RosterType">
       <End Role="RosterType" EntitySet="RosterType" />
-      <End Role="RosterDetail" EntitySet="RosterDetail" />
+      <End Role="RosterApp" EntitySet="RosterApp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RotaSubApp_RosterApp" Association="TAS2013Model.Store.FK_RotaSubApp_RosterApp">
+      <End Role="RosterApp" EntitySet="RosterApp" />
+      <End Role="RotaSubApp" EntitySet="RotaSubApp" />
     </AssociationSet>
     <AssociationSet Name="FK_Section_Department" Association="TAS2013Model.Store.FK_Section_Department">
       <End Role="Department" EntitySet="Department" />
@@ -1380,15 +1389,15 @@
     </AssociationSet>
     <AssociationSet Name="FK_SummaryDepartment_Department" Association="TAS2013Model.Store.FK_SummaryDepartment_Department">
       <End Role="Department" EntitySet="Department" />
-      <End Role="SummaryDepartment" EntitySet="SummaryDepartment" />
+      <End Role="DailySumDept" EntitySet="DailySumDept" />
     </AssociationSet>
     <AssociationSet Name="FK_SummarySection_Section" Association="TAS2013Model.Store.FK_SummarySection_Section">
       <End Role="Section" EntitySet="Section" />
-      <End Role="SummarySection" EntitySet="SummarySection" />
+      <End Role="DailySumSection" EntitySet="DailySumSection" />
     </AssociationSet>
     <AssociationSet Name="FK_SummaryShift_Shift" Association="TAS2013Model.Store.FK_SummaryShift_Shift">
       <End Role="Shift" EntitySet="Shift" />
-      <End Role="SummaryShift" EntitySet="SummaryShift" />
+      <End Role="DailySumShift" EntitySet="DailySumShift" />
     </AssociationSet>
     <AssociationSet Name="FK_User_Company" Association="TAS2013Model.Store.FK_User_Company">
       <End Role="Company" EntitySet="Company" />
@@ -1786,6 +1795,69 @@
     </Key>
     <Property Name="CrewID" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="CrewName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CompanyID" Type="smallint" />
+  </EntityType>
+  <EntityType Name="DailySumDept">
+    <Key>
+      <PropertyRef Name="DeptDate" />
+    </Key>
+    <Property Name="DeptDate" Type="int" Nullable="false" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="SummaryDate" Type="datetime" />
+    <Property Name="TotalEmp" Type="smallint" />
+    <Property Name="PresentEmp" Type="smallint" />
+    <Property Name="AbsentEmp" Type="smallint" />
+    <Property Name="LateIn" Type="smallint" />
+    <Property Name="LateOut" Type="smallint" />
+    <Property Name="EarlyIn" Type="smallint" />
+    <Property Name="EarlyOut" Type="smallint" />
+    <Property Name="OverTime" Type="smallint" />
+    <Property Name="LeavesEmp" Type="smallint" />
+    <Property Name="ShortLeaveEmp" Type="smallint" />
+    <Property Name="HalfLeaveEmp" Type="smallint" />
+    <Property Name="CompanyID" Type="smallint" />
+    <Property Name="ALeaves" Type="smallint" />
+    <Property Name="CLeaves" Type="smallint" />
+    <Property Name="SLeaves" Type="smallint" />
+  </EntityType>
+  <EntityType Name="DailySumSection">
+    <Key>
+      <PropertyRef Name="SectionDate" />
+    </Key>
+    <Property Name="SectionDate" Type="int" Nullable="false" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="SummaryDate" Type="datetime" />
+    <Property Name="TotalEmp" Type="smallint" />
+    <Property Name="PresentEmp" Type="smallint" />
+    <Property Name="AbsentEmp" Type="smallint" />
+    <Property Name="LateIn" Type="smallint" />
+    <Property Name="LateOut" Type="smallint" />
+    <Property Name="EarlyIn" Type="smallint" />
+    <Property Name="EarlyOut" Type="smallint" />
+    <Property Name="OverTime" Type="smallint" />
+    <Property Name="LeavesEmp" Type="smallint" />
+    <Property Name="ShortLeaveEmp" Type="smallint" />
+    <Property Name="HalfLeaveEmp" Type="smallint" />
+    <Property Name="CompanyID" Type="smallint" />
+  </EntityType>
+  <EntityType Name="DailySumShift">
+    <Key>
+      <PropertyRef Name="ShiftDate" />
+    </Key>
+    <Property Name="ShiftDate" Type="int" Nullable="false" />
+    <Property Name="ShiftID" Type="tinyint" />
+    <Property Name="SummaryDate" Type="datetime" />
+    <Property Name="TotalEmp" Type="smallint" />
+    <Property Name="PresentEmp" Type="smallint" />
+    <Property Name="AbsentEmp" Type="smallint" />
+    <Property Name="LateIn" Type="smallint" />
+    <Property Name="LateOut" Type="smallint" />
+    <Property Name="EarlyIn" Type="smallint" />
+    <Property Name="EarlyOut" Type="smallint" />
+    <Property Name="OverTime" Type="smallint" />
+    <Property Name="LeavesEmp" Type="smallint" />
+    <Property Name="ShortLeaveEmp" Type="smallint" />
+    <Property Name="HalfLeaveEmp" Type="smallint" />
     <Property Name="CompanyID" Type="smallint" />
   </EntityType>
   <EntityType Name="DaysName">
@@ -2242,17 +2314,25 @@
     <Property Name="WorkMin" Type="smallint" Nullable="false" />
     <Property Name="Remarks" Type="varchar" MaxLength="100" />
     <Property Name="CompanyID" Type="smallint" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="OpenShift" Type="bit" />
+    <Property Name="RosterSubAppID" Type="int" />
   </EntityType>
-  <EntityType Name="RosterDetail">
+  <EntityType Name="RosterApp">
     <Key>
-      <PropertyRef Name="EmpID" />
+      <PropertyRef Name="RotaApplD" />
     </Key>
-    <Property Name="EmpID" Type="int" Nullable="false" />
-    <Property Name="RType" Type="tinyint" Nullable="false" />
-    <Property Name="Repeat" Type="bit" />
-    <Property Name="FromDate" Type="date" Nullable="false" />
-    <Property Name="ToDate" Type="date" Nullable="false" />
-    <Property Name="CreatedBy" Type="int" />
+    <Property Name="RotaApplD" Type="int" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="DateStarted" Type="date" />
+    <Property Name="DateEnded" Type="date" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="RosterCriteria" Type="char" MaxLength="1" />
+    <Property Name="CriteriaData" Type="int" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="RotaTypeID" Type="tinyint" />
+    <Property Name="WorkMin" Type="smallint" />
+    <Property Name="DutyTime" Type="time" />
   </EntityType>
   <EntityType Name="RosterType">
     <Key>
@@ -2260,6 +2340,17 @@
     </Key>
     <Property Name="ID" Type="tinyint" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Repeat" Type="bit" />
+  </EntityType>
+  <EntityType Name="RotaSubApp">
+    <Key>
+      <PropertyRef Name="RotaSubAppID" />
+    </Key>
+    <Property Name="RotaSubAppID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="DutyDate" Type="datetime" />
+    <Property Name="WorkMins" Type="smallint" />
+    <Property Name="DutyTime" Type="time" />
+    <Property Name="RosterAppID" Type="int" />
   </EntityType>
   <EntityType Name="Section">
     <Key>
@@ -2317,66 +2408,6 @@
     <Property Name="SiteID" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="SiteName" Type="nvarchar" MaxLength="50" />
     <Property Name="CityID" Type="smallint" />
-  </EntityType>
-  <EntityType Name="SummaryDepartment">
-    <Key>
-      <PropertyRef Name="DeptDate" />
-    </Key>
-    <Property Name="DeptDate" Type="int" Nullable="false" />
-    <Property Name="DeptID" Type="smallint" />
-    <Property Name="SummaryDate" Type="datetime" />
-    <Property Name="TotalEmp" Type="smallint" />
-    <Property Name="PresentEmp" Type="smallint" />
-    <Property Name="AbsentEmp" Type="smallint" />
-    <Property Name="LateIn" Type="smallint" />
-    <Property Name="LateOut" Type="smallint" />
-    <Property Name="EarlyIn" Type="smallint" />
-    <Property Name="EarlyOut" Type="smallint" />
-    <Property Name="OverTime" Type="smallint" />
-    <Property Name="LeavesEmp" Type="smallint" />
-    <Property Name="ShortLeaveEmp" Type="smallint" />
-    <Property Name="HalfLeaveEmp" Type="smallint" />
-    <Property Name="CompanyID" Type="smallint" />
-  </EntityType>
-  <EntityType Name="SummarySection">
-    <Key>
-      <PropertyRef Name="SectionDate" />
-    </Key>
-    <Property Name="SectionDate" Type="int" Nullable="false" />
-    <Property Name="SectionID" Type="smallint" />
-    <Property Name="SummaryDate" Type="datetime" />
-    <Property Name="TotalEmp" Type="smallint" />
-    <Property Name="PresentEmp" Type="smallint" />
-    <Property Name="AbsentEmp" Type="smallint" />
-    <Property Name="LateIn" Type="smallint" />
-    <Property Name="LateOut" Type="smallint" />
-    <Property Name="EarlyIn" Type="smallint" />
-    <Property Name="EarlyOut" Type="smallint" />
-    <Property Name="OverTime" Type="smallint" />
-    <Property Name="LeavesEmp" Type="smallint" />
-    <Property Name="ShortLeaveEmp" Type="smallint" />
-    <Property Name="HalfLeaveEmp" Type="smallint" />
-    <Property Name="CompanyID" Type="smallint" />
-  </EntityType>
-  <EntityType Name="SummaryShift">
-    <Key>
-      <PropertyRef Name="ShiftDate" />
-    </Key>
-    <Property Name="ShiftDate" Type="int" Nullable="false" />
-    <Property Name="ShiftID" Type="tinyint" />
-    <Property Name="SummaryDate" Type="datetime" />
-    <Property Name="TotalEmp" Type="smallint" />
-    <Property Name="PresentEmp" Type="smallint" />
-    <Property Name="AbsentEmp" Type="smallint" />
-    <Property Name="LateIn" Type="smallint" />
-    <Property Name="LateOut" Type="smallint" />
-    <Property Name="EarlyIn" Type="smallint" />
-    <Property Name="EarlyOut" Type="smallint" />
-    <Property Name="OverTime" Type="smallint" />
-    <Property Name="LeavesEmp" Type="smallint" />
-    <Property Name="ShortLeaveEmp" Type="smallint" />
-    <Property Name="HalfLeaveEmp" Type="smallint" />
-    <Property Name="CompanyID" Type="smallint" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -4182,15 +4213,39 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_RosterDetail_RosterType">
-    <End Role="RosterType" Type="TAS2013Model.Store.RosterType" Multiplicity="1" />
-    <End Role="RosterDetail" Type="TAS2013Model.Store.RosterDetail" Multiplicity="*" />
+  <Association Name="FK_Roster_RotaSubApp">
+    <End Role="RotaSubApp" Type="TAS2013Model.Store.RotaSubApp" Multiplicity="0..1" />
+    <End Role="Roster" Type="TAS2013Model.Store.Roster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RotaSubApp">
+        <PropertyRef Name="RotaSubAppID" />
+      </Principal>
+      <Dependent Role="Roster">
+        <PropertyRef Name="RosterSubAppID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RosterApp_RosterType">
+    <End Role="RosterType" Type="TAS2013Model.Store.RosterType" Multiplicity="0..1" />
+    <End Role="RosterApp" Type="TAS2013Model.Store.RosterApp" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="RosterType">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="RosterDetail">
-        <PropertyRef Name="RType" />
+      <Dependent Role="RosterApp">
+        <PropertyRef Name="RotaTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RotaSubApp_RosterApp">
+    <End Role="RosterApp" Type="TAS2013Model.Store.RosterApp" Multiplicity="0..1" />
+    <End Role="RotaSubApp" Type="TAS2013Model.Store.RotaSubApp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RosterApp">
+        <PropertyRef Name="RotaApplD" />
+      </Principal>
+      <Dependent Role="RotaSubApp">
+        <PropertyRef Name="RosterAppID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -4256,36 +4311,36 @@
   </Association>
   <Association Name="FK_SummaryDepartment_Department">
     <End Role="Department" Type="TAS2013Model.Store.Department" Multiplicity="0..1" />
-    <End Role="SummaryDepartment" Type="TAS2013Model.Store.SummaryDepartment" Multiplicity="*" />
+    <End Role="DailySumDept" Type="TAS2013Model.Store.DailySumDept" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Department">
         <PropertyRef Name="DeptID" />
       </Principal>
-      <Dependent Role="SummaryDepartment">
+      <Dependent Role="DailySumDept">
         <PropertyRef Name="DeptID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_SummarySection_Section">
     <End Role="Section" Type="TAS2013Model.Store.Section" Multiplicity="0..1" />
-    <End Role="SummarySection" Type="TAS2013Model.Store.SummarySection" Multiplicity="*" />
+    <End Role="DailySumSection" Type="TAS2013Model.Store.DailySumSection" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Section">
         <PropertyRef Name="SectionID" />
       </Principal>
-      <Dependent Role="SummarySection">
+      <Dependent Role="DailySumSection">
         <PropertyRef Name="SectionID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_SummaryShift_Shift">
     <End Role="Shift" Type="TAS2013Model.Store.Shift" Multiplicity="0..1" />
-    <End Role="SummaryShift" Type="TAS2013Model.Store.SummaryShift" Multiplicity="*" />
+    <End Role="DailySumShift" Type="TAS2013Model.Store.DailySumShift" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Shift">
         <PropertyRef Name="ShiftID" />
       </Principal>
-      <Dependent Role="SummaryShift">
+      <Dependent Role="DailySumShift">
         <PropertyRef Name="ShiftID" />
       </Dependent>
     </ReferentialConstraint>

@@ -16,14 +16,15 @@ namespace WMS.Models
     {
         public RosterType()
         {
-            this.RosterDetails = new HashSet<RosterDetail>();
+            this.RosterApps = new HashSet<RosterApp>();
             this.Shifts = new HashSet<Shift>();
         }
     
         public byte ID { get; set; }
         public string Name { get; set; }
+        public Nullable<bool> Repeat { get; set; }
     
-        public virtual ICollection<RosterDetail> RosterDetails { get; set; }
+        public virtual ICollection<RosterApp> RosterApps { get; set; }
         public virtual ICollection<Shift> Shifts { get; set; }
     }
 }

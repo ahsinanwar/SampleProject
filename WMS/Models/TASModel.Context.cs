@@ -41,6 +41,9 @@ namespace WMS.Models
         public DbSet<City> Cities { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Crew> Crews { get; set; }
+        public DbSet<DailySumDept> DailySumDepts { get; set; }
+        public DbSet<DailySumSection> DailySumSections { get; set; }
+        public DbSet<DailySumShift> DailySumShifts { get; set; }
         public DbSet<DaysName> DaysNames { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Designation> Designations { get; set; }
@@ -78,15 +81,13 @@ namespace WMS.Models
         public DbSet<Reason> Reasons { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<Roster> Rosters { get; set; }
-        public DbSet<RosterDetail> RosterDetails { get; set; }
+        public DbSet<RosterApp> RosterApps { get; set; }
         public DbSet<RosterType> RosterTypes { get; set; }
+        public DbSet<RotaSubApp> RotaSubApps { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<ServiceLog> ServiceLogs { get; set; }
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<Site> Sites { get; set; }
-        public DbSet<SummaryDepartment> SummaryDepartments { get; set; }
-        public DbSet<SummarySection> SummarySections { get; set; }
-        public DbSet<SummaryShift> SummaryShifts { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserModule> UserModules { get; set; }

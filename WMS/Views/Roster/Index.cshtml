@@ -12,6 +12,20 @@
             @Html.AntiForgeryToken()
             <article class="row">
              <section class="col-md-6">
+                 <div class="row" style="margin-left:10%; margin-bottom:3%">
+                    <div class="control-label col-md-3">Roster Name</div>
+                    <div class="col-md-6">
+                         <input type="text" id="rostername" name="rostername" required  class="form-control" />
+                    </div>
+                </div>
+
+                 <div class="row" style="margin-left:10%; margin-bottom:3%">
+                    <div class="control-label col-md-3">Shift</div>
+                    <div class="col-md-6">
+                         @Html.DropDownList("ShiftList",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+                    </div>
+                </div>
+
                 <div class="row" style="margin-left:10%; margin-bottom:3%">
                     <div class="control-label col-md-3">Roster Type</div>
                     <div class="col-md-6">
@@ -19,7 +33,7 @@
                     </div>
                 </div>
     
-                <div class="row" style="margin-left:10%; margin-bottom:3%">
+                @*<div class="row" style="margin-left:10%; margin-bottom:3%">
                     <div class="control-label col-md-3">Repeat</div>
                     <div class="col-md-6">
                         @Html.DropDownList("chkBox", new List<SelectListItem>
@@ -27,19 +41,26 @@
                             new SelectListItem { Text = "Yes", Value = "1"}
                             },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"}) 
                     </div>
-                </div>
+                </div>*@
 
                 <div class="row" style="margin-left:10%; margin-bottom:3%">
                     <div class="control-label col-md-3">Start Date</div>
                     <div class="col-md-6">
-                         <input type="date" id="dateStart" name="dateStart" value="@DateTime.Now.ToString("yyyy-MM-dd")"  class="form-control"/>
+                         <input type="date" id="dateStart" name="dateStart"   class="form-control"/>
+                    </div>
+                </div>
+
+                  <div id="cyclesDiv" class="row" style="margin-left:10%; margin-bottom:3%">
+                    <div class="control-label col-md-3">Repitition Cycles</div>
+                    <div class="col-md-6">
+                         <input type="number" value="0" min="0" id="cycles" name="cycles" required  class="form-control" />
                     </div>
                 </div>
                 
                 <div class="row" style="margin-left:10%; margin-bottom:3%">
                     <div class="control-label col-md-3">End Date</div>
                     <div class="col-md-6">
-                         <input type="date" id="dateEnd" name="dateEnd" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" />
+                         <input disabled type="date" id="dateEnd" name="dateEnd" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" />
                     </div>
                 </div>
 
@@ -122,6 +143,7 @@
         }
 </article>
 <script src="@Url.Content("~/Scripts/JavaScript1.js")"></script>
+<script src="@Url.Content("~/Scripts/rosterScript.js")"></script>
 <style type="text/css">
     table
     {

@@ -109,21 +109,30 @@ namespace WMS.Controllers.EditAttendance
                 //If TimeIn and TimeOut are not null, then calculate other Atributes
                 if (attendanceRecord.TimeIn != null && attendanceRecord.TimeOut != null)
                     {
-                        if (shift.OpenShift == true)
+                        //If TimeIn = TimeOut then calculate according to DutyCode
+                        if (attendanceRecord.TimeIn == attendanceRecord.TimeOut)
                         {
-                            CalculateOpenShiftTimes(attendanceRecord, shift);
+                            CalculateInEqualToOut(attendanceRecord);
                         }
                         else
                         {
-                            if (attendanceRecord.TimeIn.Value.Date.Day == attendanceRecord.TimeOut.Value.Date.Day)
-                            {
-                                CalculateShiftTimes(attendanceRecord, shift);
-                            }
-                            else
+                            if (shift.OpenShift == true)
                             {
                                 CalculateOpenShiftTimes(attendanceRecord, shift);
                             }
+                            else
+                            {
+                                if (attendanceRecord.TimeIn.Value.Date.Day == attendanceRecord.TimeOut.Value.Date.Day)
+                                {
+                                    CalculateShiftTimes(attendanceRecord, shift);
+                                }
+                                else
+                                {
+                                    CalculateOpenShiftTimes(attendanceRecord, shift);
+                                }
+                            }
                         }
+                        
                     }
             }
             catch (Exception ex)
@@ -131,6 +140,58 @@ namespace WMS.Controllers.EditAttendance
             }
 
             context.SaveChanges();
+            context.Dispose();
+        }
+
+        private void CalculateInEqualToOut(AttData attendanceRecord)
+        {
+            switch (attendanceRecord.DutyCode)
+            {
+                case "G":
+                    attendanceRecord.StatusAB = false;
+                    attendanceRecord.StatusGZ = true;
+                    attendanceRecord.WorkMin = 0;
+                    attendanceRecord.EarlyIn = 0;
+                    attendanceRecord.EarlyOut = 0;
+                    attendanceRecord.LateIn = 0;
+                    attendanceRecord.LateOut = 0;
+                    attendanceRecord.OTMin = 0;
+                    attendanceRecord.GZOTMin = 0;
+                    attendanceRecord.StatusGZOT = false;
+                    attendanceRecord.TimeIn = null;
+                    attendanceRecord.TimeOut = null;
+                    break;
+                case "R":
+                    attendanceRecord.StatusAB = false;
+                    attendanceRecord.StatusGZ = false;
+                    attendanceRecord.WorkMin = 0;
+                    attendanceRecord.EarlyIn = 0;
+                    attendanceRecord.EarlyOut = 0;
+                    attendanceRecord.LateIn = 0;
+                    attendanceRecord.LateOut = 0;
+                    attendanceRecord.OTMin = 0;
+                    attendanceRecord.GZOTMin = 0;
+                    attendanceRecord.StatusGZOT = false;
+                    attendanceRecord.TimeIn = null;
+                    attendanceRecord.TimeOut = null;
+                    attendanceRecord.StatusDO = true;
+                    break;
+                case "D":
+                    attendanceRecord.StatusAB = true;
+                    attendanceRecord.StatusGZ = false;
+                    attendanceRecord.WorkMin = 0;
+                    attendanceRecord.EarlyIn = 0;
+                    attendanceRecord.EarlyOut = 0;
+                    attendanceRecord.LateIn = 0;
+                    attendanceRecord.LateOut = 0;
+                    attendanceRecord.OTMin = 0;
+                    attendanceRecord.GZOTMin = 0;
+                    attendanceRecord.StatusGZOT = false;
+                    attendanceRecord.TimeIn = null;
+                    attendanceRecord.TimeOut = null;
+                    attendanceRecord.StatusDO = false;
+                    break;
+            }
         }
         TimeSpan OpenShiftThresholdStart = new TimeSpan(17, 00, 00);
 

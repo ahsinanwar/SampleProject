@@ -230,7 +230,7 @@ namespace WMS.Controllers
             using (var db = new TAS2013Entities())
             {
                 db.Configuration.ProxyCreationEnabled = false;
-                List<SummarySection> secs = db.SummarySections.Where(aa => aa.SectionID == Code).ToList();
+                List<DailySumSection> secs = db.DailySumSections.Where(aa => aa.SectionID == Code).ToList();
                 List<Section> _secList = db.Sections.ToList();
                 //return Json(movies, JsonRequestBehavior.AllowGet);
                 //string output = SerializeObject(secs);
@@ -240,7 +240,7 @@ namespace WMS.Controllers
             return RedirectToAction("Index");
         }
 
-        private object ConvertToJsonList(List<SummarySection> _sec,List<Section> _secList)
+        private object ConvertToJsonList(List<DailySumSection> _sec,List<Section> _secList)
         {
             var data = new List<object>();
             foreach (var item in _sec)

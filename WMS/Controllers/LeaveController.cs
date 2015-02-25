@@ -295,7 +295,6 @@ namespace WMS.Controllers
                 if (db.AttProcesses.Where(aa => aa.ProcessDate == datetime).Count() > 0)
                 {
                     AttData _EmpAttData = new AttData();
-                    _EmpAttData.Remarks.Replace("[Abesnt]", "");
                     _EmpAttData = db.AttDatas.First(aa => aa.EmpDate == _EmpDate);
                     if (lvappl.LvType == "A")//Casual Leave
                         _EmpAttData.Remarks = _EmpAttData.Remarks+"[H-CL]";
@@ -303,6 +302,13 @@ namespace WMS.Controllers
                         _EmpAttData.Remarks = _EmpAttData.Remarks+"[H-SL]";
                     if (lvappl.LvType == "C")//Casual Leave
                         _EmpAttData.Remarks = _EmpAttData.Remarks+"[H-AL]";
+
+                    if (_EmpAttData.Remarks.Contains("[Absent]"))
+                        _EmpAttData.Remarks.Replace("[Abesnt]", "");
+                    if (_EmpAttData.Remarks.Contains("[EO]"))
+                        _EmpAttData.Remarks.Replace("[EO]", "-");
+                    if (_EmpAttData.Remarks.Contains("[LI]"))
+                        _EmpAttData.Remarks.Replace("[LI]", "");
                     _EmpAttData.StatusAB = false;
                     _EmpAttData.StatusLeave = true;
                     _EmpAttData.StatusP = true;

@@ -16,8 +16,8 @@ namespace WMS.Models
     {
         public Department()
         {
+            this.DailySumDepts = new HashSet<DailySumDept>();
             this.Sections = new HashSet<Section>();
-            this.SummaryDepartments = new HashSet<SummaryDepartment>();
         }
     
         public short DeptID { get; set; }
@@ -25,8 +25,8 @@ namespace WMS.Models
         public Nullable<short> DivID { get; set; }
         public Nullable<short> CompanyID { get; set; }
     
+        public virtual ICollection<DailySumDept> DailySumDepts { get; set; }
         public virtual Division Division { get; set; }
         public virtual ICollection<Section> Sections { get; set; }
-        public virtual ICollection<SummaryDepartment> SummaryDepartments { get; set; }
     }
 }
