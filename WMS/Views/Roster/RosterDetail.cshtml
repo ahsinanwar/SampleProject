@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WMS.Models.RosterDetail>
+@{
+    ViewBag.Title = "RosterDetail";
+}
+
+<h2>RosterDetail</h2>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DutyCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DutyTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkMin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RosterDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RosterApp.RosterCriteria)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DutyCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DutyTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkMin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RosterDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RosterApp.RosterCriteria)
+        </td>
+        <td>
+        </td>
+    </tr>
+}
+
+</table>
+
+

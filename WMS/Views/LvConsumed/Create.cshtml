@@ -1,0 +1,188 @@
+﻿@model WMS.Models.LvConsumed
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>LvConsumed</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmpLvType, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmpLvType)
+                @Html.ValidationMessageFor(model => model.EmpLvType)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmpID, "EmpID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("EmpID", String.Empty)
+                @Html.ValidationMessageFor(model => model.EmpID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LeaveType, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LeaveType)
+                @Html.ValidationMessageFor(model => model.LeaveType)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CompanyID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CompanyID)
+                @Html.ValidationMessageFor(model => model.CompanyID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JanConsumed, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.JanConsumed)
+                @Html.ValidationMessageFor(model => model.JanConsumed)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FebConsumed, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FebConsumed)
+                @Html.ValidationMessageFor(model => model.FebConsumed)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MarchConsumed, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MarchConsumed)
+                @Html.ValidationMessageFor(model => model.MarchConsumed)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AprConsumed, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AprConsumed)
+                @Html.ValidationMessageFor(model => model.AprConsumed)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MayConsumed, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MayConsumed)
+                @Html.ValidationMessageFor(model => model.MayConsumed)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JuneConsumed, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.JuneConsumed)
+                @Html.ValidationMessageFor(model => model.JuneConsumed)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JulyConsumed, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.JulyConsumed)
+                @Html.ValidationMessageFor(model => model.JulyConsumed)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AugustConsumed, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AugustConsumed)
+                @Html.ValidationMessageFor(model => model.AugustConsumed)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SepConsumed, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SepConsumed)
+                @Html.ValidationMessageFor(model => model.SepConsumed)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OctConsumed, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OctConsumed)
+                @Html.ValidationMessageFor(model => model.OctConsumed)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NovConsumed, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NovConsumed)
+                @Html.ValidationMessageFor(model => model.NovConsumed)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DecConsumed, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DecConsumed)
+                @Html.ValidationMessageFor(model => model.DecConsumed)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TotalForYear, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TotalForYear)
+                @Html.ValidationMessageFor(model => model.TotalForYear)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.YearRemaining, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.YearRemaining)
+                @Html.ValidationMessageFor(model => model.YearRemaining)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GrandTotal, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GrandTotal)
+                @Html.ValidationMessageFor(model => model.GrandTotal)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GrandTotalRemaining, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GrandTotalRemaining)
+                @Html.ValidationMessageFor(model => model.GrandTotalRemaining)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,141 @@
+﻿@model IEnumerable<WMS.Models.LvConsumed>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LeaveType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompanyID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JanConsumed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FebConsumed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MarchConsumed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AprConsumed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MayConsumed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JuneConsumed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JulyConsumed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AugustConsumed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SepConsumed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OctConsumed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NovConsumed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DecConsumed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalForYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearRemaining)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GrandTotal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GrandTotalRemaining)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Emp.EmpNo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LeaveType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompanyID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JanConsumed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FebConsumed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MarchConsumed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AprConsumed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MayConsumed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JuneConsumed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JulyConsumed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AugustConsumed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SepConsumed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OctConsumed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NovConsumed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DecConsumed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalForYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.YearRemaining)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GrandTotal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GrandTotalRemaining)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Emp.EmpNo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EmpLvType }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EmpLvType }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EmpLvType })
+        </td>
+    </tr>
+}
+
+</table>

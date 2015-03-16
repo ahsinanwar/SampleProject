@@ -1,0 +1,170 @@
+﻿@model WMS.Models.LvConsumed
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LvConsumed</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LeaveType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeaveType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JanConsumed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JanConsumed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FebConsumed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FebConsumed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MarchConsumed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MarchConsumed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AprConsumed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AprConsumed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MayConsumed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MayConsumed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JuneConsumed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JuneConsumed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JulyConsumed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JulyConsumed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AugustConsumed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AugustConsumed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SepConsumed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SepConsumed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OctConsumed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OctConsumed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NovConsumed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NovConsumed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DecConsumed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DecConsumed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalForYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalForYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YearRemaining)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YearRemaining)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GrandTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GrandTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GrandTotalRemaining)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GrandTotalRemaining)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Emp.EmpNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Emp.EmpNo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EmpLvType }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
