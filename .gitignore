@@ -73,6 +73,7 @@ NuGet.exe
 *.[Cc]ache
 *.ilk
 *.log
+*.config
 *[Rr]esharper*
 [Bb]in
 [Bb]in
