@@ -8,6 +8,7 @@ using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.Reporting.WebForms;
+using WMS.CustomClass;
 using WMS.Models;
 
 namespace WMS.Reports
@@ -17,6 +18,7 @@ namespace WMS.Reports
         string PathString = "";
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (!Page.IsPostBack)
             {
                 DivGridSection.Visible = false;
@@ -39,14 +41,20 @@ namespace WMS.Reports
                 SelectedShifts.Clear();
                 RefreshLabels();
                 LoadGridViews();
-                DateTime dt = DateTime.Today.Date.AddDays(-1);
+                DateTime date = DateTime.Today.Date.AddDays(-1);
                 if (GlobalVariables.DeploymentType == false)
                 {
                     PathString = "/Reports/RDLC/DRDetailed.rdlc";
                 }
                 else
                     PathString = "/WMS/Reports/RDLC/DRDetailed.rdlc";
-                LoadReport(PathString, context.ViewMultipleInOuts.Where(aa => aa.AttDate == dt).ToList());
+                //List<ViewMultipleInOut> _View = new List<ViewMultipleInOut>();
+                User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
+                QueryBuilder qb = new QueryBuilder();
+                string query = qb.MakeCustomizeQuery(LoggedInUser);
+                DataTable dt = qb.GetValuesfromDB("select * from ViewMultipleInOut " + query +" and AttDate = '"+ date.Date.Year.ToString()+"-"+date.Date.Month.ToString()+"-"+date.Date.Day.ToString()+"'");
+                List<ViewMultipleInOut> _View = dt.ToList<ViewMultipleInOut>();
+                LoadReport(PathString, _View);
             }
         }
         #region --Load GridViews --
@@ -68,22 +76,7 @@ namespace WMS.Reports
             //string selectSQL = "";
             //string _Query = "";
             List<EmpType> _empType = new List<EmpType>();
-            if (_loggedUser.ViewContractual == true && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == false)
-            {
-                _empType = context.EmpTypes.Where(aa => aa.CatID == 3).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == true && _loggedUser.ViewPermanentStaff == false)
-            {
-                _empType = context.EmpTypes.Where(aa => aa.CatID == 2).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == true)
-            {
-                _empType = context.EmpTypes.Where(aa => aa.CatID == 2).ToList();
-            }
-            else
-            {
                 _empType = context.EmpTypes.ToList();
-            }
             //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
             //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
             //grid_EmpType.DataBind();
@@ -94,7 +87,7 @@ namespace WMS.Reports
         private void LoadLocationGrid(User _loggedUser)
         {
             List<Location> _objectList = new List<Location>();
-            _objectList = context.Locations.Where(aa => aa.CompanyID == _loggedUser.CompanyID).ToList();
+            _objectList = context.Locations.ToList();
             //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
             //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
             //grid_EmpType.DataBind();
@@ -115,29 +108,11 @@ namespace WMS.Reports
 
         private void LoadEmpGrid(User _loggedUser)
         {
-            string connectionString = WebConfigurationManager.ConnectionStrings["TAS2013ConnectionString"].ConnectionString;
-            string selectSQL = "";
-            string _Query = "";
-            List<EmpView> _EmpView = new List<EmpView>();
-            if (_loggedUser.ViewContractual == true && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == false)
-            {
-                _EmpView = context.EmpViews.Where(aa => aa.CatID == 3).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == true && _loggedUser.ViewPermanentStaff == false)
-            {
-                _EmpView = context.EmpViews.Where(aa => aa.CatID == 2).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == true)
-            {
-                _EmpView = context.EmpViews.Where(aa => aa.CatID == 2).ToList();
-            }
-            else
-            {
-                _EmpView = context.EmpViews.ToList();
-            }
-            //_Query = "SELECT EmpID, EmpNo,EmpName,DesignationName,CardNo,CrewName,TypeName,CatName,ShiftName, SectionName FROM TAS2013.dbo.EmpView where CompanyID = " + _loggedUser.CompanyID + selectSQL;
-            //grid_Employee.DataSource = GetValuesFromDatabase(_Query, "EmpView");
-            grid_Employee.DataSource = context.EmpViews.ToList();
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.MakeCustomizeQuery(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query + " and (Status=1)");
+            List<EmpView> _View = dt.ToList<EmpView>();
+            grid_Employee.DataSource = _View;
             grid_Employee.DataBind();
 
 
@@ -613,25 +588,15 @@ namespace WMS.Reports
             DivLocGrid.Visible = false;
             DivTypeGrid.Visible = false;
             ReportViewer1.Visible = true;
-            List<ViewMultipleInOut> _ViewList = new List<ViewMultipleInOut>();
+            //List<ViewMultipleInOut> _ViewList = new List<ViewMultipleInOut>();
             List<ViewMultipleInOut> _TempViewList = new List<ViewMultipleInOut>();
-            User _loggedUser = HttpContext.Current.Session["LoggedUser"] as User;
-            if (_loggedUser.ViewContractual == true && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == false)
-            {
-                _ViewList = context.ViewMultipleInOuts.Where(aa => aa.CatID == 3 && aa.AttDate >= DateFrom.Date && aa.AttDate <= DateTo.Date).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == true && _loggedUser.ViewPermanentStaff == false)
-            {
-                _ViewList = context.ViewMultipleInOuts.Where(aa => aa.CatID == 2 && aa.AttDate >= DateFrom.Date && aa.AttDate <= DateTo.Date).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == true)
-            {
-                _ViewList = context.ViewMultipleInOuts.Where(aa => aa.CatID == 2 && aa.AttDate >= DateFrom.Date && aa.AttDate <= DateTo.Date).ToList();
-            }
-            else
-            {
-                _ViewList = context.ViewMultipleInOuts.Where(aa => aa.AttDate >= DateFrom.Date && aa.AttDate <= DateTo.Date).ToList();
-            }
+            User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.MakeCustomizeQuery(LoggedInUser);
+            string _dateTo = "'"+DateTo.Date.Year.ToString() + "-" + DateTo.Date.Month.ToString() + "-" + DateTo.Date.Day.ToString()+"'";
+            string _dateFrom = "'" + DateFrom.Date.Year.ToString() + "-" + DateFrom.Date.Month.ToString() + "-" + DateFrom.Date.Day.ToString() + "'";
+            DataTable dt = qb.GetValuesfromDB("select * from ViewMultipleInOut " + query + " and (AttDate >= "+_dateFrom+" and AttDate <= "+_dateTo+" )" );
+            List<ViewMultipleInOut> _ViewList = dt.ToList<ViewMultipleInOut>();
 
             if (SelectedEmps.Count > 0)
             {

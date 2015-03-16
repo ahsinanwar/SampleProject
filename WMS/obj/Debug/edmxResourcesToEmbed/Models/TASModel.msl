@@ -64,6 +64,7 @@
           <ScalarProperty Name="StatusIN" ColumnName="StatusIN" />
           <ScalarProperty Name="StatusMN" ColumnName="StatusMN" />
           <ScalarProperty Name="StatusLeave" ColumnName="StatusLeave" />
+          <ScalarProperty Name="StatusHL" ColumnName="StatusHL" />
           <ScalarProperty Name="StatusOD" ColumnName="StatusOD" />
           <ScalarProperty Name="StatusSL" ColumnName="StatusSL" />
           <ScalarProperty Name="StatusHD" ColumnName="StatusHD" />
@@ -123,6 +124,37 @@
     <EntitySetMapping Name="AttMnDatas">
       <EntityTypeMapping TypeName="TAS2013Model.AttMnData">
         <MappingFragment StoreEntitySet="AttMnData">
+          <ScalarProperty Name="L31" ColumnName="L31" />
+          <ScalarProperty Name="L30" ColumnName="L30" />
+          <ScalarProperty Name="L29" ColumnName="L29" />
+          <ScalarProperty Name="L28" ColumnName="L28" />
+          <ScalarProperty Name="L27" ColumnName="L27" />
+          <ScalarProperty Name="L26" ColumnName="L26" />
+          <ScalarProperty Name="L25" ColumnName="L25" />
+          <ScalarProperty Name="L24" ColumnName="L24" />
+          <ScalarProperty Name="L23" ColumnName="L23" />
+          <ScalarProperty Name="L22" ColumnName="L22" />
+          <ScalarProperty Name="L21" ColumnName="L21" />
+          <ScalarProperty Name="L20" ColumnName="L20" />
+          <ScalarProperty Name="L19" ColumnName="L19" />
+          <ScalarProperty Name="L18" ColumnName="L18" />
+          <ScalarProperty Name="L17" ColumnName="L17" />
+          <ScalarProperty Name="L16" ColumnName="L16" />
+          <ScalarProperty Name="L15" ColumnName="L15" />
+          <ScalarProperty Name="L14" ColumnName="L14" />
+          <ScalarProperty Name="L13" ColumnName="L13" />
+          <ScalarProperty Name="L12" ColumnName="L12" />
+          <ScalarProperty Name="L11" ColumnName="L11" />
+          <ScalarProperty Name="L10" ColumnName="L10" />
+          <ScalarProperty Name="L9" ColumnName="L9" />
+          <ScalarProperty Name="L8" ColumnName="L8" />
+          <ScalarProperty Name="L7" ColumnName="L7" />
+          <ScalarProperty Name="L6" ColumnName="L6" />
+          <ScalarProperty Name="L5" ColumnName="L5" />
+          <ScalarProperty Name="L4" ColumnName="L4" />
+          <ScalarProperty Name="L3" ColumnName="L3" />
+          <ScalarProperty Name="L2" ColumnName="L2" />
+          <ScalarProperty Name="L1" ColumnName="L1" />
           <ScalarProperty Name="OT31" ColumnName="OT31" />
           <ScalarProperty Name="OT30" ColumnName="OT30" />
           <ScalarProperty Name="OT29" ColumnName="OT29" />
@@ -163,6 +195,7 @@
           <ScalarProperty Name="TEarlyOut" ColumnName="TEarlyOut" />
           <ScalarProperty Name="TEarlyIn" ColumnName="TEarlyIn" />
           <ScalarProperty Name="OfficialDutyDays" ColumnName="OfficialDutyDays" />
+          <ScalarProperty Name="HalfLeavesDay" ColumnName="HalfLeavesDay" />
           <ScalarProperty Name="LeaveDays" ColumnName="LeaveDays" />
           <ScalarProperty Name="GZDays" ColumnName="GZDays" />
           <ScalarProperty Name="RestDays" ColumnName="RestDays" />
@@ -491,7 +524,6 @@
     <EntitySetMapping Name="Divisions">
       <EntityTypeMapping TypeName="TAS2013Model.Division">
         <MappingFragment StoreEntitySet="Division">
-          <ScalarProperty Name="CompID" ColumnName="CompID" />
           <ScalarProperty Name="DivisionName" ColumnName="DivisionName" />
           <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
         </MappingFragment>
@@ -720,7 +752,6 @@
     <EntitySetMapping Name="Locations">
       <EntityTypeMapping TypeName="TAS2013Model.Location">
         <MappingFragment StoreEntitySet="Location">
-          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
           <ScalarProperty Name="SiteID" ColumnName="SiteID" />
           <ScalarProperty Name="LocName" ColumnName="LocName" />
           <ScalarProperty Name="LocID" ColumnName="LocID" />
@@ -746,6 +777,32 @@
           <ScalarProperty Name="LvType" ColumnName="LvType" />
           <ScalarProperty Name="LvDate" ColumnName="LvDate" />
           <ScalarProperty Name="LvID" ColumnName="LvID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LvConsumeds">
+      <EntityTypeMapping TypeName="TAS2013Model.LvConsumed">
+        <MappingFragment StoreEntitySet="LvConsumed">
+          <ScalarProperty Name="GrandTotalRemaining" ColumnName="GrandTotalRemaining" />
+          <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+          <ScalarProperty Name="YearRemaining" ColumnName="YearRemaining" />
+          <ScalarProperty Name="TotalForYear" ColumnName="TotalForYear" />
+          <ScalarProperty Name="DecConsumed" ColumnName="DecConsumed" />
+          <ScalarProperty Name="NovConsumed" ColumnName="NovConsumed" />
+          <ScalarProperty Name="OctConsumed" ColumnName="OctConsumed" />
+          <ScalarProperty Name="SepConsumed" ColumnName="SepConsumed" />
+          <ScalarProperty Name="AugustConsumed" ColumnName="AugustConsumed" />
+          <ScalarProperty Name="JulyConsumed" ColumnName="JulyConsumed" />
+          <ScalarProperty Name="JuneConsumed" ColumnName="JuneConsumed" />
+          <ScalarProperty Name="MayConsumed" ColumnName="MayConsumed" />
+          <ScalarProperty Name="AprConsumed" ColumnName="AprConsumed" />
+          <ScalarProperty Name="MarchConsumed" ColumnName="MarchConsumed" />
+          <ScalarProperty Name="FebConsumed" ColumnName="FebConsumed" />
+          <ScalarProperty Name="JanConsumed" ColumnName="JanConsumed" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="LeaveType" ColumnName="LeaveType" />
+          <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+          <ScalarProperty Name="EmpLvType" ColumnName="EmpLvType" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -959,6 +1016,7 @@
     <EntitySetMapping Name="RosterApps">
       <EntityTypeMapping TypeName="TAS2013Model.RosterApp">
         <MappingFragment StoreEntitySet="RosterApp">
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
           <ScalarProperty Name="DutyTime" ColumnName="DutyTime" />
           <ScalarProperty Name="WorkMin" ColumnName="WorkMin" />
           <ScalarProperty Name="RotaTypeID" ColumnName="RotaTypeID" />
@@ -973,23 +1031,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="RosterDetails">
+      <EntityTypeMapping TypeName="TAS2013Model.RosterDetail">
+        <MappingFragment StoreEntitySet="RosterDetail">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="RosterDate" ColumnName="RosterDate" />
+          <ScalarProperty Name="OpenShift" ColumnName="OpenShift" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="WorkMin" ColumnName="WorkMin" />
+          <ScalarProperty Name="DutyTime" ColumnName="DutyTime" />
+          <ScalarProperty Name="DutyCode" ColumnName="DutyCode" />
+          <ScalarProperty Name="RosterAppID" ColumnName="RosterAppID" />
+          <ScalarProperty Name="CriteriaValueDate" ColumnName="CriteriaValueDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="RosterTypes">
       <EntityTypeMapping TypeName="TAS2013Model.RosterType">
         <MappingFragment StoreEntitySet="RosterType">
           <ScalarProperty Name="Repeat" ColumnName="Repeat" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="RotaSubApps">
-      <EntityTypeMapping TypeName="TAS2013Model.RotaSubApp">
-        <MappingFragment StoreEntitySet="RotaSubApp">
-          <ScalarProperty Name="RosterAppID" ColumnName="RosterAppID" />
-          <ScalarProperty Name="DutyTime" ColumnName="DutyTime" />
-          <ScalarProperty Name="WorkMins" ColumnName="WorkMins" />
-          <ScalarProperty Name="DutyDate" ColumnName="DutyDate" />
-          <ScalarProperty Name="RotaSubAppID" ColumnName="RotaSubAppID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1068,6 +1131,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="TAS2013Model.User">
         <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="MRoster" ColumnName="MRoster" />
           <ScalarProperty Name="LocationID" ColumnName="LocationID" />
           <ScalarProperty Name="ViewLocation" ColumnName="ViewLocation" />
           <ScalarProperty Name="ViewContractual" ColumnName="ViewContractual" />
@@ -1095,7 +1159,6 @@
           <ScalarProperty Name="CanView" ColumnName="CanView" />
           <ScalarProperty Name="CanDelete" ColumnName="CanDelete" />
           <ScalarProperty Name="CanEdit" ColumnName="CanEdit" />
-          <ScalarProperty Name="Department" ColumnName="Department" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
@@ -1103,14 +1166,6 @@
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserModules">
-      <EntityTypeMapping TypeName="TAS2013Model.UserModule">
-        <MappingFragment StoreEntitySet="UserModule">
-          <ScalarProperty Name="UMName" ColumnName="UMName" />
-          <ScalarProperty Name="UMID" ColumnName="UMID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1126,6 +1181,7 @@
     <EntitySetMapping Name="EmpViews">
       <EntityTypeMapping TypeName="TAS2013Model.EmpView">
         <MappingFragment StoreEntitySet="EmpView">
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
           <ScalarProperty Name="CatID" ColumnName="CatID" />
           <ScalarProperty Name="TypeID" ColumnName="TypeID" />
           <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
@@ -1178,6 +1234,14 @@
     <EntitySetMapping Name="ViewAbsents">
       <EntityTypeMapping TypeName="TAS2013Model.ViewAbsent">
         <MappingFragment StoreEntitySet="ViewAbsent">
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
           <ScalarProperty Name="CatID" ColumnName="CatID" />
           <ScalarProperty Name="TypeID" ColumnName="TypeID" />
           <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
@@ -1272,6 +1336,17 @@
     <EntitySetMapping Name="ViewEarlyINs">
       <EntityTypeMapping TypeName="TAS2013Model.ViewEarlyIN">
         <MappingFragment StoreEntitySet="ViewEarlyIN">
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
+          <ScalarProperty Name="CatID" ColumnName="CatID" />
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
           <ScalarProperty Name="DivisionName" ColumnName="DivisionName" />
           <ScalarProperty Name="SLMin" ColumnName="SLMin" />
           <ScalarProperty Name="BreakMin" ColumnName="BreakMin" />
@@ -1331,6 +1406,17 @@
     <EntitySetMapping Name="ViewEarlyOuts">
       <EntityTypeMapping TypeName="TAS2013Model.ViewEarlyOut">
         <MappingFragment StoreEntitySet="ViewEarlyOut">
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="CatID" ColumnName="CatID" />
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
           <ScalarProperty Name="DivisionName" ColumnName="DivisionName" />
           <ScalarProperty Name="Remarks" ColumnName="Remarks" />
           <ScalarProperty Name="StatusSL" ColumnName="StatusSL" />
@@ -1386,6 +1472,14 @@
     <EntitySetMapping Name="ViewEditAttendances">
       <EntityTypeMapping TypeName="TAS2013Model.ViewEditAttendance">
         <MappingFragment StoreEntitySet="ViewEditAttendance">
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
           <ScalarProperty Name="CatID" ColumnName="CatID" />
           <ScalarProperty Name="TypeID" ColumnName="TypeID" />
           <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
@@ -1449,6 +1543,14 @@
     <EntitySetMapping Name="ViewLateComers">
       <EntityTypeMapping TypeName="TAS2013Model.ViewLateComer">
         <MappingFragment StoreEntitySet="ViewLateComer">
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
           <ScalarProperty Name="CatID" ColumnName="CatID" />
           <ScalarProperty Name="TypeID" ColumnName="TypeID" />
           <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
@@ -1504,6 +1606,14 @@
     <EntitySetMapping Name="ViewLateOuts">
       <EntityTypeMapping TypeName="TAS2013Model.ViewLateOut">
         <MappingFragment StoreEntitySet="ViewLateOut">
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
           <ScalarProperty Name="CatID" ColumnName="CatID" />
           <ScalarProperty Name="TypeID" ColumnName="TypeID" />
           <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
@@ -1561,6 +1671,14 @@
     <EntitySetMapping Name="ViewLeaves">
       <EntityTypeMapping TypeName="TAS2013Model.ViewLeave">
         <MappingFragment StoreEntitySet="ViewLeave">
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
           <ScalarProperty Name="CatID" ColumnName="CatID" />
           <ScalarProperty Name="TypeID" ColumnName="TypeID" />
           <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
@@ -1601,6 +1719,14 @@
     <EntitySetMapping Name="ViewLeaveDatas">
       <EntityTypeMapping TypeName="TAS2013Model.ViewLeaveData">
         <MappingFragment StoreEntitySet="ViewLeaveData">
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
           <ScalarProperty Name="CatID" ColumnName="CatID" />
           <ScalarProperty Name="TypeID" ColumnName="TypeID" />
           <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
@@ -1641,39 +1767,25 @@
     <EntitySetMapping Name="ViewLeaveQuotas">
       <EntityTypeMapping TypeName="TAS2013Model.ViewLeaveQuota">
         <MappingFragment StoreEntitySet="ViewLeaveQuota">
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
           <ScalarProperty Name="CatID" ColumnName="CatID" />
           <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
-          <ScalarProperty Name="TL" ColumnName="TL" />
-          <ScalarProperty Name="TK" ColumnName="TK" />
-          <ScalarProperty Name="TJ" ColumnName="TJ" />
-          <ScalarProperty Name="TI" ColumnName="TI" />
-          <ScalarProperty Name="TH" ColumnName="TH" />
-          <ScalarProperty Name="TG" ColumnName="TG" />
-          <ScalarProperty Name="TF" ColumnName="TF" />
-          <ScalarProperty Name="TE" ColumnName="TE" />
-          <ScalarProperty Name="TD" ColumnName="TD" />
-          <ScalarProperty Name="TC" ColumnName="TC" />
-          <ScalarProperty Name="TB" ColumnName="TB" />
-          <ScalarProperty Name="TA" ColumnName="TA" />
-          <ScalarProperty Name="A" ColumnName="A" />
-          <ScalarProperty Name="L" ColumnName="L" />
-          <ScalarProperty Name="K" ColumnName="K" />
-          <ScalarProperty Name="J" ColumnName="J" />
-          <ScalarProperty Name="I" ColumnName="I" />
-          <ScalarProperty Name="H" ColumnName="H" />
-          <ScalarProperty Name="G" ColumnName="G" />
-          <ScalarProperty Name="F" ColumnName="F" />
-          <ScalarProperty Name="E" ColumnName="E" />
-          <ScalarProperty Name="D" ColumnName="D" />
-          <ScalarProperty Name="C" ColumnName="C" />
-          <ScalarProperty Name="B" ColumnName="B" />
           <ScalarProperty Name="Expr1" ColumnName="Expr1" />
           <ScalarProperty Name="DivisionName" ColumnName="DivisionName" />
           <ScalarProperty Name="DeptName" ColumnName="DeptName" />
           <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
           <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+          <ScalarProperty Name="ValidDate" ColumnName="ValidDate" />
+          <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
           <ScalarProperty Name="EmpName" ColumnName="EmpName" />
           <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
           <ScalarProperty Name="ShiftName" ColumnName="ShiftName" />
@@ -1688,13 +1800,111 @@
           <ScalarProperty Name="CompName" ColumnName="CompName" />
           <ScalarProperty Name="GradeName" ColumnName="GradeName" />
           <ScalarProperty Name="DesignationName" ColumnName="DesignationName" />
+          <ScalarProperty Name="GrandTotalRemaining" ColumnName="GrandTotalRemaining" />
+          <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+          <ScalarProperty Name="YearRemaining" ColumnName="YearRemaining" />
+          <ScalarProperty Name="TotalForYear" ColumnName="TotalForYear" />
+          <ScalarProperty Name="DecConsumed" ColumnName="DecConsumed" />
+          <ScalarProperty Name="NovConsumed" ColumnName="NovConsumed" />
+          <ScalarProperty Name="SepConsumed" ColumnName="SepConsumed" />
+          <ScalarProperty Name="OctConsumed" ColumnName="OctConsumed" />
+          <ScalarProperty Name="AugustConsumed" ColumnName="AugustConsumed" />
+          <ScalarProperty Name="JulyConsumed" ColumnName="JulyConsumed" />
+          <ScalarProperty Name="JuneConsumed" ColumnName="JuneConsumed" />
+          <ScalarProperty Name="MayConsumed" ColumnName="MayConsumed" />
+          <ScalarProperty Name="AprConsumed" ColumnName="AprConsumed" />
+          <ScalarProperty Name="MarchConsumed" ColumnName="MarchConsumed" />
+          <ScalarProperty Name="FebConsumed" ColumnName="FebConsumed" />
+          <ScalarProperty Name="JanConsumed" ColumnName="JanConsumed" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="LeaveType" ColumnName="LeaveType" />
+          <ScalarProperty Name="EmpLvType" ColumnName="EmpLvType" />
           <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewLvConsumeds">
+      <EntityTypeMapping TypeName="TAS2013Model.ViewLvConsumed">
+        <MappingFragment StoreEntitySet="ViewLvConsumed">
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+          <ScalarProperty Name="LvDesc" ColumnName="LvDesc" />
+          <ScalarProperty Name="EmpLvType" ColumnName="EmpLvType" />
+          <ScalarProperty Name="GrandTotalRemaining" ColumnName="GrandTotalRemaining" />
+          <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+          <ScalarProperty Name="YearRemaining" ColumnName="YearRemaining" />
+          <ScalarProperty Name="TotalForYear" ColumnName="TotalForYear" />
+          <ScalarProperty Name="DecConsumed" ColumnName="DecConsumed" />
+          <ScalarProperty Name="NovConsumed" ColumnName="NovConsumed" />
+          <ScalarProperty Name="OctConsumed" ColumnName="OctConsumed" />
+          <ScalarProperty Name="SepConsumed" ColumnName="SepConsumed" />
+          <ScalarProperty Name="AugustConsumed" ColumnName="AugustConsumed" />
+          <ScalarProperty Name="JulyConsumed" ColumnName="JulyConsumed" />
+          <ScalarProperty Name="JuneConsumed" ColumnName="JuneConsumed" />
+          <ScalarProperty Name="MayConsumed" ColumnName="MayConsumed" />
+          <ScalarProperty Name="AprConsumed" ColumnName="AprConsumed" />
+          <ScalarProperty Name="MarchConsumed" ColumnName="MarchConsumed" />
+          <ScalarProperty Name="FebConsumed" ColumnName="FebConsumed" />
+          <ScalarProperty Name="JanConsumed" ColumnName="JanConsumed" />
+          <ScalarProperty Name="CatID" ColumnName="CatID" />
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="DivisionName" ColumnName="DivisionName" />
+          <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+          <ScalarProperty Name="SectionName" ColumnName="SectionName" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="HomeAdd" ColumnName="HomeAdd" />
+          <ScalarProperty Name="ResignDate" ColumnName="ResignDate" />
+          <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+          <ScalarProperty Name="ValidDate" ColumnName="ValidDate" />
+          <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
+          <ScalarProperty Name="MarStatus" ColumnName="MarStatus" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="BloodGroup" ColumnName="BloodGroup" />
+          <ScalarProperty Name="NicNo" ColumnName="NicNo" />
+          <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+          <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+          <ScalarProperty Name="FpID" ColumnName="FpID" />
+          <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="JobID" ColumnName="JobID" />
+          <ScalarProperty Name="DesigID" ColumnName="DesigID" />
+          <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+          <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
+          <ScalarProperty Name="ShiftName" ColumnName="ShiftName" />
+          <ScalarProperty Name="CatName" ColumnName="CatName" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="CrewName" ColumnName="CrewName" />
+          <ScalarProperty Name="LocName" ColumnName="LocName" />
+          <ScalarProperty Name="SiteName" ColumnName="SiteName" />
+          <ScalarProperty Name="CityName" ColumnName="CityName" />
+          <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+          <ScalarProperty Name="CompName" ColumnName="CompName" />
+          <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+          <ScalarProperty Name="DesignationName" ColumnName="DesignationName" />
+          <ScalarProperty Name="LeaveType" ColumnName="LeaveType" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ViewMissingAtts">
       <EntityTypeMapping TypeName="TAS2013Model.ViewMissingAtt">
         <MappingFragment StoreEntitySet="ViewMissingAtt">
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
           <ScalarProperty Name="CatID" ColumnName="CatID" />
           <ScalarProperty Name="TypeID" ColumnName="TypeID" />
           <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
@@ -1735,6 +1945,46 @@
     <EntitySetMapping Name="ViewMonthlyDatas">
       <EntityTypeMapping TypeName="TAS2013Model.ViewMonthlyData">
         <MappingFragment StoreEntitySet="ViewMonthlyData">
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
+          <ScalarProperty Name="HalfLeavesDay" ColumnName="HalfLeavesDay" />
+          <ScalarProperty Name="L31" ColumnName="L31" />
+          <ScalarProperty Name="L30" ColumnName="L30" />
+          <ScalarProperty Name="L29" ColumnName="L29" />
+          <ScalarProperty Name="L28" ColumnName="L28" />
+          <ScalarProperty Name="L27" ColumnName="L27" />
+          <ScalarProperty Name="L26" ColumnName="L26" />
+          <ScalarProperty Name="L25" ColumnName="L25" />
+          <ScalarProperty Name="L24" ColumnName="L24" />
+          <ScalarProperty Name="L23" ColumnName="L23" />
+          <ScalarProperty Name="L21" ColumnName="L21" />
+          <ScalarProperty Name="L22" ColumnName="L22" />
+          <ScalarProperty Name="L20" ColumnName="L20" />
+          <ScalarProperty Name="L18" ColumnName="L18" />
+          <ScalarProperty Name="L19" ColumnName="L19" />
+          <ScalarProperty Name="L17" ColumnName="L17" />
+          <ScalarProperty Name="L16" ColumnName="L16" />
+          <ScalarProperty Name="L15" ColumnName="L15" />
+          <ScalarProperty Name="L14" ColumnName="L14" />
+          <ScalarProperty Name="L13" ColumnName="L13" />
+          <ScalarProperty Name="L12" ColumnName="L12" />
+          <ScalarProperty Name="L10" ColumnName="L10" />
+          <ScalarProperty Name="L11" ColumnName="L11" />
+          <ScalarProperty Name="L9" ColumnName="L9" />
+          <ScalarProperty Name="L8" ColumnName="L8" />
+          <ScalarProperty Name="L7" ColumnName="L7" />
+          <ScalarProperty Name="L6" ColumnName="L6" />
+          <ScalarProperty Name="L5" ColumnName="L5" />
+          <ScalarProperty Name="L4" ColumnName="L4" />
+          <ScalarProperty Name="L3" ColumnName="L3" />
+          <ScalarProperty Name="L2" ColumnName="L2" />
+          <ScalarProperty Name="L1" ColumnName="L1" />
           <ScalarProperty Name="CatID" ColumnName="CatID" />
           <ScalarProperty Name="TypeID" ColumnName="TypeID" />
           <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
@@ -1853,6 +2103,17 @@
     <EntitySetMapping Name="ViewMonthlyDataPers">
       <EntityTypeMapping TypeName="TAS2013Model.ViewMonthlyDataPer">
         <MappingFragment StoreEntitySet="ViewMonthlyDataPer">
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="CatID" ColumnName="CatID" />
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
           <ScalarProperty Name="Period" ColumnName="Period" />
           <ScalarProperty Name="CardNo" ColumnName="CardNo" />
           <ScalarProperty Name="EmpID" ColumnName="EmpID" />
@@ -1959,6 +2220,14 @@
     <EntitySetMapping Name="ViewMultipleInOuts">
       <EntityTypeMapping TypeName="TAS2013Model.ViewMultipleInOut">
         <MappingFragment StoreEntitySet="ViewMultipleInOut">
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
           <ScalarProperty Name="CatID" ColumnName="CatID" />
           <ScalarProperty Name="TypeID" ColumnName="TypeID" />
           <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
@@ -2043,6 +2312,14 @@
     <EntitySetMapping Name="ViewOverTimes">
       <EntityTypeMapping TypeName="TAS2013Model.ViewOverTime">
         <MappingFragment StoreEntitySet="ViewOverTime">
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
           <ScalarProperty Name="CatID" ColumnName="CatID" />
           <ScalarProperty Name="TypeID" ColumnName="TypeID" />
           <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
@@ -2138,6 +2415,14 @@
     <EntitySetMapping Name="ViewPresentEmps">
       <EntityTypeMapping TypeName="TAS2013Model.ViewPresentEmp">
         <MappingFragment StoreEntitySet="ViewPresentEmp">
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
           <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
           <ScalarProperty Name="TypeID" ColumnName="TypeID" />
           <ScalarProperty Name="CatID" ColumnName="CatID" />
@@ -2196,6 +2481,14 @@
     <EntitySetMapping Name="ViewSLDatas">
       <EntityTypeMapping TypeName="TAS2013Model.ViewSLData">
         <MappingFragment StoreEntitySet="ViewSLData">
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
           <ScalarProperty Name="CatID" ColumnName="CatID" />
           <ScalarProperty Name="TypeID" ColumnName="TypeID" />
           <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
@@ -2236,6 +2529,14 @@
     <EntitySetMapping Name="ViewSummaries">
       <EntityTypeMapping TypeName="TAS2013Model.ViewSummary">
         <MappingFragment StoreEntitySet="ViewSummary">
+          <ScalarProperty Name="LocID" ColumnName="LocID" />
+          <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
+          <ScalarProperty Name="CrewID" ColumnName="CrewID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+          <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <ScalarProperty Name="ShiftID" ColumnName="ShiftID" />
+          <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
           <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
           <ScalarProperty Name="TypeID" ColumnName="TypeID" />
           <ScalarProperty Name="CatID" ColumnName="CatID" />

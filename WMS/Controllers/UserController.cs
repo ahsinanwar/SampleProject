@@ -7,9 +7,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WMS.Models;
+using System.DirectoryServices;
+using System.DirectoryServices.AccountManagement;
+using WMS.Controllers.Filters;
 
 namespace WMS.Controllers
 {
+    [CustomControllerAttributes]
     public class UserController : Controller
     {
         private TAS2013Entities db = new TAS2013Entities();
@@ -18,7 +22,7 @@ namespace WMS.Controllers
         public ActionResult Index()
         {
             User LoggedInUser = Session["LoggedUser"] as User;
-            var users = db.Users.Include(u => u.UserRole).Include(u => u.Location).Include(u => u.Company);
+            var users = db.Users.Where(aa=>aa.CompanyID==LoggedInUser.CompanyID).Include(u => u.UserRole).Include(u => u.Location).Include(u => u.Company);
             return View(users.ToList());
         }
 
@@ -38,8 +42,18 @@ namespace WMS.Controllers
         }
 
         // GET: /User/Create
+        public ActionResult ListOfADUser()
+        {
+
+            return View(GetADUsers());
+        }
         public ActionResult Create()
         {
+            //for (int i = 0; i < 7; i++)
+            //{
+            //    string Time = Request.Form["StudentList[" + i.ToString() + "].Date"].ToString();
+            //}
+
             ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
             ViewBag.EmpID = new SelectList(db.Emps, "EmpID", "EmpNo");
             ViewBag.LocationID = new SelectList(db.Locations, "LocID", "LocName");
@@ -47,13 +61,50 @@ namespace WMS.Controllers
             return View();
         }
 
+
+        private ADUsersModel GetADUsers()
+        {
+            ADUsersModel _objstudentmodel = new ADUsersModel();
+            _objstudentmodel._ADUsersAttributes = new List<ADUsersAttributes>();
+            using (var context = new PrincipalContext(ContextType.Domain, "fatima-group.com", "ffl.ithelpdesk@fatima-group.com", "fatima@0202"))
+            {
+                using (var searcher = new PrincipalSearcher(new UserPrincipal(context)))
+                {
+                    int i = 1;
+                    foreach (var result in searcher.FindAll())
+                    {
+                        DirectoryEntry de = result.GetUnderlyingObject() as DirectoryEntry;
+                        string name = result.Name;
+                        string displayName = result.DisplayName;
+                        string userPrincipleName = result.UserPrincipalName;
+                        string samAccountName = result.SamAccountName;
+                        string distinguishedName = result.DistinguishedName;
+                        //label1.Text += "Name:    " + result.Name;
+                        //label1.Text += "      account name   :    " + result.UserPrincipalName;
+                        //label1.Text += "      Server:    " + result.Context.ConnectedServer + "\r";
+                        _objstudentmodel._ADUsersAttributes.Add(new ADUsersAttributes
+                        {
+                            ID = i,
+                            UserName = name,
+                            DisplayName = displayName,
+                            PrincipleName = userPrincipleName,
+                            DistingushedName = distinguishedName,
+                            SAMName = samAccountName
+                        });
+                        i++;
+                    }
+                }
+            }
+            return _objstudentmodel;
+        }
         // POST: /User/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,UserName,Password,EmpID,DateCreated,Name,Status,Department,CanEdit,CanDelete,CanAdd,CanView,CompanyID,RoleID,MHR,MDevice,MLeave,MDesktop,MEditAtt,MUser,MOption,MRDailyAtt,MRLeave,MRMonthly,MRAudit,MRManualEditAtt,MREmployee,MRDetail,MRSummary,MRGraph,ViewPermanentStaff,ViewPermanentMgm,ViewContractual,ViewLocation,LocationID")] User user)
+        public ActionResult Create([Bind(Include = "UserID,UserName,Password,EmpID,DateCreated,Name,Status,Department,CanEdit,CanDelete,CanAdd,CanView,CompanyID,RoleID,MHR,MDevice,MLeave,MDesktop,MEditAtt,MUser,MOption,MRoster,MRDailyAtt,MRLeave,MRMonthly,MRAudit,MRManualEditAtt,MREmployee,MRDetail,MRSummary,MRGraph,ViewPermanentStaff,ViewPermanentMgm,ViewContractual,ViewLocation,LocationID")] User user)
         {
+
             bool check = false;
             string _EmpNo = Request.Form["EmpNo"].ToString();
             List<Emp> _emp = db.Emps.Where(aa => aa.EmpNo == _EmpNo).ToList();
@@ -61,11 +112,7 @@ namespace WMS.Controllers
             {
                 check = true;
             }
-            if (user.Name == null)
-                check = true;
             if (user.UserName == null)
-                check = true;
-            if (user.Password == null)
                 check = true;
 
             if (Request.Form["Status"] == "1")
@@ -124,6 +171,10 @@ namespace WMS.Controllers
                 user.MLeave = true;
             else
                 user.MLeave = false;
+            if (Request.Form["MRoster"] == "1")
+                user.MRoster = true;
+            else
+                user.MRoster = false;
             if (Request.Form["MRLeave"] == "1")
                 user.MRLeave = true;
             else
@@ -180,11 +231,16 @@ namespace WMS.Controllers
 
             if (check == false)
             {
-                user.DateCreated = DateTime.Today;
-                user.EmpID = _emp.FirstOrDefault().EmpID;
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                string _dpName = FindADUser(user.UserName);
+                if (_dpName != "No")
+                {
+                    user.Name = _dpName;
+                    user.DateCreated = DateTime.Today;
+                    user.EmpID = _emp.FirstOrDefault().EmpID;
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
             ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", user.CompanyID);
@@ -192,6 +248,20 @@ namespace WMS.Controllers
             ViewBag.RoleID = new SelectList(db.UserRoles, "RoleID", "RoleName", user.RoleID);
             ViewBag.LocationID = new SelectList(db.Locations, "LocID", "LocName", user.LocationID);
             return View(user);
+        }
+
+        private string FindADUser(string adUserName)
+        {
+            string displayName = "No";
+            ADUsersModel adModel = GetADUsers();
+            foreach (var item in adModel._ADUsersAttributes)
+            {
+                if (item.SAMName.ToUpper() == adUserName.ToUpper())
+                {
+                    displayName = item.DisplayName;
+                }
+            }
+            return displayName;
         }
 
 
@@ -222,13 +292,7 @@ namespace WMS.Controllers
         public ActionResult Edit([Bind(Include = "UserID,UserName,Password,EmpID,DateCreated,Name,Status,Department,CanEdit,CanDelete,CanAdd,CanView,CompanyID,RoleID,MHR,MDevice,MLeave,MDesktop,MEditAtt,MUser,MOption,MRDailyAtt,MRLeave,MRMonthly,MRAudit,MRManualEditAtt,MREmployee,MRDetail,MRSummary,MRGraph,ViewPermanentStaff,ViewPermanentMgm,ViewContractual,ViewLocation,LocationID")] User user)
         {
             bool check = false;
-            if (user.Name == null)
-                check = true;
-            if (user.UserName == null)
-                check = true;
-            if (user.Password == null)
-                check = true;
-
+            user.RoleID = Convert.ToByte(Request.Form["RoleID"].ToString());
             if (Request.Form["Status"].ToString() == "true")
                 user.Status = true;
             else
@@ -372,6 +436,22 @@ namespace WMS.Controllers
             }
             base.Dispose(disposing);
         }
+    }
+
+    public class ADUsersAttributes
+    {
+        public int ID { get; set; }
+        public string UserName { get; set; }
+        public string DisplayName { get; set; }
+        public string PrincipleName { get; set; }
+        public string SAMName { get; set; }
+        public string DistingushedName { get; set; }
+        public bool Checked { get; set; }
+
+    }
+    public class ADUsersModel
+    {
+        public List<ADUsersAttributes> _ADUsersAttributes { get; set; }
     }
 
 }

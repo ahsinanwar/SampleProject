@@ -44,6 +44,7 @@ namespace WMS.Models
         public Nullable<bool> StatusHD { get; set; }
         public Nullable<bool> StatusSL { get; set; }
         public Nullable<bool> StatusOD { get; set; }
+        public Nullable<bool> StatusHL { get; set; }
         public Nullable<bool> StatusLeave { get; set; }
         public Nullable<bool> StatusMN { get; set; }
         public Nullable<bool> StatusIN { get; set; }

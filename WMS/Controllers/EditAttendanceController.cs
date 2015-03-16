@@ -123,21 +123,22 @@ namespace WMS.Controllers
                 string Remarks = form["NewRemarks"].ToString();
                 string SDutyH = DutyTime.Substring(0, 2);
                 string SDutyM = DutyTime.Substring(2, 2);
+                string ShiftMinString = form["ShiftMin"].ToString();
                 if (TimeValid(STimeIn, STimeOut))
                 {
                     TimeSpan _TimeIn = new TimeSpan(Convert.ToInt16(STimeInH), Convert.ToInt16(STimeInM), 0);
                     TimeSpan _TimeOut = new TimeSpan(Convert.ToInt16(STimeOutH), Convert.ToInt16(STimeOutM), 0);
                     TimeSpan _DutyTime = Convert.ToDateTime(form["DutyTime"].ToString()).TimeOfDay;
                     //TimeSpan _DutyTime = new TimeSpan(Convert.ToInt16(SDutyH), Convert.ToInt16(SDutyM), 0);
-                    TimeSpan _ThresHoldTimeS = new TimeSpan(19, 00, 00);
+                    TimeSpan _ThresHoldTimeS = new TimeSpan(14, 00, 00);
                     TimeSpan _ThresHoldTimeE = new TimeSpan(06, 00, 00);
                     string date = Request.Form["Attdate"].ToString();
                     DateTime _AttDate = Convert.ToDateTime(date);
-
+                    short ShiftMins = Convert.ToInt16(ShiftMinString);
                     DateTime _NewTimeIn = new DateTime();
                     DateTime _NewTimeOut = new DateTime();
                     _NewTimeIn = _AttDate + _TimeIn;
-                    if (_TimeIn > _ThresHoldTimeS)
+                    if (_TimeOut <_TimeIn)
                     {
                         _NewTimeOut = _AttDate.AddDays(1) + _TimeOut;
                     }
@@ -147,7 +148,7 @@ namespace WMS.Controllers
                     }
                     int _UserID = Convert.ToInt32(Session["LogedUserID"].ToString());
                     HelperClass.MyHelper.SaveAuditLog(_UserID, (byte)MyEnums.FormName.EditAttendance, (byte)MyEnums.Operation.Edit, DateTime.Now);
-                    ManualAttendanceProcess _pma = new ManualAttendanceProcess(_EmpDate, "", false, _NewTimeIn, _NewTimeOut, NewDutyCode, _UserID, _DutyTime, Remarks);
+                    ManualAttendanceProcess _pma = new ManualAttendanceProcess(_EmpDate, "", false, _NewTimeIn, _NewTimeOut, NewDutyCode, _UserID, _DutyTime, Remarks, ShiftMins);
                     List<PollData> _Polls = new List<PollData>();
                     _Polls = db.PollDatas.Where(aa => aa.EmpDate == _EmpDate).OrderBy(a => a.EntTime).ToList();
                     ViewBag.PollsDataIn = _Polls.Where(aa => aa.RdrDuty == 1);
@@ -361,6 +362,7 @@ namespace WMS.Controllers
                 {
                     AddJobCardAppToJobCardData();
                 }
+
                 //Add Job Card to JobCardData and Mark Legends in Attendance Data if attendance Created
                 Session["EditAttendanceDate"] = DateTime.Today.Date.ToString("yyyy-MM-dd");
                 ViewBag.JobCardType = new SelectList(db.JobCards, "WorkCardID", "WorkCardName");
@@ -470,6 +472,7 @@ namespace WMS.Controllers
             }
             HelperClass.MyHelper.SaveAuditLog(_userID, (byte)MyEnums.FormName.EditAttendance, (byte)MyEnums.Operation.Edit, DateTime.Now);
         }
+
         private bool AddJobCardDataToDatabase(string _empDate, int _empID, DateTime _currentDate, int _userID, short _WorkCardID, short _CompID, DateTime dateTime)
         {
             bool check = false;

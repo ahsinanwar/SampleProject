@@ -14,22 +14,22 @@
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.UserID)
         @Html.HiddenFor(model => model.EmpID)
+        @Html.HiddenFor(model => model.UserName)
            <section class="col-md-4">
              
                <div class="form-group">
                      <div class="control-label col-md-4">User Name</div>
                          <div class="col-md-4">
-                            @Html.TextBoxFor(model => model.UserName,new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.UserName)
+                            @Html.Label(Model.UserName)
                         </div>
               </div>
-              <div class="form-group">
+             @* <div class="form-group">
                    <div class="control-label col-md-4">Password</div>
                       <div class="col-md-4">
                         @Html.TextBoxFor(model => model.Password,new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Password)
                       </div>
-              </div>
+              </div>*@
               <div class="form-group">
                    <div class="control-label col-md-4">Name</div>
                       <div class="col-md-4">
@@ -38,13 +38,13 @@
                       </div>
              </div>
 
-            <div class="form-group">
+            @*<div class="form-group">
                    <div class="control-label col-md-4">EmpNo</div>
                       <div class="col-md-4">
                         @Html.TextBoxFor(model => model.Emp.EmpNo,new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Emp.EmpNo)
                       </div>
-             </div>
+             </div>*@
 
 
 
@@ -232,6 +232,15 @@
                         },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidthSmall"}) 
                 </div>
             </div>
+         <div class="form-group">
+                    <div class="control-label col-md-4">Roster</div>
+                    <div class="col-md-6">
+                        @Html.DropDownList("MRoster", new List<SelectListItem>
+                        { new SelectListItem { Text = "No", Value = "0", Selected=true},
+                            new SelectListItem { Text = "Yes", Value = "1"}
+                            },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidthSmall"}) 
+                    </div>
+                 </div>
        </section>
 
          <section class="col-md-4"> 

@@ -43,6 +43,7 @@
     <EntitySet Name="JobTitles" EntityType="TAS2013Model.JobTitle" />
     <EntitySet Name="Locations" EntityType="TAS2013Model.Location" />
     <EntitySet Name="LvApplications" EntityType="TAS2013Model.LvApplication" />
+    <EntitySet Name="LvConsumeds" EntityType="TAS2013Model.LvConsumed" />
     <EntitySet Name="LvDatas" EntityType="TAS2013Model.LvData" />
     <EntitySet Name="LvQuotas" EntityType="TAS2013Model.LvQuota" />
     <EntitySet Name="LvShorts" EntityType="TAS2013Model.LvShort" />
@@ -58,15 +59,14 @@
     <EntitySet Name="Regions" EntityType="TAS2013Model.Region" />
     <EntitySet Name="Rosters" EntityType="TAS2013Model.Roster" />
     <EntitySet Name="RosterApps" EntityType="TAS2013Model.RosterApp" />
+    <EntitySet Name="RosterDetails" EntityType="TAS2013Model.RosterDetail" />
     <EntitySet Name="RosterTypes" EntityType="TAS2013Model.RosterType" />
-    <EntitySet Name="RotaSubApps" EntityType="TAS2013Model.RotaSubApp" />
     <EntitySet Name="Sections" EntityType="TAS2013Model.Section" />
     <EntitySet Name="ServiceLogs" EntityType="TAS2013Model.ServiceLog" />
     <EntitySet Name="Shifts" EntityType="TAS2013Model.Shift" />
     <EntitySet Name="Sites" EntityType="TAS2013Model.Site" />
     <EntitySet Name="sysdiagrams" EntityType="TAS2013Model.sysdiagram" />
     <EntitySet Name="Users" EntityType="TAS2013Model.User" />
-    <EntitySet Name="UserModules" EntityType="TAS2013Model.UserModule" />
     <EntitySet Name="UserRoles" EntityType="TAS2013Model.UserRole" />
     <EntitySet Name="EmpViews" EntityType="TAS2013Model.EmpView" />
     <EntitySet Name="ViewAbsents" EntityType="TAS2013Model.ViewAbsent" />
@@ -81,6 +81,7 @@
     <EntitySet Name="ViewLeaves" EntityType="TAS2013Model.ViewLeave" />
     <EntitySet Name="ViewLeaveDatas" EntityType="TAS2013Model.ViewLeaveData" />
     <EntitySet Name="ViewLeaveQuotas" EntityType="TAS2013Model.ViewLeaveQuota" />
+    <EntitySet Name="ViewLvConsumeds" EntityType="TAS2013Model.ViewLvConsumed" />
     <EntitySet Name="ViewMissingAtts" EntityType="TAS2013Model.ViewMissingAtt" />
     <EntitySet Name="ViewMonthlyDatas" EntityType="TAS2013Model.ViewMonthlyData" />
     <EntitySet Name="ViewMonthlyDataPers" EntityType="TAS2013Model.ViewMonthlyDataPer" />
@@ -178,6 +179,10 @@
       <End Role="Designation" EntitySet="Designations" />
       <End Role="Emp" EntitySet="Emps" />
     </AssociationSet>
+    <AssociationSet Name="FK_Emp_EmpPhoto" Association="TAS2013Model.FK_Emp_EmpPhoto">
+      <End Role="EmpPhoto" EntitySet="EmpPhotoes" />
+      <End Role="Emp" EntitySet="Emps" />
+    </AssociationSet>
     <AssociationSet Name="FK_Emp_Grade" Association="TAS2013Model.FK_Emp_Grade">
       <End Role="Grade" EntitySet="Grades" />
       <End Role="Emp" EntitySet="Emps" />
@@ -214,13 +219,13 @@
       <End Role="Emp" EntitySet="Emps" />
       <End Role="EmpFp" EntitySet="EmpFps" />
     </AssociationSet>
-    <AssociationSet Name="FK_EmpPhoto_Emp1" Association="TAS2013Model.FK_EmpPhoto_Emp1">
-      <End Role="Emp" EntitySet="Emps" />
-      <End Role="EmpPhoto" EntitySet="EmpPhotoes" />
-    </AssociationSet>
     <AssociationSet Name="FK_LvApplication_Emp" Association="TAS2013Model.FK_LvApplication_Emp">
       <End Role="Emp" EntitySet="Emps" />
       <End Role="LvApplication" EntitySet="LvApplications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LvConsumed_Emp" Association="TAS2013Model.FK_LvConsumed_Emp">
+      <End Role="Emp" EntitySet="Emps" />
+      <End Role="LvConsumed" EntitySet="LvConsumeds" />
     </AssociationSet>
     <AssociationSet Name="FK_LvQuota_Emp" Association="TAS2013Model.FK_LvQuota_Emp">
       <End Role="Emp" EntitySet="Emps" />
@@ -282,17 +287,17 @@
       <End Role="ReaderVendor" EntitySet="ReaderVendors" />
       <End Role="ReaderType" EntitySet="ReaderTypes" />
     </AssociationSet>
-    <AssociationSet Name="FK_Roster_RotaSubApp" Association="TAS2013Model.FK_Roster_RotaSubApp">
-      <End Role="RotaSubApp" EntitySet="RotaSubApps" />
-      <End Role="Roster" EntitySet="Rosters" />
-    </AssociationSet>
     <AssociationSet Name="FK_RosterApp_RosterType" Association="TAS2013Model.FK_RosterApp_RosterType">
       <End Role="RosterType" EntitySet="RosterTypes" />
       <End Role="RosterApp" EntitySet="RosterApps" />
     </AssociationSet>
-    <AssociationSet Name="FK_RotaSubApp_RosterApp" Association="TAS2013Model.FK_RotaSubApp_RosterApp">
+    <AssociationSet Name="FK_RosterApp_Shift" Association="TAS2013Model.FK_RosterApp_Shift">
+      <End Role="Shift" EntitySet="Shifts" />
       <End Role="RosterApp" EntitySet="RosterApps" />
-      <End Role="RotaSubApp" EntitySet="RotaSubApps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RosterDetail_RosterApp" Association="TAS2013Model.FK_RosterDetail_RosterApp">
+      <End Role="RosterApp" EntitySet="RosterApps" />
+      <End Role="RosterDetail" EntitySet="RosterDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_Shift_RosterType" Association="TAS2013Model.FK_Shift_RosterType">
       <End Role="RosterType" EntitySet="RosterTypes" />
@@ -355,6 +360,7 @@
     <Property Type="Boolean" Name="StatusHD" />
     <Property Type="Boolean" Name="StatusSL" />
     <Property Type="Boolean" Name="StatusOD" />
+    <Property Type="Boolean" Name="StatusHL" />
     <Property Type="Boolean" Name="StatusLeave" />
     <Property Type="Boolean" Name="StatusMN" />
     <Property Type="Boolean" Name="StatusIN" />
@@ -461,12 +467,13 @@
     <Property Type="String" Name="D30" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Type="String" Name="D31" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Type="Byte" Name="TotalDays" />
-    <Property Type="Byte" Name="WorkDays" />
-    <Property Type="Byte" Name="PreDays" />
-    <Property Type="Byte" Name="AbDays" />
+    <Property Type="Double" Name="WorkDays" />
+    <Property Type="Double" Name="PreDays" />
+    <Property Type="Double" Name="AbDays" />
     <Property Type="Byte" Name="RestDays" />
     <Property Type="Byte" Name="GZDays" />
     <Property Type="Byte" Name="LeaveDays" />
+    <Property Type="Double" Name="HalfLeavesDay" />
     <Property Type="Byte" Name="OfficialDutyDays" />
     <Property Type="Int16" Name="TEarlyIn" />
     <Property Type="Int16" Name="TEarlyOut" />
@@ -507,6 +514,37 @@
     <Property Type="Int16" Name="OT29" />
     <Property Type="Int16" Name="OT30" />
     <Property Type="Int16" Name="OT31" />
+    <Property Type="String" Name="L1" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L2" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L3" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L4" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L5" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L6" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L7" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L8" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L9" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L10" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L11" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L12" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L13" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L14" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L15" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L16" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L17" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L18" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L19" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L20" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L21" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L22" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L23" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L24" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L25" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L26" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L27" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L28" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L29" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L30" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L31" MaxLength="5" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Emp" Relationship="TAS2013Model.FK_AttMnData_Emp" FromRole="AttMnData" ToRole="Emp" />
   </EntityType>
   <EntityType Name="AttMnDataPer">
@@ -798,7 +836,6 @@
     </Key>
     <Property Type="Int16" Name="DivisionID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="String" Name="DivisionName" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Type="Int16" Name="CompID" />
     <NavigationProperty Name="Departments" Relationship="TAS2013Model.FK_Department_Division" FromRole="Division" ToRole="Department" />
   </EntityType>
   <EntityType Name="DownloadTime">
@@ -869,6 +906,7 @@
     <NavigationProperty Name="Company" Relationship="TAS2013Model.FK_Emp_Company" FromRole="Emp" ToRole="Company" />
     <NavigationProperty Name="Crew" Relationship="TAS2013Model.FK_Emp_Crew" FromRole="Emp" ToRole="Crew" />
     <NavigationProperty Name="Designation" Relationship="TAS2013Model.FK_Emp_Designation1" FromRole="Emp" ToRole="Designation" />
+    <NavigationProperty Name="EmpPhoto" Relationship="TAS2013Model.FK_Emp_EmpPhoto" FromRole="Emp" ToRole="EmpPhoto" />
     <NavigationProperty Name="Grade" Relationship="TAS2013Model.FK_Emp_Grade" FromRole="Emp" ToRole="Grade" />
     <NavigationProperty Name="JobTitle" Relationship="TAS2013Model.FK_Emp_JobTitle" FromRole="Emp" ToRole="JobTitle" />
     <NavigationProperty Name="Location" Relationship="TAS2013Model.FK_Emp_Location" FromRole="Emp" ToRole="Location" />
@@ -878,8 +916,8 @@
     <NavigationProperty Name="EmpAccesses" Relationship="TAS2013Model.FK_EmpAccess_Emp" FromRole="Emp" ToRole="EmpAccess" />
     <NavigationProperty Name="EmpFace" Relationship="TAS2013Model.FK_EmpFace_Emp" FromRole="Emp" ToRole="EmpFace" />
     <NavigationProperty Name="EmpFp" Relationship="TAS2013Model.FK_EmpFp_Emp" FromRole="Emp" ToRole="EmpFp" />
-    <NavigationProperty Name="EmpPhotoes" Relationship="TAS2013Model.FK_EmpPhoto_Emp1" FromRole="Emp" ToRole="EmpPhoto" />
     <NavigationProperty Name="LvApplications" Relationship="TAS2013Model.FK_LvApplication_Emp" FromRole="Emp" ToRole="LvApplication" />
+    <NavigationProperty Name="LvConsumeds" Relationship="TAS2013Model.FK_LvConsumed_Emp" FromRole="Emp" ToRole="LvConsumed" />
     <NavigationProperty Name="LvQuota" Relationship="TAS2013Model.FK_LvQuota_Emp" FromRole="Emp" ToRole="LvQuota" />
     <NavigationProperty Name="LvShorts" Relationship="TAS2013Model.FK_LvShort_Emp" FromRole="Emp" ToRole="LvShort" />
     <NavigationProperty Name="Users" Relationship="TAS2013Model.FK_User_Emp" FromRole="Emp" ToRole="User" />
@@ -924,7 +962,7 @@
     <Property Type="Int32" Name="PhotoID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="Binary" Name="EmpPic" MaxLength="Max" FixedLength="false" />
     <Property Type="Int32" Name="EmpID" />
-    <NavigationProperty Name="Emp" Relationship="TAS2013Model.FK_EmpPhoto_Emp1" FromRole="EmpPhoto" ToRole="Emp" />
+    <NavigationProperty Name="Emps" Relationship="TAS2013Model.FK_Emp_EmpPhoto" FromRole="EmpPhoto" ToRole="Emp" />
   </EntityType>
   <EntityType Name="EmpPresence">
     <Key>
@@ -1042,7 +1080,6 @@
     <Property Type="Int16" Name="LocID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="String" Name="LocName" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Type="Int16" Name="SiteID" />
-    <Property Type="Int16" Name="CompanyID" />
     <NavigationProperty Name="Emps" Relationship="TAS2013Model.FK_Emp_Location" FromRole="Location" ToRole="Emp" />
     <NavigationProperty Name="Site" Relationship="TAS2013Model.FK_Location_Site" FromRole="Location" ToRole="Site" />
     <NavigationProperty Name="Readers" Relationship="TAS2013Model.FK_Reader_Location" FromRole="Location" ToRole="Reader" />
@@ -1072,6 +1109,32 @@
     <NavigationProperty Name="User" Relationship="TAS2013Model.FK_LvApplication_User" FromRole="LvApplication" ToRole="User" />
     <NavigationProperty Name="LvType1" Relationship="TAS2013Model.FK_LvApplications_LvType" FromRole="LvApplication" ToRole="LvType" />
     <NavigationProperty Name="LvDatas" Relationship="TAS2013Model.FK_LvData_LvApplications" FromRole="LvApplication" ToRole="LvData" />
+  </EntityType>
+  <EntityType Name="LvConsumed">
+    <Key>
+      <PropertyRef Name="EmpLvType" />
+    </Key>
+    <Property Type="String" Name="EmpLvType" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="EmpID" Nullable="false" />
+    <Property Type="String" Name="LeaveType" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Type="Int16" Name="CompanyID" />
+    <Property Type="Double" Name="JanConsumed" />
+    <Property Type="Double" Name="FebConsumed" />
+    <Property Type="Double" Name="MarchConsumed" />
+    <Property Type="Double" Name="AprConsumed" />
+    <Property Type="Double" Name="MayConsumed" />
+    <Property Type="Double" Name="JuneConsumed" />
+    <Property Type="Double" Name="JulyConsumed" />
+    <Property Type="Double" Name="AugustConsumed" />
+    <Property Type="Double" Name="SepConsumed" />
+    <Property Type="Double" Name="OctConsumed" />
+    <Property Type="Double" Name="NovConsumed" />
+    <Property Type="Double" Name="DecConsumed" />
+    <Property Type="Double" Name="TotalForYear" />
+    <Property Type="Double" Name="YearRemaining" />
+    <Property Type="Double" Name="GrandTotal" />
+    <Property Type="Double" Name="GrandTotalRemaining" />
+    <NavigationProperty Name="Emp" Relationship="TAS2013Model.FK_LvConsumed_Emp" FromRole="LvConsumed" ToRole="Emp" />
   </EntityType>
   <EntityType Name="LvData">
     <Key>
@@ -1219,7 +1282,7 @@
     <Key>
       <PropertyRef Name="RdrID" />
     </Key>
-    <Property Type="Int16" Name="RdrID" Nullable="false" />
+    <Property Type="Int16" Name="RdrID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="String" Name="RdrName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="Byte" Name="RdrDutyID" Nullable="false" />
     <Property Type="String" Name="IpAdd" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1284,13 +1347,12 @@
     <Property Type="Int32" Name="UserID" />
     <Property Type="Boolean" Name="OpenShift" />
     <Property Type="Int32" Name="RosterSubAppID" />
-    <NavigationProperty Name="RotaSubApp" Relationship="TAS2013Model.FK_Roster_RotaSubApp" FromRole="Roster" ToRole="RotaSubApp" />
   </EntityType>
   <EntityType Name="RosterApp">
     <Key>
       <PropertyRef Name="RotaApplD" />
     </Key>
-    <Property Type="Int32" Name="RotaApplD" Nullable="false" />
+    <Property Type="Int32" Name="RotaApplD" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="DateTime" Name="DateCreated" Precision="3" />
     <Property Type="DateTime" Name="DateStarted" Precision="0" />
     <Property Type="DateTime" Name="DateEnded" Precision="0" />
@@ -1301,8 +1363,26 @@
     <Property Type="Byte" Name="RotaTypeID" />
     <Property Type="Int16" Name="WorkMin" />
     <Property Type="Time" Name="DutyTime" Precision="7" />
+    <Property Type="Byte" Name="ShiftID" />
     <NavigationProperty Name="RosterType" Relationship="TAS2013Model.FK_RosterApp_RosterType" FromRole="RosterApp" ToRole="RosterType" />
-    <NavigationProperty Name="RotaSubApps" Relationship="TAS2013Model.FK_RotaSubApp_RosterApp" FromRole="RosterApp" ToRole="RotaSubApp" />
+    <NavigationProperty Name="Shift" Relationship="TAS2013Model.FK_RosterApp_Shift" FromRole="RosterApp" ToRole="Shift" />
+    <NavigationProperty Name="RosterDetails" Relationship="TAS2013Model.FK_RosterDetail_RosterApp" FromRole="RosterApp" ToRole="RosterDetail" />
+  </EntityType>
+  <EntityType Name="RosterDetail">
+    <Key>
+      <PropertyRef Name="CriteriaValueDate" />
+    </Key>
+    <Property Type="String" Name="CriteriaValueDate" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="RosterAppID" />
+    <Property Type="String" Name="DutyCode" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Type="Time" Name="DutyTime" Nullable="false" Precision="7" />
+    <Property Type="Int16" Name="WorkMin" Nullable="false" />
+    <Property Type="String" Name="Remarks" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="Int16" Name="CompanyID" />
+    <Property Type="Boolean" Name="OpenShift" />
+    <Property Type="DateTime" Name="RosterDate" Precision="0" />
+    <Property Type="Int32" Name="UserID" />
+    <NavigationProperty Name="RosterApp" Relationship="TAS2013Model.FK_RosterDetail_RosterApp" FromRole="RosterDetail" ToRole="RosterApp" />
   </EntityType>
   <EntityType Name="RosterType">
     <Key>
@@ -1313,18 +1393,6 @@
     <Property Type="Boolean" Name="Repeat" />
     <NavigationProperty Name="RosterApps" Relationship="TAS2013Model.FK_RosterApp_RosterType" FromRole="RosterType" ToRole="RosterApp" />
     <NavigationProperty Name="Shifts" Relationship="TAS2013Model.FK_Shift_RosterType" FromRole="RosterType" ToRole="Shift" />
-  </EntityType>
-  <EntityType Name="RotaSubApp">
-    <Key>
-      <PropertyRef Name="RotaSubAppID" />
-    </Key>
-    <Property Type="Int32" Name="RotaSubAppID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="DateTime" Name="DutyDate" Precision="3" />
-    <Property Type="Int16" Name="WorkMins" />
-    <Property Type="Time" Name="DutyTime" Precision="7" />
-    <Property Type="Int32" Name="RosterAppID" />
-    <NavigationProperty Name="Rosters" Relationship="TAS2013Model.FK_Roster_RotaSubApp" FromRole="RotaSubApp" ToRole="Roster" />
-    <NavigationProperty Name="RosterApp" Relationship="TAS2013Model.FK_RotaSubApp_RosterApp" FromRole="RotaSubApp" ToRole="RosterApp" />
   </EntityType>
   <EntityType Name="Section">
     <Key>
@@ -1381,6 +1449,7 @@
     <NavigationProperty Name="DaysName" Relationship="TAS2013Model.FK_Shift_DaysName" FromRole="Shift" ToRole="DaysName" />
     <NavigationProperty Name="DaysName1" Relationship="TAS2013Model.FK_Shift_DaysName1" FromRole="Shift" ToRole="DaysName" />
     <NavigationProperty Name="Emps" Relationship="TAS2013Model.FK_Emp_ShiftID" FromRole="Shift" ToRole="Emp" />
+    <NavigationProperty Name="RosterApps" Relationship="TAS2013Model.FK_RosterApp_Shift" FromRole="Shift" ToRole="RosterApp" />
     <NavigationProperty Name="RosterType1" Relationship="TAS2013Model.FK_Shift_RosterType" FromRole="Shift" ToRole="RosterType" />
   </EntityType>
   <EntityType Name="Site">
@@ -1408,13 +1477,12 @@
       <PropertyRef Name="UserID" />
     </Key>
     <Property Type="Int32" Name="UserID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="Password" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="UserName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Password" MaxLength="300" FixedLength="false" Unicode="true" />
     <Property Type="Byte" Name="RoleID" />
     <Property Type="DateTime" Name="DateCreated" Precision="3" />
     <Property Type="String" Name="Name" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Type="Boolean" Name="Status" Nullable="false" />
-    <Property Type="Int16" Name="Department" />
+    <Property Type="Boolean" Name="Status" />
     <Property Type="Boolean" Name="CanEdit" />
     <Property Type="Boolean" Name="CanDelete" />
     <Property Type="Boolean" Name="CanView" />
@@ -1442,18 +1510,12 @@
     <Property Type="Boolean" Name="ViewContractual" />
     <Property Type="Boolean" Name="ViewLocation" />
     <Property Type="Int16" Name="LocationID" />
+    <Property Type="Boolean" Name="MRoster" />
     <NavigationProperty Name="Company" Relationship="TAS2013Model.FK_User_Company" FromRole="User" ToRole="Company" />
     <NavigationProperty Name="Emp" Relationship="TAS2013Model.FK_User_Emp" FromRole="User" ToRole="Emp" />
     <NavigationProperty Name="Location" Relationship="TAS2013Model.FK_User_Location" FromRole="User" ToRole="Location" />
     <NavigationProperty Name="LvApplications" Relationship="TAS2013Model.FK_LvApplication_User" FromRole="User" ToRole="LvApplication" />
     <NavigationProperty Name="UserRole" Relationship="TAS2013Model.FK_User_UserRole1" FromRole="User" ToRole="UserRole" />
-  </EntityType>
-  <EntityType Name="UserModule">
-    <Key>
-      <PropertyRef Name="UMID" />
-    </Key>
-    <Property Type="Byte" Name="UMID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="UMName" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="UserRole">
     <Key>
@@ -1521,6 +1583,7 @@
     <Property Type="Int16" Name="CompanyID" />
     <Property Type="Byte" Name="TypeID" Nullable="false" />
     <Property Type="Int16" Name="CatID" />
+    <Property Type="Byte" Name="ShiftID" />
   </EntityType>
   <EntityType Name="ViewAbsent">
     <Key>
@@ -1564,6 +1627,14 @@
     <Property Type="Int16" Name="CompanyID" />
     <Property Type="Byte" Name="TypeID" />
     <Property Type="Int16" Name="CatID" />
+    <Property Type="Int16" Name="LocID" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Byte" Name="GradeID" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Byte" Name="ShiftID" />
+    <Property Type="Int16" Name="DivisionID" />
   </EntityType>
   <EntityType Name="ViewAuditLog">
     <Key>
@@ -1672,6 +1743,17 @@
     <Property Type="Int16" Name="BreakMin" />
     <Property Type="Time" Name="SLMin" Precision="7" />
     <Property Type="String" Name="DivisionName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Int16" Name="CompanyID" />
+    <Property Type="Byte" Name="TypeID" />
+    <Property Type="Int16" Name="CatID" />
+    <Property Type="Int16" Name="LocID" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Byte" Name="GradeID" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Byte" Name="ShiftID" />
+    <Property Type="Int16" Name="DivisionID" />
   </EntityType>
   <EntityType Name="ViewEarlyOut">
     <Key>
@@ -1726,12 +1808,21 @@
     <Property Type="Boolean" Name="StatusSL" />
     <Property Type="String" Name="Remarks" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="DivisionName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Int16" Name="CompanyID" />
+    <Property Type="Byte" Name="TypeID" />
+    <Property Type="Int16" Name="LocID" />
+    <Property Type="Int16" Name="CatID" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Byte" Name="GradeID" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Byte" Name="ShiftID" />
+    <Property Type="Int16" Name="DivisionID" />
   </EntityType>
   <EntityType Name="ViewEditAttendance">
     <Key>
       <PropertyRef Name="AttEditID" />
-      <PropertyRef Name="UserName" />
-      <PropertyRef Name="Status" />
     </Key>
     <Property Type="Int32" Name="AttEditID" Nullable="false" />
     <Property Type="DateTime" Name="EditDateTime" Precision="3" />
@@ -1746,9 +1837,9 @@
     <Property Type="String" Name="NewDutyCode" MaxLength="1" FixedLength="true" Unicode="true" />
     <Property Type="Time" Name="NewDutyTime" Precision="7" />
     <Property Type="Int32" Name="UserID" />
-    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="UserName" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="Name" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Type="Boolean" Name="Status" Nullable="false" />
+    <Property Type="Boolean" Name="Status" />
     <Property Type="String" Name="DesignationName" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="GradeName" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="JobTitle" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1780,6 +1871,14 @@
     <Property Type="Int16" Name="CompanyID" />
     <Property Type="Byte" Name="TypeID" />
     <Property Type="Int16" Name="CatID" />
+    <Property Type="Int16" Name="LocID" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Byte" Name="GradeID" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Byte" Name="ShiftID" />
+    <Property Type="Int16" Name="DivisionID" />
+    <Property Type="Int16" Name="DeptID" />
   </EntityType>
   <EntityType Name="ViewEmpPic">
     <Key>
@@ -1845,6 +1944,14 @@
     <Property Type="Int16" Name="CompanyID" />
     <Property Type="Byte" Name="TypeID" />
     <Property Type="Int16" Name="CatID" />
+    <Property Type="Int16" Name="DivisionID" />
+    <Property Type="Byte" Name="ShiftID" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Byte" Name="GradeID" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="LocID" />
   </EntityType>
   <EntityType Name="ViewLateOut">
     <Key>
@@ -1901,6 +2008,14 @@
     <Property Type="Int16" Name="CompanyID" />
     <Property Type="Byte" Name="TypeID" />
     <Property Type="Int16" Name="CatID" />
+    <Property Type="Int16" Name="DivisionID" />
+    <Property Type="Byte" Name="ShiftID" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Byte" Name="GradeID" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="LocID" />
   </EntityType>
   <EntityType Name="ViewLeave">
     <Key>
@@ -1940,6 +2055,14 @@
     <Property Type="Int16" Name="CompanyID" />
     <Property Type="Byte" Name="TypeID" />
     <Property Type="Int16" Name="CatID" />
+    <Property Type="Int16" Name="DivisionID" />
+    <Property Type="Byte" Name="ShiftID" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Byte" Name="GradeID" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="LocID" />
   </EntityType>
   <EntityType Name="ViewLeaveData">
     <Key>
@@ -1957,6 +2080,9 @@
       <PropertyRef Name="LvDesc" />
       <PropertyRef Name="FldName" />
       <PropertyRef Name="TypeID" />
+      <PropertyRef Name="LocID" />
+      <PropertyRef Name="GradeID" />
+      <PropertyRef Name="ShiftID" />
     </Key>
     <Property Type="Int32" Name="EmpID" Nullable="false" />
     <Property Type="String" Name="DesignationName" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -1992,28 +2118,93 @@
     <Property Type="Int16" Name="CompanyID" />
     <Property Type="Byte" Name="TypeID" Nullable="false" />
     <Property Type="Int16" Name="CatID" />
+    <Property Type="Int16" Name="LocID" Nullable="false" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Byte" Name="GradeID" Nullable="false" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Byte" Name="ShiftID" Nullable="false" />
+    <Property Type="Int16" Name="DivisionID" />
   </EntityType>
   <EntityType Name="ViewLeaveQuota">
     <Key>
       <PropertyRef Name="EmpID" />
-      <PropertyRef Name="LocName" />
-      <PropertyRef Name="TypeName" />
-      <PropertyRef Name="ShiftName" />
-      <PropertyRef Name="EmpNo" />
-      <PropertyRef Name="EmpName" />
-      <PropertyRef Name="Expr1" />
-      <PropertyRef Name="B" />
-      <PropertyRef Name="C" />
-      <PropertyRef Name="A" />
-      <PropertyRef Name="TypeID" />
+      <PropertyRef Name="EmpLvType" />
     </Key>
     <Property Type="Int32" Name="EmpID" Nullable="false" />
+    <Property Type="String" Name="EmpLvType" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="LeaveType" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Type="Int16" Name="CompanyID" />
+    <Property Type="Double" Name="JanConsumed" />
+    <Property Type="Double" Name="FebConsumed" />
+    <Property Type="Double" Name="MarchConsumed" />
+    <Property Type="Double" Name="AprConsumed" />
+    <Property Type="Double" Name="MayConsumed" />
+    <Property Type="Double" Name="JuneConsumed" />
+    <Property Type="Double" Name="JulyConsumed" />
+    <Property Type="Double" Name="AugustConsumed" />
+    <Property Type="Double" Name="OctConsumed" />
+    <Property Type="Double" Name="SepConsumed" />
+    <Property Type="Double" Name="NovConsumed" />
+    <Property Type="Double" Name="DecConsumed" />
+    <Property Type="Double" Name="TotalForYear" />
+    <Property Type="Double" Name="YearRemaining" />
+    <Property Type="Double" Name="GrandTotal" />
+    <Property Type="Double" Name="GrandTotalRemaining" />
     <Property Type="String" Name="DesignationName" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="GradeName" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="CompName" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="JobTitle" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="CityName" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="RegionName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="SiteName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="LocName" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="CrewName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="TypeName" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="CatName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ShiftName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="EmpNo" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="EmpName" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="JoinDate" Precision="0" />
+    <Property Type="DateTime" Name="ValidDate" Precision="0" />
+    <Property Type="DateTime" Name="IssueDate" Precision="0" />
+    <Property Type="Boolean" Name="Status" />
+    <Property Type="String" Name="Remarks" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="SectionName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="DeptName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="DivisionName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Int16" Name="Expr1" />
+    <Property Type="Byte" Name="TypeID" />
+    <Property Type="Int16" Name="CatID" />
+    <Property Type="Int16" Name="DivisionID" />
+    <Property Type="Byte" Name="ShiftID" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Byte" Name="GradeID" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="LocID" />
+  </EntityType>
+  <EntityType Name="ViewLvConsumed">
+    <Key>
+      <PropertyRef Name="LocName" />
+      <PropertyRef Name="TypeName" />
+      <PropertyRef Name="ShiftName" />
+      <PropertyRef Name="EmpNo" />
+      <PropertyRef Name="EmpName" />
+      <PropertyRef Name="TypeID" />
+      <PropertyRef Name="ShiftID" />
+      <PropertyRef Name="GradeID" />
+      <PropertyRef Name="LocID" />
+    </Key>
+    <Property Type="String" Name="LeaveType" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="DesignationName" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="GradeName" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="CompName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="JobTitle" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="RegionName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="CityName" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="SiteName" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="LocName" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="CrewName" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -2022,39 +2213,56 @@
     <Property Type="String" Name="ShiftName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="EmpNo" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="EmpName" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="DesigID" />
+    <Property Type="Int16" Name="JobID" />
     <Property Type="Byte" Name="Gender" />
+    <Property Type="String" Name="CardNo" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Type="Int32" Name="FpID" />
+    <Property Type="String" Name="PinCode" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="FatherName" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="NicNo" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BloodGroup" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="BirthDate" Precision="0" />
+    <Property Type="String" Name="MarStatus" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="JoinDate" Precision="0" />
+    <Property Type="DateTime" Name="ValidDate" Precision="0" />
+    <Property Type="DateTime" Name="IssueDate" Precision="0" />
+    <Property Type="DateTime" Name="ResignDate" Precision="0" />
+    <Property Type="String" Name="HomeAdd" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Type="Boolean" Name="Status" />
+    <Property Type="String" Name="PhoneNo" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="SectionName" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="DeptName" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="DivisionName" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Type="Int32" Name="Expr1" Nullable="false" />
-    <Property Type="Double" Name="B" Nullable="false" />
-    <Property Type="Double" Name="C" Nullable="false" />
-    <Property Type="Double" Name="D" />
-    <Property Type="Double" Name="E" />
-    <Property Type="Double" Name="F" />
-    <Property Type="Double" Name="G" />
-    <Property Type="Double" Name="H" />
-    <Property Type="Double" Name="I" />
-    <Property Type="Double" Name="J" />
-    <Property Type="Double" Name="K" />
-    <Property Type="Double" Name="L" />
-    <Property Type="Double" Name="A" Nullable="false" />
-    <Property Type="Double" Name="TA" />
-    <Property Type="Double" Name="TB" />
-    <Property Type="Double" Name="TC" />
-    <Property Type="Double" Name="TD" />
-    <Property Type="Double" Name="TE" />
-    <Property Type="Double" Name="TF" />
-    <Property Type="Double" Name="TG" />
-    <Property Type="Double" Name="TH" />
-    <Property Type="Double" Name="TI" />
-    <Property Type="Double" Name="TJ" />
-    <Property Type="Double" Name="TK" />
-    <Property Type="Double" Name="TL" />
     <Property Type="Int16" Name="CompanyID" />
     <Property Type="Byte" Name="TypeID" Nullable="false" />
     <Property Type="Int16" Name="CatID" />
+    <Property Type="Double" Name="JanConsumed" />
+    <Property Type="Double" Name="FebConsumed" />
+    <Property Type="Double" Name="MarchConsumed" />
+    <Property Type="Double" Name="AprConsumed" />
+    <Property Type="Double" Name="MayConsumed" />
+    <Property Type="Double" Name="JuneConsumed" />
+    <Property Type="Double" Name="JulyConsumed" />
+    <Property Type="Double" Name="AugustConsumed" />
+    <Property Type="Double" Name="SepConsumed" />
+    <Property Type="Double" Name="OctConsumed" />
+    <Property Type="Double" Name="NovConsumed" />
+    <Property Type="Double" Name="DecConsumed" />
+    <Property Type="Double" Name="TotalForYear" />
+    <Property Type="Double" Name="YearRemaining" />
+    <Property Type="Double" Name="GrandTotal" />
+    <Property Type="Double" Name="GrandTotalRemaining" />
+    <Property Type="String" Name="EmpLvType" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="LvDesc" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Type="Int16" Name="DivisionID" />
+    <Property Type="Byte" Name="ShiftID" Nullable="false" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Byte" Name="GradeID" Nullable="false" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="LocID" Nullable="false" />
   </EntityType>
   <EntityType Name="ViewMissingAtt">
     <Key>
@@ -2066,6 +2274,9 @@
       <PropertyRef Name="LocName" />
       <PropertyRef Name="ShiftName" />
       <PropertyRef Name="TypeID" />
+      <PropertyRef Name="LocID" />
+      <PropertyRef Name="GradeID" />
+      <PropertyRef Name="ShiftID" />
     </Key>
     <Property Type="String" Name="EmpDate" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Type="Int32" Name="EmpID" Nullable="false" />
@@ -2101,6 +2312,14 @@
     <Property Type="Int16" Name="CompanyID" />
     <Property Type="Byte" Name="TypeID" Nullable="false" />
     <Property Type="Int16" Name="CatID" />
+    <Property Type="Int16" Name="LocID" Nullable="false" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Byte" Name="GradeID" Nullable="false" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Byte" Name="ShiftID" Nullable="false" />
+    <Property Type="Int16" Name="DivisionID" />
   </EntityType>
   <EntityType Name="ViewMonthlyData">
     <Key>
@@ -2110,6 +2329,9 @@
       <PropertyRef Name="TypeName" />
       <PropertyRef Name="ShiftName" />
       <PropertyRef Name="TypeID" />
+      <PropertyRef Name="LocID" />
+      <PropertyRef Name="GradeID" />
+      <PropertyRef Name="ShiftID" />
     </Key>
     <Property Type="Int32" Name="EmpID" Nullable="false" />
     <Property Type="String" Name="Period" MaxLength="6" FixedLength="false" Unicode="true" />
@@ -2148,9 +2370,9 @@
     <Property Type="String" Name="D29" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Type="String" Name="D31" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Type="Byte" Name="TotalDays" />
-    <Property Type="Byte" Name="WorkDays" />
-    <Property Type="Byte" Name="PreDays" />
-    <Property Type="Byte" Name="AbDays" />
+    <Property Type="Double" Name="WorkDays" />
+    <Property Type="Double" Name="PreDays" />
+    <Property Type="Double" Name="AbDays" />
     <Property Type="Byte" Name="RestDays" />
     <Property Type="Byte" Name="GZDays" />
     <Property Type="Byte" Name="LeaveDays" />
@@ -2223,6 +2445,46 @@
     <Property Type="Int16" Name="CompanyID" />
     <Property Type="Byte" Name="TypeID" Nullable="false" />
     <Property Type="Int16" Name="CatID" />
+    <Property Type="String" Name="L1" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L2" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L3" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L4" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L5" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L6" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L7" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L8" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L9" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L11" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L10" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L12" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L13" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L14" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L15" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L16" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L17" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L19" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L18" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L20" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L22" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L21" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L23" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L24" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L25" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L26" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L27" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L28" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L29" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L30" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="L31" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Type="Double" Name="HalfLeavesDay" />
+    <Property Type="Int16" Name="LocID" Nullable="false" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Byte" Name="GradeID" Nullable="false" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Byte" Name="ShiftID" Nullable="false" />
+    <Property Type="Int16" Name="DivisionID" />
   </EntityType>
   <EntityType Name="ViewMonthlyDataPer">
     <Key>
@@ -2328,6 +2590,17 @@
     <Property Type="Int32" Name="EmpID" />
     <Property Type="String" Name="CardNo" MaxLength="10" FixedLength="true" Unicode="false" />
     <Property Type="String" Name="Period" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Type="Int16" Name="DivisionID" />
+    <Property Type="Byte" Name="ShiftID" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Byte" Name="GradeID" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="LocID" />
+    <Property Type="Int16" Name="CatID" />
+    <Property Type="Byte" Name="TypeID" />
+    <Property Type="Int16" Name="CompanyID" />
   </EntityType>
   <EntityType Name="ViewMultipleInOut">
     <Key>
@@ -2411,6 +2684,14 @@
     <Property Type="Int16" Name="CompanyID" />
     <Property Type="Byte" Name="TypeID" />
     <Property Type="Int16" Name="CatID" />
+    <Property Type="Int16" Name="DivisionID" />
+    <Property Type="Byte" Name="ShiftID" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="LocID" />
+    <Property Type="Byte" Name="GradeID" />
   </EntityType>
   <EntityType Name="ViewOverTime">
     <Key>
@@ -2469,6 +2750,14 @@
     <Property Type="Int16" Name="CompanyID" />
     <Property Type="Byte" Name="TypeID" />
     <Property Type="Int16" Name="CatID" />
+    <Property Type="Int16" Name="DivisionID" />
+    <Property Type="Byte" Name="ShiftID" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Byte" Name="GradeID" />
+    <Property Type="Int16" Name="LocID" />
+    <Property Type="Int32" Name="DesignationID" />
   </EntityType>
   <EntityType Name="ViewPollData">
     <Key>
@@ -2564,6 +2853,14 @@
     <Property Type="Int16" Name="CatID" />
     <Property Type="Byte" Name="TypeID" />
     <Property Type="Int16" Name="CompanyID" />
+    <Property Type="Int16" Name="LocID" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Byte" Name="GradeID" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Byte" Name="ShiftID" />
+    <Property Type="Int16" Name="DivisionID" />
   </EntityType>
   <EntityType Name="ViewSLData">
     <Key>
@@ -2575,6 +2872,9 @@
       <PropertyRef Name="SlID" />
       <PropertyRef Name="EmpID" />
       <PropertyRef Name="TypeID" />
+      <PropertyRef Name="ShiftID" />
+      <PropertyRef Name="GradeID" />
+      <PropertyRef Name="LocID" />
     </Key>
     <Property Type="String" Name="DesignationName" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="GradeName" MaxLength="20" FixedLength="false" Unicode="true" />
@@ -2610,6 +2910,14 @@
     <Property Type="Int16" Name="CompanyID" />
     <Property Type="Byte" Name="TypeID" Nullable="false" />
     <Property Type="Int16" Name="CatID" />
+    <Property Type="Int16" Name="DivisionID" />
+    <Property Type="Byte" Name="ShiftID" Nullable="false" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Byte" Name="GradeID" Nullable="false" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="LocID" Nullable="false" />
   </EntityType>
   <EntityType Name="ViewSummary">
     <Key>
@@ -2621,6 +2929,9 @@
       <PropertyRef Name="EmpName" />
       <PropertyRef Name="EmpDate" />
       <PropertyRef Name="TypeID" />
+      <PropertyRef Name="ShiftID" />
+      <PropertyRef Name="GradeID" />
+      <PropertyRef Name="LocID" />
     </Key>
     <Property Type="String" Name="DesignationName" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Type="Int32" Name="EmpID" Nullable="false" />
@@ -2680,6 +2991,14 @@
     <Property Type="Int16" Name="CatID" />
     <Property Type="Byte" Name="TypeID" Nullable="false" />
     <Property Type="Int16" Name="CompanyID" />
+    <Property Type="Int16" Name="DivisionID" />
+    <Property Type="Byte" Name="ShiftID" Nullable="false" />
+    <Property Type="Int16" Name="DeptID" />
+    <Property Type="Int16" Name="SectionID" />
+    <Property Type="Byte" Name="GradeID" Nullable="false" />
+    <Property Type="Int16" Name="CrewID" />
+    <Property Type="Int32" Name="DesignationID" />
+    <Property Type="Int16" Name="LocID" Nullable="false" />
   </EntityType>
   <Association Name="FK_AttData_Emp">
     <End Type="TAS2013Model.Emp" Role="Emp" Multiplicity="0..1" />
@@ -2945,6 +3264,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Emp_EmpPhoto">
+    <End Type="TAS2013Model.EmpPhoto" Role="EmpPhoto" Multiplicity="0..1" />
+    <End Type="TAS2013Model.Emp" Role="Emp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmpPhoto">
+        <PropertyRef Name="PhotoID" />
+      </Principal>
+      <Dependent Role="Emp">
+        <PropertyRef Name="EmpImageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Emp_Grade">
     <End Type="TAS2013Model.Grade" Role="Grade" Multiplicity="0..1" />
     <End Type="TAS2013Model.Emp" Role="Emp" Multiplicity="*" />
@@ -3053,18 +3384,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_EmpPhoto_Emp1">
-    <End Type="TAS2013Model.Emp" Role="Emp" Multiplicity="0..1" />
-    <End Type="TAS2013Model.EmpPhoto" Role="EmpPhoto" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Emp">
-        <PropertyRef Name="EmpID" />
-      </Principal>
-      <Dependent Role="EmpPhoto">
-        <PropertyRef Name="EmpID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_LvApplication_Emp">
     <End Type="TAS2013Model.Emp" Role="Emp" Multiplicity="1" />
     <End Type="TAS2013Model.LvApplication" Role="LvApplication" Multiplicity="*" />
@@ -3073,6 +3392,18 @@
         <PropertyRef Name="EmpID" />
       </Principal>
       <Dependent Role="LvApplication">
+        <PropertyRef Name="EmpID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LvConsumed_Emp">
+    <End Type="TAS2013Model.Emp" Role="Emp" Multiplicity="1" />
+    <End Type="TAS2013Model.LvConsumed" Role="LvConsumed" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Emp">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="LvConsumed">
         <PropertyRef Name="EmpID" />
       </Dependent>
     </ReferentialConstraint>
@@ -3257,18 +3588,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Roster_RotaSubApp">
-    <End Type="TAS2013Model.RotaSubApp" Role="RotaSubApp" Multiplicity="0..1" />
-    <End Type="TAS2013Model.Roster" Role="Roster" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="RotaSubApp">
-        <PropertyRef Name="RotaSubAppID" />
-      </Principal>
-      <Dependent Role="Roster">
-        <PropertyRef Name="RosterSubAppID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_RosterApp_RosterType">
     <End Type="TAS2013Model.RosterType" Role="RosterType" Multiplicity="0..1" />
     <End Type="TAS2013Model.RosterApp" Role="RosterApp" Multiplicity="*" />
@@ -3281,14 +3600,26 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_RotaSubApp_RosterApp">
+  <Association Name="FK_RosterApp_Shift">
+    <End Type="TAS2013Model.Shift" Role="Shift" Multiplicity="0..1" />
+    <End Type="TAS2013Model.RosterApp" Role="RosterApp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shift">
+        <PropertyRef Name="ShiftID" />
+      </Principal>
+      <Dependent Role="RosterApp">
+        <PropertyRef Name="ShiftID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RosterDetail_RosterApp">
     <End Type="TAS2013Model.RosterApp" Role="RosterApp" Multiplicity="0..1" />
-    <End Type="TAS2013Model.RotaSubApp" Role="RotaSubApp" Multiplicity="*" />
+    <End Type="TAS2013Model.RosterDetail" Role="RosterDetail" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="RosterApp">
         <PropertyRef Name="RotaApplD" />
       </Principal>
-      <Dependent Role="RotaSubApp">
+      <Dependent Role="RosterDetail">
         <PropertyRef Name="RosterAppID" />
       </Dependent>
     </ReferentialConstraint>

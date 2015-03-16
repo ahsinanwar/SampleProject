@@ -60,5 +60,6 @@ namespace WMS.Models
         public Nullable<short> CompanyID { get; set; }
         public byte TypeID { get; set; }
         public Nullable<short> CatID { get; set; }
+        public Nullable<byte> ShiftID { get; set; }
     }
 }

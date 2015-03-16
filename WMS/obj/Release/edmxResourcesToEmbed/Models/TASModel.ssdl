@@ -22,6 +22,9 @@
     <EntitySet Name="City" EntityType="TAS2013Model.Store.City" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Company" EntityType="TAS2013Model.Store.Company" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Crew" EntityType="TAS2013Model.Store.Crew" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DailySumDept" EntityType="TAS2013Model.Store.DailySumDept" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DailySumSection" EntityType="TAS2013Model.Store.DailySumSection" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DailySumShift" EntityType="TAS2013Model.Store.DailySumShift" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="DaysName" EntityType="TAS2013Model.Store.DaysName" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Department" EntityType="TAS2013Model.Store.Department" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Designation" EntityType="TAS2013Model.Store.Designation" store:Type="Tables" Schema="dbo" />
@@ -45,6 +48,7 @@
     <EntitySet Name="JobTitle" EntityType="TAS2013Model.Store.JobTitle" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Location" EntityType="TAS2013Model.Store.Location" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="LvApplication" EntityType="TAS2013Model.Store.LvApplication" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LvConsumed" EntityType="TAS2013Model.Store.LvConsumed" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="LvData" EntityType="TAS2013Model.Store.LvData" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="LvQuota" EntityType="TAS2013Model.Store.LvQuota" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="LvShort" EntityType="TAS2013Model.Store.LvShort" store:Type="Tables" Schema="dbo" />
@@ -59,18 +63,15 @@
     <EntitySet Name="Reason" EntityType="TAS2013Model.Store.Reason" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Region" EntityType="TAS2013Model.Store.Region" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Roster" EntityType="TAS2013Model.Store.Roster" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RosterApp" EntityType="TAS2013Model.Store.RosterApp" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="RosterDetail" EntityType="TAS2013Model.Store.RosterDetail" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="RosterType" EntityType="TAS2013Model.Store.RosterType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Section" EntityType="TAS2013Model.Store.Section" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ServiceLog" EntityType="TAS2013Model.Store.ServiceLog" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Shift" EntityType="TAS2013Model.Store.Shift" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Site" EntityType="TAS2013Model.Store.Site" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SummaryDepartment" EntityType="TAS2013Model.Store.SummaryDepartment" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SummarySection" EntityType="TAS2013Model.Store.SummarySection" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SummaryShift" EntityType="TAS2013Model.Store.SummaryShift" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="sysdiagrams" EntityType="TAS2013Model.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="User" EntityType="TAS2013Model.Store.User" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UserModule" EntityType="TAS2013Model.Store.UserModule" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserRole" EntityType="TAS2013Model.Store.UserRole" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EmpView" EntityType="TAS2013Model.Store.EmpView" store:Type="Views" store:Schema="dbo" store:Name="EmpView">
       <DefiningQuery>SELECT 
@@ -119,7 +120,8 @@
       [EmpView].[DivisionName] AS [DivisionName], 
       [EmpView].[CompanyID] AS [CompanyID], 
       [EmpView].[TypeID] AS [TypeID], 
-      [EmpView].[CatID] AS [CatID]
+      [EmpView].[CatID] AS [CatID], 
+      [EmpView].[ShiftID] AS [ShiftID]
       FROM [dbo].[EmpView] AS [EmpView]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewAbsent" EntityType="TAS2013Model.Store.ViewAbsent" store:Type="Views" store:Schema="dbo" store:Name="ViewAbsent">
@@ -161,7 +163,15 @@
       [ViewAbsent].[CellNo] AS [CellNo], 
       [ViewAbsent].[CompanyID] AS [CompanyID], 
       [ViewAbsent].[TypeID] AS [TypeID], 
-      [ViewAbsent].[CatID] AS [CatID]
+      [ViewAbsent].[CatID] AS [CatID], 
+      [ViewAbsent].[LocID] AS [LocID], 
+      [ViewAbsent].[DesignationID] AS [DesignationID], 
+      [ViewAbsent].[CrewID] AS [CrewID], 
+      [ViewAbsent].[GradeID] AS [GradeID], 
+      [ViewAbsent].[SectionID] AS [SectionID], 
+      [ViewAbsent].[DeptID] AS [DeptID], 
+      [ViewAbsent].[ShiftID] AS [ShiftID], 
+      [ViewAbsent].[DivisionID] AS [DivisionID]
       FROM [dbo].[ViewAbsent] AS [ViewAbsent]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewAuditLog" EntityType="TAS2013Model.Store.ViewAuditLog" store:Type="Views" store:Schema="dbo" store:Name="ViewAuditLog">
@@ -264,7 +274,18 @@
       [ViewEarlyIN].[EarlyOut] AS [EarlyOut], 
       [ViewEarlyIN].[BreakMin] AS [BreakMin], 
       [ViewEarlyIN].[SLMin] AS [SLMin], 
-      [ViewEarlyIN].[DivisionName] AS [DivisionName]
+      [ViewEarlyIN].[DivisionName] AS [DivisionName], 
+      [ViewEarlyIN].[CompanyID] AS [CompanyID], 
+      [ViewEarlyIN].[TypeID] AS [TypeID], 
+      [ViewEarlyIN].[CatID] AS [CatID], 
+      [ViewEarlyIN].[LocID] AS [LocID], 
+      [ViewEarlyIN].[DesignationID] AS [DesignationID], 
+      [ViewEarlyIN].[CrewID] AS [CrewID], 
+      [ViewEarlyIN].[GradeID] AS [GradeID], 
+      [ViewEarlyIN].[SectionID] AS [SectionID], 
+      [ViewEarlyIN].[DeptID] AS [DeptID], 
+      [ViewEarlyIN].[ShiftID] AS [ShiftID], 
+      [ViewEarlyIN].[DivisionID] AS [DivisionID]
       FROM [dbo].[ViewEarlyIN] AS [ViewEarlyIN]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewEarlyOut" EntityType="TAS2013Model.Store.ViewEarlyOut" store:Type="Views" store:Schema="dbo" store:Name="ViewEarlyOut">
@@ -317,7 +338,18 @@
       [ViewEarlyOut].[StatusDO] AS [StatusDO], 
       [ViewEarlyOut].[StatusSL] AS [StatusSL], 
       [ViewEarlyOut].[Remarks] AS [Remarks], 
-      [ViewEarlyOut].[DivisionName] AS [DivisionName]
+      [ViewEarlyOut].[DivisionName] AS [DivisionName], 
+      [ViewEarlyOut].[CompanyID] AS [CompanyID], 
+      [ViewEarlyOut].[TypeID] AS [TypeID], 
+      [ViewEarlyOut].[LocID] AS [LocID], 
+      [ViewEarlyOut].[CatID] AS [CatID], 
+      [ViewEarlyOut].[DesignationID] AS [DesignationID], 
+      [ViewEarlyOut].[CrewID] AS [CrewID], 
+      [ViewEarlyOut].[GradeID] AS [GradeID], 
+      [ViewEarlyOut].[SectionID] AS [SectionID], 
+      [ViewEarlyOut].[DeptID] AS [DeptID], 
+      [ViewEarlyOut].[ShiftID] AS [ShiftID], 
+      [ViewEarlyOut].[DivisionID] AS [DivisionID]
       FROM [dbo].[ViewEarlyOut] AS [ViewEarlyOut]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewEditAttendance" EntityType="TAS2013Model.Store.ViewEditAttendance" store:Type="Views" store:Schema="dbo" store:Name="ViewEditAttendance">
@@ -368,7 +400,15 @@
       [ViewEditAttendance].[EmpID] AS [EmpID], 
       [ViewEditAttendance].[CompanyID] AS [CompanyID], 
       [ViewEditAttendance].[TypeID] AS [TypeID], 
-      [ViewEditAttendance].[CatID] AS [CatID]
+      [ViewEditAttendance].[CatID] AS [CatID], 
+      [ViewEditAttendance].[LocID] AS [LocID], 
+      [ViewEditAttendance].[DesignationID] AS [DesignationID], 
+      [ViewEditAttendance].[CrewID] AS [CrewID], 
+      [ViewEditAttendance].[GradeID] AS [GradeID], 
+      [ViewEditAttendance].[SectionID] AS [SectionID], 
+      [ViewEditAttendance].[ShiftID] AS [ShiftID], 
+      [ViewEditAttendance].[DivisionID] AS [DivisionID], 
+      [ViewEditAttendance].[DeptID] AS [DeptID]
       FROM [dbo].[ViewEditAttendance] AS [ViewEditAttendance]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewEmpPic" EntityType="TAS2013Model.Store.ViewEmpPic" store:Type="Views" store:Schema="dbo" store:Name="ViewEmpPic">
@@ -429,7 +469,15 @@
       [ViewLateComer].[Remarks] AS [Remarks], 
       [ViewLateComer].[CompanyID] AS [CompanyID], 
       [ViewLateComer].[TypeID] AS [TypeID], 
-      [ViewLateComer].[CatID] AS [CatID]
+      [ViewLateComer].[CatID] AS [CatID], 
+      [ViewLateComer].[DivisionID] AS [DivisionID], 
+      [ViewLateComer].[ShiftID] AS [ShiftID], 
+      [ViewLateComer].[DeptID] AS [DeptID], 
+      [ViewLateComer].[SectionID] AS [SectionID], 
+      [ViewLateComer].[GradeID] AS [GradeID], 
+      [ViewLateComer].[CrewID] AS [CrewID], 
+      [ViewLateComer].[DesignationID] AS [DesignationID], 
+      [ViewLateComer].[LocID] AS [LocID]
       FROM [dbo].[ViewLateComer] AS [ViewLateComer]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewLateOut" EntityType="TAS2013Model.Store.ViewLateOut" store:Type="Views" store:Schema="dbo" store:Name="ViewLateOut">
@@ -484,7 +532,15 @@
       [ViewLateOut].[Remarks] AS [Remarks], 
       [ViewLateOut].[CompanyID] AS [CompanyID], 
       [ViewLateOut].[TypeID] AS [TypeID], 
-      [ViewLateOut].[CatID] AS [CatID]
+      [ViewLateOut].[CatID] AS [CatID], 
+      [ViewLateOut].[DivisionID] AS [DivisionID], 
+      [ViewLateOut].[ShiftID] AS [ShiftID], 
+      [ViewLateOut].[DeptID] AS [DeptID], 
+      [ViewLateOut].[SectionID] AS [SectionID], 
+      [ViewLateOut].[GradeID] AS [GradeID], 
+      [ViewLateOut].[CrewID] AS [CrewID], 
+      [ViewLateOut].[DesignationID] AS [DesignationID], 
+      [ViewLateOut].[LocID] AS [LocID]
       FROM [dbo].[ViewLateOut] AS [ViewLateOut]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewLeave" EntityType="TAS2013Model.Store.ViewLeave" store:Type="Views" store:Schema="dbo" store:Name="ViewLeave">
@@ -522,7 +578,15 @@
       [ViewLeave].[DivisionName] AS [DivisionName], 
       [ViewLeave].[CompanyID] AS [CompanyID], 
       [ViewLeave].[TypeID] AS [TypeID], 
-      [ViewLeave].[CatID] AS [CatID]
+      [ViewLeave].[CatID] AS [CatID], 
+      [ViewLeave].[DivisionID] AS [DivisionID], 
+      [ViewLeave].[ShiftID] AS [ShiftID], 
+      [ViewLeave].[DeptID] AS [DeptID], 
+      [ViewLeave].[SectionID] AS [SectionID], 
+      [ViewLeave].[CrewID] AS [CrewID], 
+      [ViewLeave].[GradeID] AS [GradeID], 
+      [ViewLeave].[DesignationID] AS [DesignationID], 
+      [ViewLeave].[LocID] AS [LocID]
       FROM [dbo].[ViewLeave] AS [ViewLeave]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewLeaveData" EntityType="TAS2013Model.Store.ViewLeaveData" store:Type="Views" store:Schema="dbo" store:Name="ViewLeaveData">
@@ -560,12 +624,39 @@
       [ViewLeaveData].[LvStatus] AS [LvStatus], 
       [ViewLeaveData].[CompanyID] AS [CompanyID], 
       [ViewLeaveData].[TypeID] AS [TypeID], 
-      [ViewLeaveData].[CatID] AS [CatID]
+      [ViewLeaveData].[CatID] AS [CatID], 
+      [ViewLeaveData].[LocID] AS [LocID], 
+      [ViewLeaveData].[DesignationID] AS [DesignationID], 
+      [ViewLeaveData].[CrewID] AS [CrewID], 
+      [ViewLeaveData].[GradeID] AS [GradeID], 
+      [ViewLeaveData].[SectionID] AS [SectionID], 
+      [ViewLeaveData].[DeptID] AS [DeptID], 
+      [ViewLeaveData].[ShiftID] AS [ShiftID], 
+      [ViewLeaveData].[DivisionID] AS [DivisionID]
       FROM [dbo].[ViewLeaveData] AS [ViewLeaveData]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewLeaveQuota" EntityType="TAS2013Model.Store.ViewLeaveQuota" store:Type="Views" store:Schema="dbo" store:Name="ViewLeaveQuota">
       <DefiningQuery>SELECT 
       [ViewLeaveQuota].[EmpID] AS [EmpID], 
+      [ViewLeaveQuota].[EmpLvType] AS [EmpLvType], 
+      [ViewLeaveQuota].[LeaveType] AS [LeaveType], 
+      [ViewLeaveQuota].[CompanyID] AS [CompanyID], 
+      [ViewLeaveQuota].[JanConsumed] AS [JanConsumed], 
+      [ViewLeaveQuota].[FebConsumed] AS [FebConsumed], 
+      [ViewLeaveQuota].[MarchConsumed] AS [MarchConsumed], 
+      [ViewLeaveQuota].[AprConsumed] AS [AprConsumed], 
+      [ViewLeaveQuota].[MayConsumed] AS [MayConsumed], 
+      [ViewLeaveQuota].[JuneConsumed] AS [JuneConsumed], 
+      [ViewLeaveQuota].[JulyConsumed] AS [JulyConsumed], 
+      [ViewLeaveQuota].[AugustConsumed] AS [AugustConsumed], 
+      [ViewLeaveQuota].[OctConsumed] AS [OctConsumed], 
+      [ViewLeaveQuota].[SepConsumed] AS [SepConsumed], 
+      [ViewLeaveQuota].[NovConsumed] AS [NovConsumed], 
+      [ViewLeaveQuota].[DecConsumed] AS [DecConsumed], 
+      [ViewLeaveQuota].[TotalForYear] AS [TotalForYear], 
+      [ViewLeaveQuota].[YearRemaining] AS [YearRemaining], 
+      [ViewLeaveQuota].[GrandTotal] AS [GrandTotal], 
+      [ViewLeaveQuota].[GrandTotalRemaining] AS [GrandTotalRemaining], 
       [ViewLeaveQuota].[DesignationName] AS [DesignationName], 
       [ViewLeaveQuota].[GradeName] AS [GradeName], 
       [ViewLeaveQuota].[CompName] AS [CompName], 
@@ -580,40 +671,95 @@
       [ViewLeaveQuota].[ShiftName] AS [ShiftName], 
       [ViewLeaveQuota].[EmpNo] AS [EmpNo], 
       [ViewLeaveQuota].[EmpName] AS [EmpName], 
-      [ViewLeaveQuota].[Gender] AS [Gender], 
+      [ViewLeaveQuota].[JoinDate] AS [JoinDate], 
+      [ViewLeaveQuota].[ValidDate] AS [ValidDate], 
+      [ViewLeaveQuota].[IssueDate] AS [IssueDate], 
       [ViewLeaveQuota].[Status] AS [Status], 
+      [ViewLeaveQuota].[Remarks] AS [Remarks], 
       [ViewLeaveQuota].[SectionName] AS [SectionName], 
       [ViewLeaveQuota].[DeptName] AS [DeptName], 
       [ViewLeaveQuota].[DivisionName] AS [DivisionName], 
       [ViewLeaveQuota].[Expr1] AS [Expr1], 
-      [ViewLeaveQuota].[B] AS [B], 
-      [ViewLeaveQuota].[C] AS [C], 
-      [ViewLeaveQuota].[D] AS [D], 
-      [ViewLeaveQuota].[E] AS [E], 
-      [ViewLeaveQuota].[F] AS [F], 
-      [ViewLeaveQuota].[G] AS [G], 
-      [ViewLeaveQuota].[H] AS [H], 
-      [ViewLeaveQuota].[I] AS [I], 
-      [ViewLeaveQuota].[J] AS [J], 
-      [ViewLeaveQuota].[K] AS [K], 
-      [ViewLeaveQuota].[L] AS [L], 
-      [ViewLeaveQuota].[A] AS [A], 
-      [ViewLeaveQuota].[TA] AS [TA], 
-      [ViewLeaveQuota].[TB] AS [TB], 
-      [ViewLeaveQuota].[TC] AS [TC], 
-      [ViewLeaveQuota].[TD] AS [TD], 
-      [ViewLeaveQuota].[TE] AS [TE], 
-      [ViewLeaveQuota].[TF] AS [TF], 
-      [ViewLeaveQuota].[TG] AS [TG], 
-      [ViewLeaveQuota].[TH] AS [TH], 
-      [ViewLeaveQuota].[TI] AS [TI], 
-      [ViewLeaveQuota].[TJ] AS [TJ], 
-      [ViewLeaveQuota].[TK] AS [TK], 
-      [ViewLeaveQuota].[TL] AS [TL], 
-      [ViewLeaveQuota].[CompanyID] AS [CompanyID], 
       [ViewLeaveQuota].[TypeID] AS [TypeID], 
-      [ViewLeaveQuota].[CatID] AS [CatID]
+      [ViewLeaveQuota].[CatID] AS [CatID], 
+      [ViewLeaveQuota].[DivisionID] AS [DivisionID], 
+      [ViewLeaveQuota].[ShiftID] AS [ShiftID], 
+      [ViewLeaveQuota].[SectionID] AS [SectionID], 
+      [ViewLeaveQuota].[DeptID] AS [DeptID], 
+      [ViewLeaveQuota].[GradeID] AS [GradeID], 
+      [ViewLeaveQuota].[CrewID] AS [CrewID], 
+      [ViewLeaveQuota].[DesignationID] AS [DesignationID], 
+      [ViewLeaveQuota].[LocID] AS [LocID]
       FROM [dbo].[ViewLeaveQuota] AS [ViewLeaveQuota]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ViewLvConsumed" EntityType="TAS2013Model.Store.ViewLvConsumed" store:Type="Views" store:Schema="dbo" store:Name="ViewLvConsumed">
+      <DefiningQuery>SELECT 
+      [ViewLvConsumed].[LeaveType] AS [LeaveType], 
+      [ViewLvConsumed].[DesignationName] AS [DesignationName], 
+      [ViewLvConsumed].[GradeName] AS [GradeName], 
+      [ViewLvConsumed].[CompName] AS [CompName], 
+      [ViewLvConsumed].[JobTitle] AS [JobTitle], 
+      [ViewLvConsumed].[RegionName] AS [RegionName], 
+      [ViewLvConsumed].[CityName] AS [CityName], 
+      [ViewLvConsumed].[SiteName] AS [SiteName], 
+      [ViewLvConsumed].[LocName] AS [LocName], 
+      [ViewLvConsumed].[CrewName] AS [CrewName], 
+      [ViewLvConsumed].[TypeName] AS [TypeName], 
+      [ViewLvConsumed].[CatName] AS [CatName], 
+      [ViewLvConsumed].[ShiftName] AS [ShiftName], 
+      [ViewLvConsumed].[EmpNo] AS [EmpNo], 
+      [ViewLvConsumed].[EmpName] AS [EmpName], 
+      [ViewLvConsumed].[DesigID] AS [DesigID], 
+      [ViewLvConsumed].[JobID] AS [JobID], 
+      [ViewLvConsumed].[Gender] AS [Gender], 
+      [ViewLvConsumed].[CardNo] AS [CardNo], 
+      [ViewLvConsumed].[FpID] AS [FpID], 
+      [ViewLvConsumed].[PinCode] AS [PinCode], 
+      [ViewLvConsumed].[FatherName] AS [FatherName], 
+      [ViewLvConsumed].[NicNo] AS [NicNo], 
+      [ViewLvConsumed].[BloodGroup] AS [BloodGroup], 
+      [ViewLvConsumed].[BirthDate] AS [BirthDate], 
+      [ViewLvConsumed].[MarStatus] AS [MarStatus], 
+      [ViewLvConsumed].[JoinDate] AS [JoinDate], 
+      [ViewLvConsumed].[ValidDate] AS [ValidDate], 
+      [ViewLvConsumed].[IssueDate] AS [IssueDate], 
+      [ViewLvConsumed].[ResignDate] AS [ResignDate], 
+      [ViewLvConsumed].[HomeAdd] AS [HomeAdd], 
+      [ViewLvConsumed].[Status] AS [Status], 
+      [ViewLvConsumed].[PhoneNo] AS [PhoneNo], 
+      [ViewLvConsumed].[SectionName] AS [SectionName], 
+      [ViewLvConsumed].[DeptName] AS [DeptName], 
+      [ViewLvConsumed].[DivisionName] AS [DivisionName], 
+      [ViewLvConsumed].[CompanyID] AS [CompanyID], 
+      [ViewLvConsumed].[TypeID] AS [TypeID], 
+      [ViewLvConsumed].[CatID] AS [CatID], 
+      [ViewLvConsumed].[JanConsumed] AS [JanConsumed], 
+      [ViewLvConsumed].[FebConsumed] AS [FebConsumed], 
+      [ViewLvConsumed].[MarchConsumed] AS [MarchConsumed], 
+      [ViewLvConsumed].[AprConsumed] AS [AprConsumed], 
+      [ViewLvConsumed].[MayConsumed] AS [MayConsumed], 
+      [ViewLvConsumed].[JuneConsumed] AS [JuneConsumed], 
+      [ViewLvConsumed].[JulyConsumed] AS [JulyConsumed], 
+      [ViewLvConsumed].[AugustConsumed] AS [AugustConsumed], 
+      [ViewLvConsumed].[SepConsumed] AS [SepConsumed], 
+      [ViewLvConsumed].[OctConsumed] AS [OctConsumed], 
+      [ViewLvConsumed].[NovConsumed] AS [NovConsumed], 
+      [ViewLvConsumed].[DecConsumed] AS [DecConsumed], 
+      [ViewLvConsumed].[TotalForYear] AS [TotalForYear], 
+      [ViewLvConsumed].[YearRemaining] AS [YearRemaining], 
+      [ViewLvConsumed].[GrandTotal] AS [GrandTotal], 
+      [ViewLvConsumed].[GrandTotalRemaining] AS [GrandTotalRemaining], 
+      [ViewLvConsumed].[EmpLvType] AS [EmpLvType], 
+      [ViewLvConsumed].[LvDesc] AS [LvDesc], 
+      [ViewLvConsumed].[DivisionID] AS [DivisionID], 
+      [ViewLvConsumed].[ShiftID] AS [ShiftID], 
+      [ViewLvConsumed].[DeptID] AS [DeptID], 
+      [ViewLvConsumed].[SectionID] AS [SectionID], 
+      [ViewLvConsumed].[GradeID] AS [GradeID], 
+      [ViewLvConsumed].[CrewID] AS [CrewID], 
+      [ViewLvConsumed].[DesignationID] AS [DesignationID], 
+      [ViewLvConsumed].[LocID] AS [LocID]
+      FROM [dbo].[ViewLvConsumed] AS [ViewLvConsumed]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewMissingAtt" EntityType="TAS2013Model.Store.ViewMissingAtt" store:Type="Views" store:Schema="dbo" store:Name="ViewMissingAtt">
       <DefiningQuery>SELECT 
@@ -650,7 +796,15 @@
       [ViewMissingAtt].[TimeIn] AS [TimeIn], 
       [ViewMissingAtt].[CompanyID] AS [CompanyID], 
       [ViewMissingAtt].[TypeID] AS [TypeID], 
-      [ViewMissingAtt].[CatID] AS [CatID]
+      [ViewMissingAtt].[CatID] AS [CatID], 
+      [ViewMissingAtt].[LocID] AS [LocID], 
+      [ViewMissingAtt].[DesignationID] AS [DesignationID], 
+      [ViewMissingAtt].[CrewID] AS [CrewID], 
+      [ViewMissingAtt].[GradeID] AS [GradeID], 
+      [ViewMissingAtt].[DeptID] AS [DeptID], 
+      [ViewMissingAtt].[SectionID] AS [SectionID], 
+      [ViewMissingAtt].[ShiftID] AS [ShiftID], 
+      [ViewMissingAtt].[DivisionID] AS [DivisionID]
       FROM [dbo].[ViewMissingAtt] AS [ViewMissingAtt]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewMonthlyData" EntityType="TAS2013Model.Store.ViewMonthlyData" store:Type="Views" store:Schema="dbo" store:Name="ViewMonthlyData">
@@ -766,7 +920,47 @@
       [ViewMonthlyData].[CardNo] AS [CardNo], 
       [ViewMonthlyData].[CompanyID] AS [CompanyID], 
       [ViewMonthlyData].[TypeID] AS [TypeID], 
-      [ViewMonthlyData].[CatID] AS [CatID]
+      [ViewMonthlyData].[CatID] AS [CatID], 
+      [ViewMonthlyData].[L1] AS [L1], 
+      [ViewMonthlyData].[L2] AS [L2], 
+      [ViewMonthlyData].[L3] AS [L3], 
+      [ViewMonthlyData].[L4] AS [L4], 
+      [ViewMonthlyData].[L5] AS [L5], 
+      [ViewMonthlyData].[L6] AS [L6], 
+      [ViewMonthlyData].[L7] AS [L7], 
+      [ViewMonthlyData].[L8] AS [L8], 
+      [ViewMonthlyData].[L9] AS [L9], 
+      [ViewMonthlyData].[L11] AS [L11], 
+      [ViewMonthlyData].[L10] AS [L10], 
+      [ViewMonthlyData].[L12] AS [L12], 
+      [ViewMonthlyData].[L13] AS [L13], 
+      [ViewMonthlyData].[L14] AS [L14], 
+      [ViewMonthlyData].[L15] AS [L15], 
+      [ViewMonthlyData].[L16] AS [L16], 
+      [ViewMonthlyData].[L17] AS [L17], 
+      [ViewMonthlyData].[L19] AS [L19], 
+      [ViewMonthlyData].[L18] AS [L18], 
+      [ViewMonthlyData].[L20] AS [L20], 
+      [ViewMonthlyData].[L22] AS [L22], 
+      [ViewMonthlyData].[L21] AS [L21], 
+      [ViewMonthlyData].[L23] AS [L23], 
+      [ViewMonthlyData].[L24] AS [L24], 
+      [ViewMonthlyData].[L25] AS [L25], 
+      [ViewMonthlyData].[L26] AS [L26], 
+      [ViewMonthlyData].[L27] AS [L27], 
+      [ViewMonthlyData].[L28] AS [L28], 
+      [ViewMonthlyData].[L29] AS [L29], 
+      [ViewMonthlyData].[L30] AS [L30], 
+      [ViewMonthlyData].[L31] AS [L31], 
+      [ViewMonthlyData].[HalfLeavesDay] AS [HalfLeavesDay], 
+      [ViewMonthlyData].[LocID] AS [LocID], 
+      [ViewMonthlyData].[DesignationID] AS [DesignationID], 
+      [ViewMonthlyData].[CrewID] AS [CrewID], 
+      [ViewMonthlyData].[GradeID] AS [GradeID], 
+      [ViewMonthlyData].[SectionID] AS [SectionID], 
+      [ViewMonthlyData].[DeptID] AS [DeptID], 
+      [ViewMonthlyData].[ShiftID] AS [ShiftID], 
+      [ViewMonthlyData].[DivisionID] AS [DivisionID]
       FROM [dbo].[ViewMonthlyData] AS [ViewMonthlyData]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewMonthlyDataPer" EntityType="TAS2013Model.Store.ViewMonthlyDataPer" store:Type="Views" store:Schema="dbo" store:Name="ViewMonthlyDataPer">
@@ -870,7 +1064,18 @@
       [ViewMonthlyDataPer].[Status] AS [Status], 
       [ViewMonthlyDataPer].[EmpID] AS [EmpID], 
       [ViewMonthlyDataPer].[CardNo] AS [CardNo], 
-      [ViewMonthlyDataPer].[Period] AS [Period]
+      [ViewMonthlyDataPer].[Period] AS [Period], 
+      [ViewMonthlyDataPer].[DivisionID] AS [DivisionID], 
+      [ViewMonthlyDataPer].[ShiftID] AS [ShiftID], 
+      [ViewMonthlyDataPer].[DeptID] AS [DeptID], 
+      [ViewMonthlyDataPer].[SectionID] AS [SectionID], 
+      [ViewMonthlyDataPer].[GradeID] AS [GradeID], 
+      [ViewMonthlyDataPer].[CrewID] AS [CrewID], 
+      [ViewMonthlyDataPer].[DesignationID] AS [DesignationID], 
+      [ViewMonthlyDataPer].[LocID] AS [LocID], 
+      [ViewMonthlyDataPer].[CatID] AS [CatID], 
+      [ViewMonthlyDataPer].[TypeID] AS [TypeID], 
+      [ViewMonthlyDataPer].[CompanyID] AS [CompanyID]
       FROM [dbo].[ViewMonthlyDataPer] AS [ViewMonthlyDataPer]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewMultipleInOut" EntityType="TAS2013Model.Store.ViewMultipleInOut" store:Type="Views" store:Schema="dbo" store:Name="ViewMultipleInOut">
@@ -952,7 +1157,15 @@
       [ViewMultipleInOut].[TimeOut] AS [TimeOut], 
       [ViewMultipleInOut].[CompanyID] AS [CompanyID], 
       [ViewMultipleInOut].[TypeID] AS [TypeID], 
-      [ViewMultipleInOut].[CatID] AS [CatID]
+      [ViewMultipleInOut].[CatID] AS [CatID], 
+      [ViewMultipleInOut].[DivisionID] AS [DivisionID], 
+      [ViewMultipleInOut].[ShiftID] AS [ShiftID], 
+      [ViewMultipleInOut].[DeptID] AS [DeptID], 
+      [ViewMultipleInOut].[SectionID] AS [SectionID], 
+      [ViewMultipleInOut].[CrewID] AS [CrewID], 
+      [ViewMultipleInOut].[DesignationID] AS [DesignationID], 
+      [ViewMultipleInOut].[LocID] AS [LocID], 
+      [ViewMultipleInOut].[GradeID] AS [GradeID]
       FROM [dbo].[ViewMultipleInOut] AS [ViewMultipleInOut]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewOverTime" EntityType="TAS2013Model.Store.ViewOverTime" store:Type="Views" store:Schema="dbo" store:Name="ViewOverTime">
@@ -1009,7 +1222,15 @@
       [ViewOverTime].[Remarks] AS [Remarks], 
       [ViewOverTime].[CompanyID] AS [CompanyID], 
       [ViewOverTime].[TypeID] AS [TypeID], 
-      [ViewOverTime].[CatID] AS [CatID]
+      [ViewOverTime].[CatID] AS [CatID], 
+      [ViewOverTime].[DivisionID] AS [DivisionID], 
+      [ViewOverTime].[ShiftID] AS [ShiftID], 
+      [ViewOverTime].[DeptID] AS [DeptID], 
+      [ViewOverTime].[SectionID] AS [SectionID], 
+      [ViewOverTime].[CrewID] AS [CrewID], 
+      [ViewOverTime].[GradeID] AS [GradeID], 
+      [ViewOverTime].[LocID] AS [LocID], 
+      [ViewOverTime].[DesignationID] AS [DesignationID]
       FROM [dbo].[ViewOverTime] AS [ViewOverTime]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewPollData" EntityType="TAS2013Model.Store.ViewPollData" store:Type="Views" store:Schema="dbo" store:Name="ViewPollData">
@@ -1099,7 +1320,15 @@
       [ViewPresentEmp].[Remarks] AS [Remarks], 
       [ViewPresentEmp].[CatID] AS [CatID], 
       [ViewPresentEmp].[TypeID] AS [TypeID], 
-      [ViewPresentEmp].[CompanyID] AS [CompanyID]
+      [ViewPresentEmp].[CompanyID] AS [CompanyID], 
+      [ViewPresentEmp].[LocID] AS [LocID], 
+      [ViewPresentEmp].[DesignationID] AS [DesignationID], 
+      [ViewPresentEmp].[CrewID] AS [CrewID], 
+      [ViewPresentEmp].[GradeID] AS [GradeID], 
+      [ViewPresentEmp].[SectionID] AS [SectionID], 
+      [ViewPresentEmp].[DeptID] AS [DeptID], 
+      [ViewPresentEmp].[ShiftID] AS [ShiftID], 
+      [ViewPresentEmp].[DivisionID] AS [DivisionID]
       FROM [dbo].[ViewPresentEmp] AS [ViewPresentEmp]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewSLData" EntityType="TAS2013Model.Store.ViewSLData" store:Type="Views" store:Schema="dbo" store:Name="ViewSLData">
@@ -1137,7 +1366,15 @@
       [ViewSLData].[CreatedDate] AS [CreatedDate], 
       [ViewSLData].[CompanyID] AS [CompanyID], 
       [ViewSLData].[TypeID] AS [TypeID], 
-      [ViewSLData].[CatID] AS [CatID]
+      [ViewSLData].[CatID] AS [CatID], 
+      [ViewSLData].[DivisionID] AS [DivisionID], 
+      [ViewSLData].[ShiftID] AS [ShiftID], 
+      [ViewSLData].[DeptID] AS [DeptID], 
+      [ViewSLData].[SectionID] AS [SectionID], 
+      [ViewSLData].[GradeID] AS [GradeID], 
+      [ViewSLData].[CrewID] AS [CrewID], 
+      [ViewSLData].[DesignationID] AS [DesignationID], 
+      [ViewSLData].[LocID] AS [LocID]
       FROM [dbo].[ViewSLData] AS [ViewSLData]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ViewSummary" EntityType="TAS2013Model.Store.ViewSummary" store:Type="Views" store:Schema="dbo" store:Name="ViewSummary">
@@ -1199,7 +1436,15 @@
       [ViewSummary].[FpID] AS [FpID], 
       [ViewSummary].[CatID] AS [CatID], 
       [ViewSummary].[TypeID] AS [TypeID], 
-      [ViewSummary].[CompanyID] AS [CompanyID]
+      [ViewSummary].[CompanyID] AS [CompanyID], 
+      [ViewSummary].[DivisionID] AS [DivisionID], 
+      [ViewSummary].[ShiftID] AS [ShiftID], 
+      [ViewSummary].[DeptID] AS [DeptID], 
+      [ViewSummary].[SectionID] AS [SectionID], 
+      [ViewSummary].[GradeID] AS [GradeID], 
+      [ViewSummary].[CrewID] AS [CrewID], 
+      [ViewSummary].[DesignationID] AS [DesignationID], 
+      [ViewSummary].[LocID] AS [LocID]
       FROM [dbo].[ViewSummary] AS [ViewSummary]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK_AttData_Emp" Association="TAS2013Model.Store.FK_AttData_Emp">
@@ -1246,6 +1491,10 @@
       <End Role="Designation" EntitySet="Designation" />
       <End Role="Emp" EntitySet="Emp" />
     </AssociationSet>
+    <AssociationSet Name="FK_Emp_EmpPhoto" Association="TAS2013Model.Store.FK_Emp_EmpPhoto">
+      <End Role="EmpPhoto" EntitySet="EmpPhoto" />
+      <End Role="Emp" EntitySet="Emp" />
+    </AssociationSet>
     <AssociationSet Name="FK_Emp_Grade" Association="TAS2013Model.Store.FK_Emp_Grade">
       <End Role="Grade" EntitySet="Grade" />
       <End Role="Emp" EntitySet="Emp" />
@@ -1282,10 +1531,6 @@
       <End Role="Emp" EntitySet="Emp" />
       <End Role="EmpFp" EntitySet="EmpFp" />
     </AssociationSet>
-    <AssociationSet Name="FK_EmpPhoto_Emp1" Association="TAS2013Model.Store.FK_EmpPhoto_Emp1">
-      <End Role="Emp" EntitySet="Emp" />
-      <End Role="EmpPhoto" EntitySet="EmpPhoto" />
-    </AssociationSet>
     <AssociationSet Name="FK_EmpRdr_Reader" Association="TAS2013Model.Store.FK_EmpRdr_Reader">
       <End Role="Reader" EntitySet="Reader" />
       <End Role="EmpRdr" EntitySet="EmpRdr" />
@@ -1313,6 +1558,10 @@
     <AssociationSet Name="FK_LvApplications_LvType" Association="TAS2013Model.Store.FK_LvApplications_LvType">
       <End Role="LvType" EntitySet="LvType" />
       <End Role="LvApplication" EntitySet="LvApplication" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LvConsumed_Emp" Association="TAS2013Model.Store.FK_LvConsumed_Emp">
+      <End Role="Emp" EntitySet="Emp" />
+      <End Role="LvConsumed" EntitySet="LvConsumed" />
     </AssociationSet>
     <AssociationSet Name="FK_LvData_LvApplications" Association="TAS2013Model.Store.FK_LvData_LvApplications">
       <End Role="LvApplication" EntitySet="LvApplication" />
@@ -1354,8 +1603,16 @@
       <End Role="ReaderVendor" EntitySet="ReaderVendor" />
       <End Role="ReaderType" EntitySet="ReaderType" />
     </AssociationSet>
-    <AssociationSet Name="FK_RosterDetail_RosterType" Association="TAS2013Model.Store.FK_RosterDetail_RosterType">
+    <AssociationSet Name="FK_RosterApp_RosterType" Association="TAS2013Model.Store.FK_RosterApp_RosterType">
       <End Role="RosterType" EntitySet="RosterType" />
+      <End Role="RosterApp" EntitySet="RosterApp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RosterApp_Shift" Association="TAS2013Model.Store.FK_RosterApp_Shift">
+      <End Role="Shift" EntitySet="Shift" />
+      <End Role="RosterApp" EntitySet="RosterApp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RosterDetail_RosterApp" Association="TAS2013Model.Store.FK_RosterDetail_RosterApp">
+      <End Role="RosterApp" EntitySet="RosterApp" />
       <End Role="RosterDetail" EntitySet="RosterDetail" />
     </AssociationSet>
     <AssociationSet Name="FK_Section_Department" Association="TAS2013Model.Store.FK_Section_Department">
@@ -1380,15 +1637,15 @@
     </AssociationSet>
     <AssociationSet Name="FK_SummaryDepartment_Department" Association="TAS2013Model.Store.FK_SummaryDepartment_Department">
       <End Role="Department" EntitySet="Department" />
-      <End Role="SummaryDepartment" EntitySet="SummaryDepartment" />
+      <End Role="DailySumDept" EntitySet="DailySumDept" />
     </AssociationSet>
     <AssociationSet Name="FK_SummarySection_Section" Association="TAS2013Model.Store.FK_SummarySection_Section">
       <End Role="Section" EntitySet="Section" />
-      <End Role="SummarySection" EntitySet="SummarySection" />
+      <End Role="DailySumSection" EntitySet="DailySumSection" />
     </AssociationSet>
     <AssociationSet Name="FK_SummaryShift_Shift" Association="TAS2013Model.Store.FK_SummaryShift_Shift">
       <End Role="Shift" EntitySet="Shift" />
-      <End Role="SummaryShift" EntitySet="SummaryShift" />
+      <End Role="DailySumShift" EntitySet="DailySumShift" />
     </AssociationSet>
     <AssociationSet Name="FK_User_Company" Association="TAS2013Model.Store.FK_User_Company">
       <End Role="Company" EntitySet="Company" />
@@ -1459,6 +1716,7 @@
     <Property Name="StatusHD" Type="bit" />
     <Property Name="StatusSL" Type="bit" />
     <Property Name="StatusOD" Type="bit" />
+    <Property Name="StatusHL" Type="bit" />
     <Property Name="StatusLeave" Type="bit" />
     <Property Name="StatusMN" Type="bit" />
     <Property Name="StatusIN" Type="bit" />
@@ -1563,12 +1821,13 @@
     <Property Name="D30" Type="char" MaxLength="1" />
     <Property Name="D31" Type="char" MaxLength="1" />
     <Property Name="TotalDays" Type="tinyint" />
-    <Property Name="WorkDays" Type="tinyint" />
-    <Property Name="PreDays" Type="tinyint" />
-    <Property Name="AbDays" Type="tinyint" />
+    <Property Name="WorkDays" Type="float" />
+    <Property Name="PreDays" Type="float" />
+    <Property Name="AbDays" Type="float" />
     <Property Name="RestDays" Type="tinyint" />
     <Property Name="GZDays" Type="tinyint" />
     <Property Name="LeaveDays" Type="tinyint" />
+    <Property Name="HalfLeavesDay" Type="float" />
     <Property Name="OfficialDutyDays" Type="tinyint" />
     <Property Name="TEarlyIn" Type="smallint" />
     <Property Name="TEarlyOut" Type="smallint" />
@@ -1609,6 +1868,37 @@
     <Property Name="OT29" Type="smallint" />
     <Property Name="OT30" Type="smallint" />
     <Property Name="OT31" Type="smallint" />
+    <Property Name="L1" Type="nvarchar" MaxLength="5" />
+    <Property Name="L2" Type="nvarchar" MaxLength="5" />
+    <Property Name="L3" Type="nvarchar" MaxLength="5" />
+    <Property Name="L4" Type="nvarchar" MaxLength="5" />
+    <Property Name="L5" Type="nvarchar" MaxLength="5" />
+    <Property Name="L6" Type="nvarchar" MaxLength="5" />
+    <Property Name="L7" Type="nvarchar" MaxLength="5" />
+    <Property Name="L8" Type="nvarchar" MaxLength="5" />
+    <Property Name="L9" Type="nvarchar" MaxLength="5" />
+    <Property Name="L10" Type="nvarchar" MaxLength="5" />
+    <Property Name="L11" Type="nvarchar" MaxLength="5" />
+    <Property Name="L12" Type="nvarchar" MaxLength="5" />
+    <Property Name="L13" Type="nvarchar" MaxLength="5" />
+    <Property Name="L14" Type="nvarchar" MaxLength="5" />
+    <Property Name="L15" Type="nvarchar" MaxLength="5" />
+    <Property Name="L16" Type="nvarchar" MaxLength="5" />
+    <Property Name="L17" Type="nvarchar" MaxLength="5" />
+    <Property Name="L18" Type="nvarchar" MaxLength="5" />
+    <Property Name="L19" Type="nvarchar" MaxLength="5" />
+    <Property Name="L20" Type="nvarchar" MaxLength="5" />
+    <Property Name="L21" Type="nvarchar" MaxLength="5" />
+    <Property Name="L22" Type="nvarchar" MaxLength="5" />
+    <Property Name="L23" Type="nvarchar" MaxLength="5" />
+    <Property Name="L24" Type="nvarchar" MaxLength="5" />
+    <Property Name="L25" Type="nvarchar" MaxLength="5" />
+    <Property Name="L26" Type="nvarchar" MaxLength="5" />
+    <Property Name="L27" Type="nvarchar" MaxLength="5" />
+    <Property Name="L28" Type="nvarchar" MaxLength="5" />
+    <Property Name="L29" Type="nvarchar" MaxLength="5" />
+    <Property Name="L30" Type="nvarchar" MaxLength="5" />
+    <Property Name="L31" Type="nvarchar" MaxLength="5" />
   </EntityType>
   <EntityType Name="AttMnDataPer">
     <Key>
@@ -1788,6 +2078,69 @@
     <Property Name="CrewName" Type="nvarchar" MaxLength="50" />
     <Property Name="CompanyID" Type="smallint" />
   </EntityType>
+  <EntityType Name="DailySumDept">
+    <Key>
+      <PropertyRef Name="DeptDate" />
+    </Key>
+    <Property Name="DeptDate" Type="int" Nullable="false" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="SummaryDate" Type="datetime" />
+    <Property Name="TotalEmp" Type="smallint" />
+    <Property Name="PresentEmp" Type="smallint" />
+    <Property Name="AbsentEmp" Type="smallint" />
+    <Property Name="LateIn" Type="smallint" />
+    <Property Name="LateOut" Type="smallint" />
+    <Property Name="EarlyIn" Type="smallint" />
+    <Property Name="EarlyOut" Type="smallint" />
+    <Property Name="OverTime" Type="smallint" />
+    <Property Name="LeavesEmp" Type="smallint" />
+    <Property Name="ShortLeaveEmp" Type="smallint" />
+    <Property Name="HalfLeaveEmp" Type="smallint" />
+    <Property Name="CompanyID" Type="smallint" />
+    <Property Name="ALeaves" Type="smallint" />
+    <Property Name="CLeaves" Type="smallint" />
+    <Property Name="SLeaves" Type="smallint" />
+  </EntityType>
+  <EntityType Name="DailySumSection">
+    <Key>
+      <PropertyRef Name="SectionDate" />
+    </Key>
+    <Property Name="SectionDate" Type="int" Nullable="false" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="SummaryDate" Type="datetime" />
+    <Property Name="TotalEmp" Type="smallint" />
+    <Property Name="PresentEmp" Type="smallint" />
+    <Property Name="AbsentEmp" Type="smallint" />
+    <Property Name="LateIn" Type="smallint" />
+    <Property Name="LateOut" Type="smallint" />
+    <Property Name="EarlyIn" Type="smallint" />
+    <Property Name="EarlyOut" Type="smallint" />
+    <Property Name="OverTime" Type="smallint" />
+    <Property Name="LeavesEmp" Type="smallint" />
+    <Property Name="ShortLeaveEmp" Type="smallint" />
+    <Property Name="HalfLeaveEmp" Type="smallint" />
+    <Property Name="CompanyID" Type="smallint" />
+  </EntityType>
+  <EntityType Name="DailySumShift">
+    <Key>
+      <PropertyRef Name="ShiftDate" />
+    </Key>
+    <Property Name="ShiftDate" Type="int" Nullable="false" />
+    <Property Name="ShiftID" Type="tinyint" />
+    <Property Name="SummaryDate" Type="datetime" />
+    <Property Name="TotalEmp" Type="smallint" />
+    <Property Name="PresentEmp" Type="smallint" />
+    <Property Name="AbsentEmp" Type="smallint" />
+    <Property Name="LateIn" Type="smallint" />
+    <Property Name="LateOut" Type="smallint" />
+    <Property Name="EarlyIn" Type="smallint" />
+    <Property Name="EarlyOut" Type="smallint" />
+    <Property Name="OverTime" Type="smallint" />
+    <Property Name="LeavesEmp" Type="smallint" />
+    <Property Name="ShortLeaveEmp" Type="smallint" />
+    <Property Name="HalfLeaveEmp" Type="smallint" />
+    <Property Name="CompanyID" Type="smallint" />
+  </EntityType>
   <EntityType Name="DaysName">
     <Key>
       <PropertyRef Name="ID" />
@@ -1818,7 +2171,6 @@
     </Key>
     <Property Name="DivisionID" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="DivisionName" Type="nvarchar" MaxLength="50" />
-    <Property Name="CompID" Type="smallint" />
   </EntityType>
   <EntityType Name="DownloadTime">
     <Key>
@@ -2030,7 +2382,6 @@
     <Property Name="LocID" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="LocName" Type="varchar" Nullable="false" MaxLength="30" />
     <Property Name="SiteID" Type="smallint" />
-    <Property Name="CompanyID" Type="smallint" />
   </EntityType>
   <EntityType Name="LvApplication">
     <Key>
@@ -2052,6 +2403,31 @@
     <Property Name="LvStatus" Type="char" MaxLength="1" />
     <Property Name="CompanyID" Type="smallint" />
     <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="LvConsumed">
+    <Key>
+      <PropertyRef Name="EmpLvType" />
+    </Key>
+    <Property Name="EmpLvType" Type="nvarchar" Nullable="false" MaxLength="8" />
+    <Property Name="EmpID" Type="int" Nullable="false" />
+    <Property Name="LeaveType" Type="char" MaxLength="1" />
+    <Property Name="CompanyID" Type="smallint" />
+    <Property Name="JanConsumed" Type="float" />
+    <Property Name="FebConsumed" Type="float" />
+    <Property Name="MarchConsumed" Type="float" />
+    <Property Name="AprConsumed" Type="float" />
+    <Property Name="MayConsumed" Type="float" />
+    <Property Name="JuneConsumed" Type="float" />
+    <Property Name="JulyConsumed" Type="float" />
+    <Property Name="AugustConsumed" Type="float" />
+    <Property Name="SepConsumed" Type="float" />
+    <Property Name="OctConsumed" Type="float" />
+    <Property Name="NovConsumed" Type="float" />
+    <Property Name="DecConsumed" Type="float" />
+    <Property Name="TotalForYear" Type="float" />
+    <Property Name="YearRemaining" Type="float" />
+    <Property Name="GrandTotal" Type="float" />
+    <Property Name="GrandTotalRemaining" Type="float" />
   </EntityType>
   <EntityType Name="LvData">
     <Key>
@@ -2191,7 +2567,7 @@
     <Key>
       <PropertyRef Name="RdrID" />
     </Key>
-    <Property Name="RdrID" Type="smallint" Nullable="false" />
+    <Property Name="RdrID" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="RdrName" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="RdrDutyID" Type="tinyint" Nullable="false" />
     <Property Name="IpAdd" Type="nvarchar" Nullable="false" MaxLength="50" />
@@ -2242,17 +2618,41 @@
     <Property Name="WorkMin" Type="smallint" Nullable="false" />
     <Property Name="Remarks" Type="varchar" MaxLength="100" />
     <Property Name="CompanyID" Type="smallint" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="OpenShift" Type="bit" />
+    <Property Name="RosterSubAppID" Type="int" />
+  </EntityType>
+  <EntityType Name="RosterApp">
+    <Key>
+      <PropertyRef Name="RotaApplD" />
+    </Key>
+    <Property Name="RotaApplD" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="DateStarted" Type="date" />
+    <Property Name="DateEnded" Type="date" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="RosterCriteria" Type="char" MaxLength="1" />
+    <Property Name="CriteriaData" Type="int" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="RotaTypeID" Type="tinyint" />
+    <Property Name="WorkMin" Type="smallint" />
+    <Property Name="DutyTime" Type="time" />
+    <Property Name="ShiftID" Type="tinyint" />
   </EntityType>
   <EntityType Name="RosterDetail">
     <Key>
-      <PropertyRef Name="EmpID" />
+      <PropertyRef Name="CriteriaValueDate" />
     </Key>
-    <Property Name="EmpID" Type="int" Nullable="false" />
-    <Property Name="RType" Type="tinyint" Nullable="false" />
-    <Property Name="Repeat" Type="bit" />
-    <Property Name="FromDate" Type="date" Nullable="false" />
-    <Property Name="ToDate" Type="date" Nullable="false" />
-    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CriteriaValueDate" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="RosterAppID" Type="int" />
+    <Property Name="DutyCode" Type="char" MaxLength="1" />
+    <Property Name="DutyTime" Type="time" Nullable="false" />
+    <Property Name="WorkMin" Type="smallint" Nullable="false" />
+    <Property Name="Remarks" Type="varchar" MaxLength="100" />
+    <Property Name="CompanyID" Type="smallint" />
+    <Property Name="OpenShift" Type="bit" />
+    <Property Name="RosterDate" Type="date" />
+    <Property Name="UserID" Type="int" />
   </EntityType>
   <EntityType Name="RosterType">
     <Key>
@@ -2260,6 +2660,7 @@
     </Key>
     <Property Name="ID" Type="tinyint" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Repeat" Type="bit" />
   </EntityType>
   <EntityType Name="Section">
     <Key>
@@ -2318,66 +2719,6 @@
     <Property Name="SiteName" Type="nvarchar" MaxLength="50" />
     <Property Name="CityID" Type="smallint" />
   </EntityType>
-  <EntityType Name="SummaryDepartment">
-    <Key>
-      <PropertyRef Name="DeptDate" />
-    </Key>
-    <Property Name="DeptDate" Type="int" Nullable="false" />
-    <Property Name="DeptID" Type="smallint" />
-    <Property Name="SummaryDate" Type="datetime" />
-    <Property Name="TotalEmp" Type="smallint" />
-    <Property Name="PresentEmp" Type="smallint" />
-    <Property Name="AbsentEmp" Type="smallint" />
-    <Property Name="LateIn" Type="smallint" />
-    <Property Name="LateOut" Type="smallint" />
-    <Property Name="EarlyIn" Type="smallint" />
-    <Property Name="EarlyOut" Type="smallint" />
-    <Property Name="OverTime" Type="smallint" />
-    <Property Name="LeavesEmp" Type="smallint" />
-    <Property Name="ShortLeaveEmp" Type="smallint" />
-    <Property Name="HalfLeaveEmp" Type="smallint" />
-    <Property Name="CompanyID" Type="smallint" />
-  </EntityType>
-  <EntityType Name="SummarySection">
-    <Key>
-      <PropertyRef Name="SectionDate" />
-    </Key>
-    <Property Name="SectionDate" Type="int" Nullable="false" />
-    <Property Name="SectionID" Type="smallint" />
-    <Property Name="SummaryDate" Type="datetime" />
-    <Property Name="TotalEmp" Type="smallint" />
-    <Property Name="PresentEmp" Type="smallint" />
-    <Property Name="AbsentEmp" Type="smallint" />
-    <Property Name="LateIn" Type="smallint" />
-    <Property Name="LateOut" Type="smallint" />
-    <Property Name="EarlyIn" Type="smallint" />
-    <Property Name="EarlyOut" Type="smallint" />
-    <Property Name="OverTime" Type="smallint" />
-    <Property Name="LeavesEmp" Type="smallint" />
-    <Property Name="ShortLeaveEmp" Type="smallint" />
-    <Property Name="HalfLeaveEmp" Type="smallint" />
-    <Property Name="CompanyID" Type="smallint" />
-  </EntityType>
-  <EntityType Name="SummaryShift">
-    <Key>
-      <PropertyRef Name="ShiftDate" />
-    </Key>
-    <Property Name="ShiftDate" Type="int" Nullable="false" />
-    <Property Name="ShiftID" Type="tinyint" />
-    <Property Name="SummaryDate" Type="datetime" />
-    <Property Name="TotalEmp" Type="smallint" />
-    <Property Name="PresentEmp" Type="smallint" />
-    <Property Name="AbsentEmp" Type="smallint" />
-    <Property Name="LateIn" Type="smallint" />
-    <Property Name="LateOut" Type="smallint" />
-    <Property Name="EarlyIn" Type="smallint" />
-    <Property Name="EarlyOut" Type="smallint" />
-    <Property Name="OverTime" Type="smallint" />
-    <Property Name="LeavesEmp" Type="smallint" />
-    <Property Name="ShortLeaveEmp" Type="smallint" />
-    <Property Name="HalfLeaveEmp" Type="smallint" />
-    <Property Name="CompanyID" Type="smallint" />
-  </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -2393,13 +2734,12 @@
       <PropertyRef Name="UserID" />
     </Key>
     <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
-    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="300" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="300" />
     <Property Name="RoleID" Type="tinyint" />
     <Property Name="DateCreated" Type="datetime" />
     <Property Name="Name" Type="nvarchar" MaxLength="200" />
-    <Property Name="Status" Type="bit" Nullable="false" />
-    <Property Name="Department" Type="smallint" />
+    <Property Name="Status" Type="bit" />
     <Property Name="CanEdit" Type="bit" />
     <Property Name="CanDelete" Type="bit" />
     <Property Name="CanView" Type="bit" />
@@ -2427,13 +2767,7 @@
     <Property Name="ViewContractual" Type="bit" />
     <Property Name="ViewLocation" Type="bit" />
     <Property Name="LocationID" Type="smallint" />
-  </EntityType>
-  <EntityType Name="UserModule">
-    <Key>
-      <PropertyRef Name="UMID" />
-    </Key>
-    <Property Name="UMID" Type="tinyint" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="UMName" Type="nvarchar" MaxLength="50" />
+    <Property Name="MRoster" Type="bit" />
   </EntityType>
   <EntityType Name="UserRole">
     <Key>
@@ -2503,6 +2837,7 @@
     <Property Name="CompanyID" Type="smallint" />
     <Property Name="TypeID" Type="tinyint" Nullable="false" />
     <Property Name="CatID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewAbsent' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -2549,6 +2884,14 @@
     <Property Name="CompanyID" Type="smallint" />
     <Property Name="TypeID" Type="tinyint" />
     <Property Name="CatID" Type="smallint" />
+    <Property Name="LocID" Type="smallint" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" />
+    <Property Name="DivisionID" Type="smallint" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewAuditLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -2666,6 +3009,17 @@
     <Property Name="BreakMin" Type="smallint" />
     <Property Name="SLMin" Type="time" />
     <Property Name="DivisionName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CompanyID" Type="smallint" />
+    <Property Name="TypeID" Type="tinyint" />
+    <Property Name="CatID" Type="smallint" />
+    <Property Name="LocID" Type="smallint" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" />
+    <Property Name="DivisionID" Type="smallint" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewEarlyOut' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -2723,6 +3077,17 @@
     <Property Name="StatusSL" Type="bit" />
     <Property Name="Remarks" Type="varchar" MaxLength="100" />
     <Property Name="DivisionName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CompanyID" Type="smallint" />
+    <Property Name="TypeID" Type="tinyint" />
+    <Property Name="LocID" Type="smallint" />
+    <Property Name="CatID" Type="smallint" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" />
+    <Property Name="DivisionID" Type="smallint" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewEditAttendance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -2730,8 +3095,6 @@
   <EntityType Name="ViewEditAttendance">
     <Key>
       <PropertyRef Name="AttEditID" />
-      <PropertyRef Name="UserName" />
-      <PropertyRef Name="Status" />
     </Key>
     <Property Name="AttEditID" Type="int" Nullable="false" />
     <Property Name="EditDateTime" Type="datetime" />
@@ -2746,9 +3109,9 @@
     <Property Name="NewDutyCode" Type="nchar" MaxLength="1" />
     <Property Name="NewDutyTime" Type="time" />
     <Property Name="UserID" Type="int" />
-    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
     <Property Name="Name" Type="nvarchar" MaxLength="200" />
-    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="Status" Type="bit" />
     <Property Name="DesignationName" Type="nvarchar" MaxLength="100" />
     <Property Name="GradeName" Type="nvarchar" MaxLength="20" />
     <Property Name="JobTitle" Type="nvarchar" MaxLength="50" />
@@ -2780,6 +3143,14 @@
     <Property Name="CompanyID" Type="smallint" />
     <Property Name="TypeID" Type="tinyint" />
     <Property Name="CatID" Type="smallint" />
+    <Property Name="LocID" Type="smallint" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" />
+    <Property Name="DivisionID" Type="smallint" />
+    <Property Name="DeptID" Type="smallint" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewEmpPic' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -2851,6 +3222,14 @@
     <Property Name="CompanyID" Type="smallint" />
     <Property Name="TypeID" Type="tinyint" />
     <Property Name="CatID" Type="smallint" />
+    <Property Name="DivisionID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="LocID" Type="smallint" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewLateOut' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -2910,6 +3289,14 @@
     <Property Name="CompanyID" Type="smallint" />
     <Property Name="TypeID" Type="tinyint" />
     <Property Name="CatID" Type="smallint" />
+    <Property Name="DivisionID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="LocID" Type="smallint" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewLeave' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -2952,6 +3339,14 @@
     <Property Name="CompanyID" Type="smallint" />
     <Property Name="TypeID" Type="tinyint" />
     <Property Name="CatID" Type="smallint" />
+    <Property Name="DivisionID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="LocID" Type="smallint" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewLeaveData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -2972,6 +3367,9 @@
       <PropertyRef Name="LvDesc" />
       <PropertyRef Name="FldName" />
       <PropertyRef Name="TypeID" />
+      <PropertyRef Name="LocID" />
+      <PropertyRef Name="GradeID" />
+      <PropertyRef Name="ShiftID" />
     </Key>
     <Property Name="EmpID" Type="int" Nullable="false" />
     <Property Name="DesignationName" Type="nvarchar" MaxLength="100" />
@@ -3007,6 +3405,14 @@
     <Property Name="CompanyID" Type="smallint" />
     <Property Name="TypeID" Type="tinyint" Nullable="false" />
     <Property Name="CatID" Type="smallint" />
+    <Property Name="LocID" Type="smallint" Nullable="false" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" Nullable="false" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" Nullable="false" />
+    <Property Name="DivisionID" Type="smallint" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewLeaveQuota' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -3014,24 +3420,84 @@
   <EntityType Name="ViewLeaveQuota">
     <Key>
       <PropertyRef Name="EmpID" />
-      <PropertyRef Name="LocName" />
-      <PropertyRef Name="TypeName" />
-      <PropertyRef Name="ShiftName" />
-      <PropertyRef Name="EmpNo" />
-      <PropertyRef Name="EmpName" />
-      <PropertyRef Name="Expr1" />
-      <PropertyRef Name="B" />
-      <PropertyRef Name="C" />
-      <PropertyRef Name="A" />
-      <PropertyRef Name="TypeID" />
+      <PropertyRef Name="EmpLvType" />
     </Key>
     <Property Name="EmpID" Type="int" Nullable="false" />
+    <Property Name="EmpLvType" Type="nvarchar" Nullable="false" MaxLength="8" />
+    <Property Name="LeaveType" Type="char" MaxLength="1" />
+    <Property Name="CompanyID" Type="smallint" />
+    <Property Name="JanConsumed" Type="float" />
+    <Property Name="FebConsumed" Type="float" />
+    <Property Name="MarchConsumed" Type="float" />
+    <Property Name="AprConsumed" Type="float" />
+    <Property Name="MayConsumed" Type="float" />
+    <Property Name="JuneConsumed" Type="float" />
+    <Property Name="JulyConsumed" Type="float" />
+    <Property Name="AugustConsumed" Type="float" />
+    <Property Name="OctConsumed" Type="float" />
+    <Property Name="SepConsumed" Type="float" />
+    <Property Name="NovConsumed" Type="float" />
+    <Property Name="DecConsumed" Type="float" />
+    <Property Name="TotalForYear" Type="float" />
+    <Property Name="YearRemaining" Type="float" />
+    <Property Name="GrandTotal" Type="float" />
+    <Property Name="GrandTotalRemaining" Type="float" />
     <Property Name="DesignationName" Type="nvarchar" MaxLength="100" />
     <Property Name="GradeName" Type="nvarchar" MaxLength="20" />
     <Property Name="CompName" Type="nvarchar" MaxLength="50" />
     <Property Name="JobTitle" Type="nvarchar" MaxLength="50" />
     <Property Name="CityName" Type="nvarchar" MaxLength="50" />
     <Property Name="RegionName" Type="nvarchar" MaxLength="50" />
+    <Property Name="SiteName" Type="nvarchar" MaxLength="50" />
+    <Property Name="LocName" Type="varchar" MaxLength="30" />
+    <Property Name="CrewName" Type="nvarchar" MaxLength="50" />
+    <Property Name="TypeName" Type="varchar" MaxLength="30" />
+    <Property Name="CatName" Type="nvarchar" MaxLength="50" />
+    <Property Name="ShiftName" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmpNo" Type="varchar" MaxLength="15" />
+    <Property Name="EmpName" Type="varchar" MaxLength="40" />
+    <Property Name="JoinDate" Type="date" />
+    <Property Name="ValidDate" Type="date" />
+    <Property Name="IssueDate" Type="date" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="300" />
+    <Property Name="SectionName" Type="nvarchar" MaxLength="50" />
+    <Property Name="DeptName" Type="nvarchar" MaxLength="100" />
+    <Property Name="DivisionName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Expr1" Type="smallint" />
+    <Property Name="TypeID" Type="tinyint" />
+    <Property Name="CatID" Type="smallint" />
+    <Property Name="DivisionID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="LocID" Type="smallint" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'TAS2013.dbo.ViewLvConsumed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="ViewLvConsumed">
+    <Key>
+      <PropertyRef Name="LocName" />
+      <PropertyRef Name="TypeName" />
+      <PropertyRef Name="ShiftName" />
+      <PropertyRef Name="EmpNo" />
+      <PropertyRef Name="EmpName" />
+      <PropertyRef Name="TypeID" />
+      <PropertyRef Name="ShiftID" />
+      <PropertyRef Name="GradeID" />
+      <PropertyRef Name="LocID" />
+    </Key>
+    <Property Name="LeaveType" Type="char" MaxLength="1" />
+    <Property Name="DesignationName" Type="nvarchar" MaxLength="100" />
+    <Property Name="GradeName" Type="nvarchar" MaxLength="20" />
+    <Property Name="CompName" Type="nvarchar" MaxLength="50" />
+    <Property Name="JobTitle" Type="nvarchar" MaxLength="50" />
+    <Property Name="RegionName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CityName" Type="nvarchar" MaxLength="50" />
     <Property Name="SiteName" Type="nvarchar" MaxLength="50" />
     <Property Name="LocName" Type="varchar" Nullable="false" MaxLength="30" />
     <Property Name="CrewName" Type="nvarchar" MaxLength="50" />
@@ -3040,39 +3506,56 @@
     <Property Name="ShiftName" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="EmpNo" Type="varchar" Nullable="false" MaxLength="15" />
     <Property Name="EmpName" Type="varchar" Nullable="false" MaxLength="40" />
+    <Property Name="DesigID" Type="int" />
+    <Property Name="JobID" Type="smallint" />
     <Property Name="Gender" Type="tinyint" />
+    <Property Name="CardNo" Type="char" MaxLength="10" />
+    <Property Name="FpID" Type="int" />
+    <Property Name="PinCode" Type="char" MaxLength="4" />
+    <Property Name="FatherName" Type="nvarchar" MaxLength="50" />
+    <Property Name="NicNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="BloodGroup" Type="nvarchar" MaxLength="6" />
+    <Property Name="BirthDate" Type="date" />
+    <Property Name="MarStatus" Type="nvarchar" MaxLength="15" />
+    <Property Name="JoinDate" Type="date" />
+    <Property Name="ValidDate" Type="date" />
+    <Property Name="IssueDate" Type="date" />
+    <Property Name="ResignDate" Type="date" />
+    <Property Name="HomeAdd" Type="varchar" MaxLength="250" />
     <Property Name="Status" Type="bit" />
+    <Property Name="PhoneNo" Type="nvarchar" MaxLength="15" />
     <Property Name="SectionName" Type="nvarchar" MaxLength="50" />
     <Property Name="DeptName" Type="nvarchar" MaxLength="100" />
     <Property Name="DivisionName" Type="nvarchar" MaxLength="50" />
-    <Property Name="Expr1" Type="int" Nullable="false" />
-    <Property Name="B" Type="float" Nullable="false" />
-    <Property Name="C" Type="float" Nullable="false" />
-    <Property Name="D" Type="float" />
-    <Property Name="E" Type="float" />
-    <Property Name="F" Type="float" />
-    <Property Name="G" Type="float" />
-    <Property Name="H" Type="float" />
-    <Property Name="I" Type="float" />
-    <Property Name="J" Type="float" />
-    <Property Name="K" Type="float" />
-    <Property Name="L" Type="float" />
-    <Property Name="A" Type="float" Nullable="false" />
-    <Property Name="TA" Type="float" />
-    <Property Name="TB" Type="float" />
-    <Property Name="TC" Type="float" />
-    <Property Name="TD" Type="float" />
-    <Property Name="TE" Type="float" />
-    <Property Name="TF" Type="float" />
-    <Property Name="TG" Type="float" />
-    <Property Name="TH" Type="float" />
-    <Property Name="TI" Type="float" />
-    <Property Name="TJ" Type="float" />
-    <Property Name="TK" Type="float" />
-    <Property Name="TL" Type="float" />
     <Property Name="CompanyID" Type="smallint" />
     <Property Name="TypeID" Type="tinyint" Nullable="false" />
     <Property Name="CatID" Type="smallint" />
+    <Property Name="JanConsumed" Type="float" />
+    <Property Name="FebConsumed" Type="float" />
+    <Property Name="MarchConsumed" Type="float" />
+    <Property Name="AprConsumed" Type="float" />
+    <Property Name="MayConsumed" Type="float" />
+    <Property Name="JuneConsumed" Type="float" />
+    <Property Name="JulyConsumed" Type="float" />
+    <Property Name="AugustConsumed" Type="float" />
+    <Property Name="SepConsumed" Type="float" />
+    <Property Name="OctConsumed" Type="float" />
+    <Property Name="NovConsumed" Type="float" />
+    <Property Name="DecConsumed" Type="float" />
+    <Property Name="TotalForYear" Type="float" />
+    <Property Name="YearRemaining" Type="float" />
+    <Property Name="GrandTotal" Type="float" />
+    <Property Name="GrandTotalRemaining" Type="float" />
+    <Property Name="EmpLvType" Type="nvarchar" MaxLength="8" />
+    <Property Name="LvDesc" Type="nvarchar" MaxLength="30" />
+    <Property Name="DivisionID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" Nullable="false" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" Nullable="false" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="LocID" Type="smallint" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewMissingAtt' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -3087,6 +3570,9 @@
       <PropertyRef Name="LocName" />
       <PropertyRef Name="ShiftName" />
       <PropertyRef Name="TypeID" />
+      <PropertyRef Name="LocID" />
+      <PropertyRef Name="GradeID" />
+      <PropertyRef Name="ShiftID" />
     </Key>
     <Property Name="EmpDate" Type="nvarchar" Nullable="false" MaxLength="15" />
     <Property Name="EmpID" Type="int" Nullable="false" />
@@ -3122,6 +3608,14 @@
     <Property Name="CompanyID" Type="smallint" />
     <Property Name="TypeID" Type="tinyint" Nullable="false" />
     <Property Name="CatID" Type="smallint" />
+    <Property Name="LocID" Type="smallint" Nullable="false" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" Nullable="false" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" Nullable="false" />
+    <Property Name="DivisionID" Type="smallint" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewMonthlyData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -3134,6 +3628,9 @@
       <PropertyRef Name="TypeName" />
       <PropertyRef Name="ShiftName" />
       <PropertyRef Name="TypeID" />
+      <PropertyRef Name="LocID" />
+      <PropertyRef Name="GradeID" />
+      <PropertyRef Name="ShiftID" />
     </Key>
     <Property Name="EmpID" Type="int" Nullable="false" />
     <Property Name="Period" Type="nvarchar" MaxLength="6" />
@@ -3172,9 +3669,9 @@
     <Property Name="D29" Type="char" MaxLength="1" />
     <Property Name="D31" Type="char" MaxLength="1" />
     <Property Name="TotalDays" Type="tinyint" />
-    <Property Name="WorkDays" Type="tinyint" />
-    <Property Name="PreDays" Type="tinyint" />
-    <Property Name="AbDays" Type="tinyint" />
+    <Property Name="WorkDays" Type="float" />
+    <Property Name="PreDays" Type="float" />
+    <Property Name="AbDays" Type="float" />
     <Property Name="RestDays" Type="tinyint" />
     <Property Name="GZDays" Type="tinyint" />
     <Property Name="LeaveDays" Type="tinyint" />
@@ -3247,6 +3744,46 @@
     <Property Name="CompanyID" Type="smallint" />
     <Property Name="TypeID" Type="tinyint" Nullable="false" />
     <Property Name="CatID" Type="smallint" />
+    <Property Name="L1" Type="nvarchar" MaxLength="5" />
+    <Property Name="L2" Type="nvarchar" MaxLength="5" />
+    <Property Name="L3" Type="nvarchar" MaxLength="5" />
+    <Property Name="L4" Type="nvarchar" MaxLength="5" />
+    <Property Name="L5" Type="nvarchar" MaxLength="5" />
+    <Property Name="L6" Type="nvarchar" MaxLength="5" />
+    <Property Name="L7" Type="nvarchar" MaxLength="5" />
+    <Property Name="L8" Type="nvarchar" MaxLength="5" />
+    <Property Name="L9" Type="nvarchar" MaxLength="5" />
+    <Property Name="L11" Type="nvarchar" MaxLength="5" />
+    <Property Name="L10" Type="nvarchar" MaxLength="5" />
+    <Property Name="L12" Type="nvarchar" MaxLength="5" />
+    <Property Name="L13" Type="nvarchar" MaxLength="5" />
+    <Property Name="L14" Type="nvarchar" MaxLength="5" />
+    <Property Name="L15" Type="nvarchar" MaxLength="5" />
+    <Property Name="L16" Type="nvarchar" MaxLength="5" />
+    <Property Name="L17" Type="nvarchar" MaxLength="5" />
+    <Property Name="L19" Type="nvarchar" MaxLength="5" />
+    <Property Name="L18" Type="nvarchar" MaxLength="5" />
+    <Property Name="L20" Type="nvarchar" MaxLength="5" />
+    <Property Name="L22" Type="nvarchar" MaxLength="5" />
+    <Property Name="L21" Type="nvarchar" MaxLength="5" />
+    <Property Name="L23" Type="nvarchar" MaxLength="5" />
+    <Property Name="L24" Type="nvarchar" MaxLength="5" />
+    <Property Name="L25" Type="nvarchar" MaxLength="5" />
+    <Property Name="L26" Type="nvarchar" MaxLength="5" />
+    <Property Name="L27" Type="nvarchar" MaxLength="5" />
+    <Property Name="L28" Type="nvarchar" MaxLength="5" />
+    <Property Name="L29" Type="nvarchar" MaxLength="5" />
+    <Property Name="L30" Type="nvarchar" MaxLength="5" />
+    <Property Name="L31" Type="nvarchar" MaxLength="5" />
+    <Property Name="HalfLeavesDay" Type="float" />
+    <Property Name="LocID" Type="smallint" Nullable="false" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" Nullable="false" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" Nullable="false" />
+    <Property Name="DivisionID" Type="smallint" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewMonthlyDataPer' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -3355,6 +3892,17 @@
     <Property Name="EmpID" Type="int" />
     <Property Name="CardNo" Type="char" MaxLength="10" />
     <Property Name="Period" Type="nvarchar" MaxLength="6" />
+    <Property Name="DivisionID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="LocID" Type="smallint" />
+    <Property Name="CatID" Type="smallint" />
+    <Property Name="TypeID" Type="tinyint" />
+    <Property Name="CompanyID" Type="smallint" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewMultipleInOut' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -3441,6 +3989,14 @@
     <Property Name="CompanyID" Type="smallint" />
     <Property Name="TypeID" Type="tinyint" />
     <Property Name="CatID" Type="smallint" />
+    <Property Name="DivisionID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="LocID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewOverTime' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -3502,6 +4058,14 @@
     <Property Name="CompanyID" Type="smallint" />
     <Property Name="TypeID" Type="tinyint" />
     <Property Name="CatID" Type="smallint" />
+    <Property Name="DivisionID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" />
+    <Property Name="LocID" Type="smallint" />
+    <Property Name="DesignationID" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewPollData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -3603,6 +4167,14 @@
     <Property Name="CatID" Type="smallint" />
     <Property Name="TypeID" Type="tinyint" />
     <Property Name="CompanyID" Type="smallint" />
+    <Property Name="LocID" Type="smallint" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" />
+    <Property Name="DivisionID" Type="smallint" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewSLData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -3617,6 +4189,9 @@
       <PropertyRef Name="SlID" />
       <PropertyRef Name="EmpID" />
       <PropertyRef Name="TypeID" />
+      <PropertyRef Name="ShiftID" />
+      <PropertyRef Name="GradeID" />
+      <PropertyRef Name="LocID" />
     </Key>
     <Property Name="DesignationName" Type="nvarchar" MaxLength="100" />
     <Property Name="GradeName" Type="nvarchar" MaxLength="20" />
@@ -3652,6 +4227,14 @@
     <Property Name="CompanyID" Type="smallint" />
     <Property Name="TypeID" Type="tinyint" Nullable="false" />
     <Property Name="CatID" Type="smallint" />
+    <Property Name="DivisionID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" Nullable="false" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" Nullable="false" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="LocID" Type="smallint" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
       warning 6002: The table/view 'TAS2013.dbo.ViewSummary' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
@@ -3666,6 +4249,9 @@
       <PropertyRef Name="EmpName" />
       <PropertyRef Name="EmpDate" />
       <PropertyRef Name="TypeID" />
+      <PropertyRef Name="ShiftID" />
+      <PropertyRef Name="GradeID" />
+      <PropertyRef Name="LocID" />
     </Key>
     <Property Name="DesignationName" Type="nvarchar" MaxLength="100" />
     <Property Name="EmpID" Type="int" Nullable="false" />
@@ -3725,6 +4311,14 @@
     <Property Name="CatID" Type="smallint" />
     <Property Name="TypeID" Type="tinyint" Nullable="false" />
     <Property Name="CompanyID" Type="smallint" />
+    <Property Name="DivisionID" Type="smallint" />
+    <Property Name="ShiftID" Type="tinyint" Nullable="false" />
+    <Property Name="DeptID" Type="smallint" />
+    <Property Name="SectionID" Type="smallint" />
+    <Property Name="GradeID" Type="tinyint" Nullable="false" />
+    <Property Name="CrewID" Type="smallint" />
+    <Property Name="DesignationID" Type="int" />
+    <Property Name="LocID" Type="smallint" Nullable="false" />
   </EntityType>
   <Association Name="FK_AttData_Emp">
     <End Role="Emp" Type="TAS2013Model.Store.Emp" Multiplicity="0..1" />
@@ -3858,6 +4452,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Emp_EmpPhoto">
+    <End Role="EmpPhoto" Type="TAS2013Model.Store.EmpPhoto" Multiplicity="0..1" />
+    <End Role="Emp" Type="TAS2013Model.Store.Emp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmpPhoto">
+        <PropertyRef Name="PhotoID" />
+      </Principal>
+      <Dependent Role="Emp">
+        <PropertyRef Name="EmpImageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Emp_Grade">
     <End Role="Grade" Type="TAS2013Model.Store.Grade" Multiplicity="0..1" />
     <End Role="Emp" Type="TAS2013Model.Store.Emp" Multiplicity="*" />
@@ -3966,18 +4572,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_EmpPhoto_Emp1">
-    <End Role="Emp" Type="TAS2013Model.Store.Emp" Multiplicity="0..1" />
-    <End Role="EmpPhoto" Type="TAS2013Model.Store.EmpPhoto" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Emp">
-        <PropertyRef Name="EmpID" />
-      </Principal>
-      <Dependent Role="EmpPhoto">
-        <PropertyRef Name="EmpID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_EmpRdr_Reader">
     <End Role="Reader" Type="TAS2013Model.Store.Reader" Multiplicity="1" />
     <End Role="EmpRdr" Type="TAS2013Model.Store.EmpRdr" Multiplicity="*" />
@@ -4059,6 +4653,18 @@
       </Principal>
       <Dependent Role="LvApplication">
         <PropertyRef Name="LvType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LvConsumed_Emp">
+    <End Role="Emp" Type="TAS2013Model.Store.Emp" Multiplicity="1" />
+    <End Role="LvConsumed" Type="TAS2013Model.Store.LvConsumed" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Emp">
+        <PropertyRef Name="EmpID" />
+      </Principal>
+      <Dependent Role="LvConsumed">
+        <PropertyRef Name="EmpID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -4182,15 +4788,39 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_RosterDetail_RosterType">
-    <End Role="RosterType" Type="TAS2013Model.Store.RosterType" Multiplicity="1" />
-    <End Role="RosterDetail" Type="TAS2013Model.Store.RosterDetail" Multiplicity="*" />
+  <Association Name="FK_RosterApp_RosterType">
+    <End Role="RosterType" Type="TAS2013Model.Store.RosterType" Multiplicity="0..1" />
+    <End Role="RosterApp" Type="TAS2013Model.Store.RosterApp" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="RosterType">
         <PropertyRef Name="ID" />
       </Principal>
+      <Dependent Role="RosterApp">
+        <PropertyRef Name="RotaTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RosterApp_Shift">
+    <End Role="Shift" Type="TAS2013Model.Store.Shift" Multiplicity="0..1" />
+    <End Role="RosterApp" Type="TAS2013Model.Store.RosterApp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shift">
+        <PropertyRef Name="ShiftID" />
+      </Principal>
+      <Dependent Role="RosterApp">
+        <PropertyRef Name="ShiftID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RosterDetail_RosterApp">
+    <End Role="RosterApp" Type="TAS2013Model.Store.RosterApp" Multiplicity="0..1" />
+    <End Role="RosterDetail" Type="TAS2013Model.Store.RosterDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RosterApp">
+        <PropertyRef Name="RotaApplD" />
+      </Principal>
       <Dependent Role="RosterDetail">
-        <PropertyRef Name="RType" />
+        <PropertyRef Name="RosterAppID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -4256,36 +4886,36 @@
   </Association>
   <Association Name="FK_SummaryDepartment_Department">
     <End Role="Department" Type="TAS2013Model.Store.Department" Multiplicity="0..1" />
-    <End Role="SummaryDepartment" Type="TAS2013Model.Store.SummaryDepartment" Multiplicity="*" />
+    <End Role="DailySumDept" Type="TAS2013Model.Store.DailySumDept" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Department">
         <PropertyRef Name="DeptID" />
       </Principal>
-      <Dependent Role="SummaryDepartment">
+      <Dependent Role="DailySumDept">
         <PropertyRef Name="DeptID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_SummarySection_Section">
     <End Role="Section" Type="TAS2013Model.Store.Section" Multiplicity="0..1" />
-    <End Role="SummarySection" Type="TAS2013Model.Store.SummarySection" Multiplicity="*" />
+    <End Role="DailySumSection" Type="TAS2013Model.Store.DailySumSection" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Section">
         <PropertyRef Name="SectionID" />
       </Principal>
-      <Dependent Role="SummarySection">
+      <Dependent Role="DailySumSection">
         <PropertyRef Name="SectionID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_SummaryShift_Shift">
     <End Role="Shift" Type="TAS2013Model.Store.Shift" Multiplicity="0..1" />
-    <End Role="SummaryShift" Type="TAS2013Model.Store.SummaryShift" Multiplicity="*" />
+    <End Role="DailySumShift" Type="TAS2013Model.Store.DailySumShift" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Shift">
         <PropertyRef Name="ShiftID" />
       </Principal>
-      <Dependent Role="SummaryShift">
+      <Dependent Role="DailySumShift">
         <PropertyRef Name="ShiftID" />
       </Dependent>
     </ReferentialConstraint>

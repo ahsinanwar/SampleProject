@@ -18,32 +18,34 @@
       
         <section class="col-md-4">
              <div class="form-group">
-               <div class="control-label col-md-4">User Name</div>
+               <div class="control-label col-md-4">AD Username</div>
                 <div class="col-md-4">
                     @Html.TextBoxFor(model => model.UserName,new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.UserName)
+@*@Html.ActionLink("View AD Users", "ListOfADUser",null,new { @class = "" })*@
+                    <a target="_blank" href="~/User/ListOfADUser">List of AD Users</a>
                 </div>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                <div class="control-label col-md-4">Password</div>
                 <div class="col-md-4">
                     @Html.TextBoxFor(model => model.Password,new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Password)
                 </div>
-             </div>
+             </div>*@
              <div class="form-group">
                <div class="control-label col-md-4">Emp No</div>
                 <div class=" col-md-4 ">
                   @Html.TextBox("EmpNo" , null ,new { @class = "form-control" })
                 </div>
             </div>
-             <div class="form-group">
+             @*<div class="form-group">
                 <div class="control-label col-md-4">Name</div>
                 <div class="col-md-4">
                     @Html.TextBoxFor(model => model.Name,new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Name)
                 </div>
-            </div>
+            </div>*@
 
             <div class="form-group">
                <div class="control-label col-md-4">Status</div>
@@ -217,6 +219,15 @@
                     <div class="control-label col-md-4">Leave</div>
                     <div class="col-md-6">
                         @Html.DropDownList("MLeave", new List<SelectListItem>
+                        { new SelectListItem { Text = "No", Value = "0", Selected=true},
+                            new SelectListItem { Text = "Yes", Value = "1"}
+                            },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidthSmall"}) 
+                    </div>
+                 </div>
+                <div class="form-group">
+                    <div class="control-label col-md-4">Roster</div>
+                    <div class="col-md-6">
+                        @Html.DropDownList("MRoster", new List<SelectListItem>
                         { new SelectListItem { Text = "No", Value = "0", Selected=true},
                             new SelectListItem { Text = "Yes", Value = "1"}
                             },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidthSmall"}) 

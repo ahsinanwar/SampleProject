@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.Reporting.WebForms;
+using WMS.CustomClass;
 using WMS.Models;
 
 namespace WMS.Reports
@@ -50,6 +51,7 @@ namespace WMS.Reports
                 }
                 else
                     PathString = "/WMS/Reports/RDLC/MRDetailExcelP.rdlc";
+
                 LoadReport(PathString, context.ViewMonthlyDataPers.Where(aa => aa.Period == _period).ToList());
             }
         }
@@ -99,7 +101,7 @@ namespace WMS.Reports
         private void LoadLocationGrid(User _loggedUser)
         {
             List<Location> _objectList = new List<Location>();
-            _objectList = context.Locations.Where(aa => aa.CompanyID == _loggedUser.CompanyID).ToList();
+            _objectList = context.Locations.ToList();
             //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
             //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
             //grid_EmpType.DataBind();
@@ -120,29 +122,11 @@ namespace WMS.Reports
 
         private void LoadEmpGrid(User _loggedUser)
         {
-            string connectionString = WebConfigurationManager.ConnectionStrings["TAS2013ConnectionString"].ConnectionString;
-            string selectSQL = "";
-            string _Query = "";
-            List<EmpView> _EmpView = new List<EmpView>();
-            if (_loggedUser.ViewContractual == true && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == false)
-            {
-                _EmpView = context.EmpViews.Where(aa => aa.CatID == 3).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == true && _loggedUser.ViewPermanentStaff == false)
-            {
-                _EmpView = context.EmpViews.Where(aa => aa.CatID == 2).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == true)
-            {
-                _EmpView = context.EmpViews.Where(aa => aa.CatID == 2).ToList();
-            }
-            else
-            {
-                _EmpView = context.EmpViews.ToList();
-            }
-            //_Query = "SELECT EmpID, EmpNo,EmpName,DesignationName,CardNo,CrewName,TypeName,CatName,ShiftName, SectionName FROM TAS2013.dbo.EmpView where CompanyID = " + _loggedUser.CompanyID + selectSQL;
-            //grid_Employee.DataSource = GetValuesFromDatabase(_Query, "EmpView");
-            grid_Employee.DataSource = context.EmpViews.ToList();
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.MakeCustomizeQuery(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query);
+            List<EmpView> _View = dt.ToList<EmpView>();
+            grid_Employee.DataSource = _View;
             grid_Employee.DataBind();
 
 

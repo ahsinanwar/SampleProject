@@ -67,6 +67,7 @@ namespace WMS.Models
         public DbSet<JobTitle> JobTitles { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<LvApplication> LvApplications { get; set; }
+        public DbSet<LvConsumed> LvConsumeds { get; set; }
         public DbSet<LvData> LvDatas { get; set; }
         public DbSet<LvQuota> LvQuotas { get; set; }
         public DbSet<LvShort> LvShorts { get; set; }
@@ -82,15 +83,14 @@ namespace WMS.Models
         public DbSet<Region> Regions { get; set; }
         public DbSet<Roster> Rosters { get; set; }
         public DbSet<RosterApp> RosterApps { get; set; }
+        public DbSet<RosterDetail> RosterDetails { get; set; }
         public DbSet<RosterType> RosterTypes { get; set; }
-        public DbSet<RotaSubApp> RotaSubApps { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<ServiceLog> ServiceLogs { get; set; }
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<Site> Sites { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<UserModule> UserModules { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<EmpView> EmpViews { get; set; }
         public DbSet<ViewAbsent> ViewAbsents { get; set; }
@@ -105,6 +105,7 @@ namespace WMS.Models
         public DbSet<ViewLeave> ViewLeaves { get; set; }
         public DbSet<ViewLeaveData> ViewLeaveDatas { get; set; }
         public DbSet<ViewLeaveQuota> ViewLeaveQuotas { get; set; }
+        public DbSet<ViewLvConsumed> ViewLvConsumeds { get; set; }
         public DbSet<ViewMissingAtt> ViewMissingAtts { get; set; }
         public DbSet<ViewMonthlyData> ViewMonthlyDatas { get; set; }
         public DbSet<ViewMonthlyDataPer> ViewMonthlyDataPers { get; set; }

@@ -65,8 +65,6 @@ E:\Projects\WMS\WMS\obj\Debug\RdlCompile.cache
 E:\Projects\WMS\WMS\obj\Debug\RdlCompile.compiled
 E:\Projects\WMS\WMS\obj\Debug\WMS.dll
 E:\Projects\WMS\WMS\obj\Debug\WMS.pdb
-D:\Projects\CNS\Working Projects\WMS General\WMS\WMS\obj\Debug\RdlCompile.cache
-D:\Projects\CNS\Working Projects\WMS General\WMS\WMS\obj\Debug\RdlCompile.compiled
 D:\Projects\CNS\Working Projects\WMS General\WMS\WMS\bin\WMS.dll
 D:\Projects\CNS\Working Projects\WMS General\WMS\WMS\bin\WMS.pdb
 D:\Projects\CNS\Working Projects\WMS General\WMS\WMS\bin\Antlr3.Runtime.dll
@@ -96,6 +94,8 @@ D:\Projects\CNS\Working Projects\WMS General\WMS\WMS\bin\System.Web.Razor.xml
 D:\Projects\CNS\Working Projects\WMS General\WMS\WMS\bin\System.Web.WebPages.xml
 D:\Projects\CNS\Working Projects\WMS General\WMS\WMS\bin\System.Web.WebPages.Deployment.xml
 D:\Projects\CNS\Working Projects\WMS General\WMS\WMS\bin\System.Web.WebPages.Razor.xml
+D:\Projects\CNS\Working Projects\WMS General\WMS\WMS\obj\Debug\RdlCompile.cache
+D:\Projects\CNS\Working Projects\WMS General\WMS\WMS\obj\Debug\RdlCompile.compiled
 D:\Projects\CNS\Working Projects\WMS General\WMS\WMS\obj\Debug\WMS.dll
 D:\Projects\CNS\Working Projects\WMS General\WMS\WMS\obj\Debug\WMS.pdb
 D:\Projects\CNS\Working Projects\WMS General\WMS\WMS\obj\Debug\WMS.csprojResolveAssemblyReference.cache

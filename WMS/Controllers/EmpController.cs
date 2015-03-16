@@ -12,6 +12,10 @@ using System.IO;
 using System.Web.Helpers;
 using WMS.Controllers.Filters;
 using WMS.HelperClass;
+using WMS.CustomClass;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Reflection;
 
 namespace WMS.Controllers
 {
@@ -19,7 +23,6 @@ namespace WMS.Controllers
     public class EmpController : Controller
     {
         private TAS2013Entities db = new TAS2013Entities();
-
         // GET: /Emp/
         public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
@@ -31,7 +34,7 @@ namespace WMS.Controllers
             ViewBag.DepartmentSortParm = sortOrder == "wing" ? "wing_desc" : "wing";
             ViewBag.ShiftSortParm = sortOrder == "shift" ? "shift_desc" : "shift";
             ViewBag.TypeSortParm = sortOrder == "type" ? "type_desc" : "type";
-            List<Emp> emps = new List<Emp>();
+            //List<EmpView> emps = new List<EmpView>();
             if (searchString != null)
             {
                 page = 1;
@@ -41,22 +44,11 @@ namespace WMS.Controllers
                 searchString = currentFilter;
             }
             User LoggedInUser = Session["LoggedUser"] as User;
-            if (LoggedInUser.ViewPermanentMgm == true && LoggedInUser.ViewPermanentStaff == false && LoggedInUser.ViewContractual == false)
-            {
-                emps = db.Emps.Where(aa => aa.CompanyID == LoggedInUser.CompanyID && aa.EmpType.CatID == 2).Include(e => e.Company).Include(e => e.Crew).Include(e => e.Designation).Include(e => e.Grade).Include(e => e.JobTitle).Include(e => e.Location).Include(e => e.Section).Include(e => e.Shift).Include(e => e.EmpType).ToList();
-            }
-            else if (LoggedInUser.ViewPermanentMgm == false && LoggedInUser.ViewPermanentStaff == true && LoggedInUser.ViewContractual == false)
-            {
-                emps = db.Emps.Where(aa => aa.CompanyID == LoggedInUser.CompanyID && aa.EmpType.CatID == 2).Include(e => e.Company).Include(e => e.Crew).Include(e => e.Designation).Include(e => e.Grade).Include(e => e.JobTitle).Include(e => e.Location).Include(e => e.Section).Include(e => e.Shift).Include(e => e.EmpType).ToList();
-            }
-            else if (LoggedInUser.ViewPermanentMgm == false && LoggedInUser.ViewPermanentStaff == false && LoggedInUser.ViewContractual == true)
-            {
-                emps = db.Emps.Where(aa => aa.CompanyID == LoggedInUser.CompanyID && aa.EmpType.CatID == 3).Include(e => e.Company).Include(e => e.Crew).Include(e => e.Designation).Include(e => e.Grade).Include(e => e.JobTitle).Include(e => e.Location).Include(e => e.Section).Include(e => e.Shift).Include(e => e.EmpType).ToList();
-            }
-            else
-            {
-                emps = db.Emps.Where(aa => aa.CompanyID == LoggedInUser.CompanyID).Include(e => e.Company).Include(e => e.Crew).Include(e => e.Designation).Include(e => e.Grade).Include(e => e.JobTitle).Include(e => e.Location).Include(e => e.Section).Include(e => e.Shift).Include(e => e.EmpType).ToList();
-            }
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.MakeCustomizeQuery(LoggedInUser);
+            DataTable dt = qb.GetValuesfromDB("select * from EmpView "+query+" and (Status=1)");
+            List<EmpView> emps = dt.ToList<EmpView>();
+            
             ViewBag.CurrentFilter = searchString;
 
             if (!String.IsNullOrEmpty(searchString))
@@ -72,11 +64,11 @@ namespace WMS.Controllers
                 else
                 {
                     emps = emps.Where(s => s.EmpName.ToUpper().Contains(searchString.ToUpper())
-                     || s.Section.Department.DeptName.ToUpper().Contains(searchString.ToUpper())
+                     || s.DeptName.ToUpper().Contains(searchString.ToUpper())
                      || s.EmpNo.Contains(searchString.ToUpper())
-                     || s.Section.SectionName.ToUpper().Contains(searchString.ToUpper())
-                     || s.Shift.ShiftName.ToUpper().Contains(searchString.ToUpper())
-                     || s.Designation.DesignationName.ToUpper().Contains(searchString.ToUpper())).ToList();
+                     || s.SectionName.ToUpper().Contains(searchString.ToUpper())
+                     || s.ShiftName.ToUpper().Contains(searchString.ToUpper())
+                     || s.DesignationName.ToUpper().Contains(searchString.ToUpper())).ToList();
                 }
             }
 
@@ -86,40 +78,40 @@ namespace WMS.Controllers
                     emps = emps.OrderByDescending(s => s.EmpName).ToList();
                     break;
                 case "designation_desc":
-                    emps = emps.OrderByDescending(s => s.Designation.DesignationName).ToList();
+                    emps = emps.OrderByDescending(s => s.DesignationName).ToList();
                     break;
                 case "designation":
-                    emps = emps.OrderBy(s => s.Designation.DesignationName).ToList();
+                    emps = emps.OrderBy(s => s.DesignationName).ToList();
                     break;
                 case "location_desc":
-                    emps = emps.OrderByDescending(s => s.Location.LocName).ToList();
+                    emps = emps.OrderByDescending(s => s.LocName).ToList();
                     break;
                 case "location":
-                    emps = emps.OrderBy(s => s.Location.LocName).ToList();
+                    emps = emps.OrderBy(s => s.LocName).ToList();
                     break;
                 case "section_desc":
-                    emps = emps.OrderByDescending(s => s.Section.SectionName).ToList();
+                    emps = emps.OrderByDescending(s => s.SectionName).ToList();
                     break;
                 case "section":
-                    emps = emps.OrderBy(s => s.Section.SectionName).ToList();
+                    emps = emps.OrderBy(s => s.SectionName).ToList();
                     break;
                 case "wing_desc":
-                    emps = emps.OrderByDescending(s => s.Section.Department.DeptName).ToList();
+                    emps = emps.OrderByDescending(s => s.DeptName).ToList();
                     break;
                 case "wing":
-                    emps = emps.OrderBy(s => s.Section.Department.DeptName).ToList();
+                    emps = emps.OrderBy(s => s.DeptName).ToList();
                     break;
                 case "shift_desc":
-                    emps = emps.OrderByDescending(s => s.Shift.ShiftName).ToList();
+                    emps = emps.OrderByDescending(s => s.ShiftName).ToList();
                     break;
                 case "shift":
-                    emps = emps.OrderBy(s => s.Shift.ShiftName).ToList();
+                    emps = emps.OrderBy(s => s.ShiftName).ToList();
                     break;
                 case "type_desc":
-                    emps = emps.OrderByDescending(s => s.EmpType.TypeName).ToList();
+                    emps = emps.OrderByDescending(s => s.TypeName).ToList();
                     break;
                 case "type":
-                    emps = emps.OrderBy(s => s.EmpType.TypeName).ToList();
+                    emps = emps.OrderBy(s => s.TypeName).ToList();
                     break;
                 default:
                     emps = emps.OrderBy(s => s.EmpName).ToList();
@@ -292,8 +284,8 @@ namespace WMS.Controllers
                 return HttpNotFound();
             }
             ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName", emp.EmpType.CatID);
-            ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName", emp.SecID);
             ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName", emp.Section.DeptID);
+            ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName", emp.SecID);
             ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", emp.CompanyID);
             ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName", emp.CrewID);
             ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName", emp.DesigID);
@@ -666,4 +658,5 @@ namespace WMS.Controllers
 
         #endregion
     }
+
 }

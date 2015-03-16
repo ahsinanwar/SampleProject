@@ -18,6 +18,9 @@
               <Width>1.86458in</Width>
             </TablixColumn>
             <TablixColumn>
+              <Width>1in</Width>
+            </TablixColumn>
+            <TablixColumn>
               <Width>1.51042in</Width>
             </TablixColumn>
             <TablixColumn>
@@ -121,6 +124,9 @@
             </TablixColumn>
             <TablixColumn>
               <Width>0.27083in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>0.33333in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.27083in</Width>
@@ -293,6 +299,44 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox117</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <TopBorder>
+                          <Color>Black</Color>
+                        </TopBorder>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox56">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Department</Value>
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox56</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1641,6 +1685,44 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
+                    <Textbox Name="Textbox58">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>HLV</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox58</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <TopBorder>
+                          <Color>Black</Color>
+                        </TopBorder>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
                     <Textbox Name="Textbox70">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -1987,102 +2069,6 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.25in</Height>
-              <TablixCells>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox59">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>="Department: "+Fields!DeptName.Value</Value>
-                              <Style>
-                                <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
-                                <Color>DimGray</Color>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Left</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox59</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <LeftBorder>
-                          <Color>Black</Color>
-                        </LeftBorder>
-                        <RightBorder>
-                          <Color>Black</Color>
-                        </RightBorder>
-                        <VerticalAlign>Middle</VerticalAlign>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                    <ColSpan>48</ColSpan>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-              </TablixCells>
-            </TablixRow>
-            <TablixRow>
               <Height>0.20833in</Height>
               <TablixCells>
                 <TablixCell>
@@ -2214,6 +2200,41 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>SectionName</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="DeptName">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!DeptName.Value</Value>
+                              <Style>
+                                <FontSize>7pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>DeptName</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -3236,6 +3257,7 @@
                               <Value>=Fields!PreDays.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>0.0;(0.0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3313,6 +3335,40 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>LeaveDays</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="HalfLeavesDay">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!HalfLeavesDay.Value</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>HalfLeavesDay</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -3406,6 +3462,7 @@
                               <Value>=Fields!WorkDays.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>0.0;(0.0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3471,7 +3528,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Microsoft.VisualBasic.Interaction.iif((Fields!TNOT.Value = 0), "", (Microsoft.VisualBasic.Strings.right("0" &amp; Microsoft.VisualBasic.Conversion.int(Sum(Fields!TNOT.Value) / 60), 2) &amp; ":" &amp; Microsoft.VisualBasic.Strings.right("0" &amp; Microsoft.VisualBasic.Conversion.int((Sum(Fields!TNOT.Value) Mod 60)), 2)))</Value>
+                              <Value>=Microsoft.VisualBasic.Interaction.iif((Fields!TNOT.Value = 0), "", (Microsoft.VisualBasic.Strings.right("0" &amp; Microsoft.VisualBasic.Conversion.int(Sum(Fields!TNOT.Value) / 60), 3) &amp; ":" &amp; Microsoft.VisualBasic.Strings.right("0" &amp; Microsoft.VisualBasic.Conversion.int((Sum(Fields!TNOT.Value) Mod 60)), 2)))</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                               </Style>
@@ -3785,6 +3842,41 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
+                    <Textbox Name="Textbox59">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value />
+                              <Style>
+                                <FontSize>7pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox59</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
                     <Textbox Name="Textbox57">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -3828,7 +3920,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT1.Value = 0), "",(right("0" &amp; int(sum(Fields!OT1.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT1.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT1.Value) Mod 60)),2)))+
+iif((Fields!L1.Value = ""), "","-"+Fields!L1.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -3860,7 +3953,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT2.Value = 0), "",(right("0" &amp; int(sum(Fields!OT2.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT2.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT2.Value) Mod 60)),2)))+
+iif((Fields!L2.Value = ""), "","-"+Fields!L2.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -3892,7 +3986,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT3.Value = 0), "",(right("0" &amp; int(sum(Fields!OT3.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT3.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT3.Value) Mod 60)),2)))+
+iif((Fields!L3.Value = ""), "","-"+Fields!L3.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -3923,8 +4018,9 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=iif((Fields!OT5.Value = 0), "",(right("0" &amp; int(sum(Fields!OT5.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT5.Value) Mod 60)),2)))</Value>
+                              <Value>=iif((Fields!OT4.Value = 0), "",(right("0" &amp; int(sum(Fields!OT4.Value)/60),2) &amp; ":" 
+&amp; right("0" &amp; int((sum(Fields!OT4.Value) Mod 60)),2)))+
+iif((Fields!L4.Value = ""), "","-"+Fields!L4.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -3955,8 +4051,9 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=iif((Fields!OT1.Value = 0), "",(right("0" &amp; int(sum(Fields!OT1.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT1.Value) Mod 60)),2)))</Value>
+                              <Value>=iif((Fields!OT5.Value = 0), "",(right("0" &amp; int(sum(Fields!OT5.Value)/60),2) &amp; ":" 
+&amp; right("0" &amp; int((sum(Fields!OT5.Value) Mod 60)),2)))+
+iif((Fields!L5.Value = ""), "","-"+Fields!L5.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -3988,7 +4085,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT6.Value = 0), "",(right("0" &amp; int(sum(Fields!OT6.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT6.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT6.Value) Mod 60)),2)))+
+iif((Fields!L6.Value = ""), "","-"+Fields!L6.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4020,7 +4118,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT7.Value = 0), "",(right("0" &amp; int(sum(Fields!OT7.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT7.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT7.Value) Mod 60)),2)))+
+iif((Fields!L7.Value = ""), "","-"+Fields!L7.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4052,7 +4151,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT8.Value = 0), "",(right("0" &amp; int(sum(Fields!OT8.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT8.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT8.Value) Mod 60)),2)))+
+iif((Fields!L8.Value = ""), "","-"+Fields!L8.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4084,7 +4184,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT9.Value = 0), "",(right("0" &amp; int(sum(Fields!OT9.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT9.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT9.Value) Mod 60)),2)))+
+iif((Fields!L9.Value = ""), "","-"+Fields!L9.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4116,7 +4217,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT10.Value = 0), "",(right("0" &amp; int(sum(Fields!OT10.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT10.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT10.Value) Mod 60)),2)))+
+iif((Fields!L10.Value = ""), "","-"+Fields!L10.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4148,7 +4250,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT11.Value = 0), "",(right("0" &amp; int(sum(Fields!OT11.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT11.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT11.Value) Mod 60)),2)))+
+iif((Fields!L11.Value = ""), "","-"+Fields!L11.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4180,7 +4283,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT12.Value = 0), "",(right("0" &amp; int(sum(Fields!OT12.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT12.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT12.Value) Mod 60)),2)))+
+iif((Fields!L12.Value = ""), "","-"+Fields!L12.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4212,7 +4316,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT13.Value = 0), "",(right("0" &amp; int(sum(Fields!OT13.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT13.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT13.Value) Mod 60)),2)))+
+iif((Fields!L13.Value = ""), "","-"+Fields!L13.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4244,7 +4349,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT14.Value = 0), "",(right("0" &amp; int(sum(Fields!OT14.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT14.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT14.Value) Mod 60)),2)))+
+iif((Fields!L14.Value = ""), "","-"+Fields!L14.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4276,7 +4382,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT15.Value = 0), "",(right("0" &amp; int(sum(Fields!OT15.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT15.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT15.Value) Mod 60)),2)))+
+iif((Fields!L15.Value = ""), "","-"+Fields!L15.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4308,7 +4415,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT16.Value = 0), "",(right("0" &amp; int(sum(Fields!OT16.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT16.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT16.Value) Mod 60)),2)))+
+iif((Fields!L16.Value = ""), "","-"+Fields!L16.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4340,7 +4448,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT17.Value = 0), "",(right("0" &amp; int(sum(Fields!OT17.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT17.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT17.Value) Mod 60)),2)))+
+iif((Fields!L17.Value = ""), "","-"+Fields!L17.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4372,7 +4481,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT18.Value = 0), "",(right("0" &amp; int(sum(Fields!OT18.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT18.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT18.Value) Mod 60)),2)))+
+iif((Fields!L18.Value = ""), "","-"+Fields!L18.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4404,7 +4514,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT19.Value = 0), "",(right("0" &amp; int(sum(Fields!OT19.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT19.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT19.Value) Mod 60)),2)))+
+iif((Fields!L19.Value = ""), "","-"+Fields!L19.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4436,7 +4547,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT20.Value = 0), "",(right("0" &amp; int(sum(Fields!OT20.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT20.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT20.Value) Mod 60)),2)))+
+iif((Fields!L20.Value = ""), "","-"+Fields!L20.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4468,7 +4580,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT21.Value = 0), "",(right("0" &amp; int(sum(Fields!OT21.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT21.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT21.Value) Mod 60)),2)))+
+iif((Fields!L21.Value = ""), "","-"+Fields!L21.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4500,7 +4613,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT22.Value = 0), "",(right("0" &amp; int(sum(Fields!OT22.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT22.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT22.Value) Mod 60)),2)))+
+iif((Fields!L22.Value = ""), "","-"+Fields!L22.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4532,7 +4646,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT23.Value = 0), "",(right("0" &amp; int(sum(Fields!OT23.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT23.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT23.Value) Mod 60)),2)))+
+iif((Fields!L23.Value = ""), "","-"+Fields!L23.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4564,7 +4679,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT24.Value = 0), "",(right("0" &amp; int(sum(Fields!OT24.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT24.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT24.Value) Mod 60)),2)))+
+iif((Fields!L24.Value = ""), "","-"+Fields!L24.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4596,7 +4712,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT25.Value = 0), "",(right("0" &amp; int(sum(Fields!OT25.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT25.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT25.Value) Mod 60)),2)))+
+iif((Fields!L25.Value = ""), "","-"+Fields!L25.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4628,7 +4745,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT26.Value = 0), "",(right("0" &amp; int(sum(Fields!OT26.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT26.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT26.Value) Mod 60)),2)))+
+iif((Fields!L26.Value = ""), "","-"+Fields!L26.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4660,7 +4778,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT27.Value = 0), "",(right("0" &amp; int(sum(Fields!OT27.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT27.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT27.Value) Mod 60)),2)))+
+iif((Fields!L27.Value = ""), "","-"+Fields!L27.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4692,7 +4811,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT28.Value = 0), "",(right("0" &amp; int(sum(Fields!OT28.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT28.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT28.Value) Mod 60)),2)))+
+iif((Fields!L28.Value = ""), "","-"+Fields!L28.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4724,7 +4844,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT29.Value = 0), "",(right("0" &amp; int(sum(Fields!OT29.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT29.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT29.Value) Mod 60)),2)))+
+iif((Fields!L29.Value = ""), "","-"+Fields!L29.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4756,7 +4877,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT30.Value = 0), "",(right("0" &amp; int(sum(Fields!OT30.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT30.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT30.Value) Mod 60)),2)))+
+iif((Fields!L30.Value = ""), "","-"+Fields!L30.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4788,7 +4910,8 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=iif((Fields!OT31.Value = 0), "",(right("0" &amp; int(sum(Fields!OT31.Value)/60),2) &amp; ":" 
-&amp; right("0" &amp; int((sum(Fields!OT31.Value) Mod 60)),2)))</Value>
+&amp; right("0" &amp; int((sum(Fields!OT31.Value) Mod 60)),2)))+
+iif((Fields!L31.Value = ""), "","-"+Fields!L31.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
                               </Style>
@@ -4891,6 +5014,37 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox293</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox87">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value />
+                              <Style>
+                                <FontSize>7pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox87</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -5239,127 +5393,18 @@
             <TablixMember />
             <TablixMember />
             <TablixMember />
+            <TablixMember />
+            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
           <TablixMembers>
+            <TablixMember />
             <TablixMember>
-              <TablixHeader>
-                <Size>0.03125in</Size>
-                <CellContents>
-                  <Textbox Name="Textbox104">
-                    <CanGrow>true</CanGrow>
-                    <KeepTogether>true</KeepTogether>
-                    <Paragraphs>
-                      <Paragraph>
-                        <TextRuns>
-                          <TextRun>
-                            <Value />
-                            <Style>
-                              <FontSize>9pt</FontSize>
-                              <FontWeight>Bold</FontWeight>
-                            </Style>
-                          </TextRun>
-                        </TextRuns>
-                        <Style>
-                          <TextAlign>Left</TextAlign>
-                        </Style>
-                      </Paragraph>
-                    </Paragraphs>
-                    <rd:DefaultName>Textbox104</rd:DefaultName>
-                    <Style>
-                      <Border>
-                        <Color>LightGrey</Color>
-                        <Style>Solid</Style>
-                      </Border>
-                      <TopBorder>
-                        <Color>White</Color>
-                      </TopBorder>
-                      <BottomBorder>
-                        <Color>White</Color>
-                      </BottomBorder>
-                      <LeftBorder>
-                        <Color>White</Color>
-                      </LeftBorder>
-                      <PaddingLeft>2pt</PaddingLeft>
-                      <PaddingRight>2pt</PaddingRight>
-                      <PaddingTop>2pt</PaddingTop>
-                      <PaddingBottom>2pt</PaddingBottom>
-                    </Style>
-                  </Textbox>
-                </CellContents>
-              </TablixHeader>
+              <Group Name="Details" />
               <TablixMembers>
                 <TablixMember />
-              </TablixMembers>
-            </TablixMember>
-            <TablixMember>
-              <Group Name="DeptName">
-                <GroupExpressions>
-                  <GroupExpression>=Fields!DeptName.Value</GroupExpression>
-                </GroupExpressions>
-              </Group>
-              <SortExpressions>
-                <SortExpression>
-                  <Value>=Fields!DeptName.Value</Value>
-                </SortExpression>
-              </SortExpressions>
-              <TablixHeader>
-                <Size>0.03125in</Size>
-                <CellContents>
-                  <Textbox Name="Textbox105">
-                    <CanGrow>true</CanGrow>
-                    <KeepTogether>true</KeepTogether>
-                    <Paragraphs>
-                      <Paragraph>
-                        <TextRuns>
-                          <TextRun>
-                            <Value />
-                            <Style>
-                              <FontSize>7pt</FontSize>
-                            </Style>
-                          </TextRun>
-                        </TextRuns>
-                        <Style>
-                          <TextAlign>Left</TextAlign>
-                        </Style>
-                      </Paragraph>
-                    </Paragraphs>
-                    <rd:DefaultName>Textbox105</rd:DefaultName>
-                    <Style>
-                      <Border>
-                        <Color>LightGrey</Color>
-                        <Style>Solid</Style>
-                      </Border>
-                      <TopBorder>
-                        <Color>White</Color>
-                      </TopBorder>
-                      <BottomBorder>
-                        <Color>White</Color>
-                      </BottomBorder>
-                      <LeftBorder>
-                        <Color>White</Color>
-                      </LeftBorder>
-                      <VerticalAlign>Middle</VerticalAlign>
-                      <PaddingLeft>2pt</PaddingLeft>
-                      <PaddingRight>2pt</PaddingRight>
-                      <PaddingTop>2pt</PaddingTop>
-                      <PaddingBottom>2pt</PaddingBottom>
-                    </Style>
-                  </Textbox>
-                </CellContents>
-              </TablixHeader>
-              <TablixMembers>
-                <TablixMember>
-                  <KeepWithGroup>After</KeepWithGroup>
-                </TablixMember>
-                <TablixMember>
-                  <Group Name="Details" />
-                  <TablixMembers>
-                    <TablixMember />
-                    <TablixMember />
-                  </TablixMembers>
-                </TablixMember>
+                <TablixMember />
               </TablixMembers>
             </TablixMember>
           </TablixMembers>
@@ -5367,8 +5412,8 @@
         <DataSetName>DataSet1</DataSetName>
         <Top>0.02084in</Top>
         <Left>0.0375in</Left>
-        <Height>0.95833in</Height>
-        <Width>18.62917in</Width>
+        <Height>0.70833in</Height>
+        <Width>19.93125in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -5379,7 +5424,7 @@
     <Height>2in</Height>
     <Style />
   </Body>
-  <Width>18.66667in</Width>
+  <Width>20.09375in</Width>
   <Page>
     <PageHeader>
       <Height>0.64583in</Height>
@@ -5515,8 +5560,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox90</rd:DefaultName>
-          <Top>0.05556in</Top>
-          <Left>16.79167in</Left>
+          <Top>0.04167in</Top>
+          <Left>19.11458in</Left>
           <Height>0.25in</Height>
           <Width>0.85417in</Width>
           <ZIndex>1</ZIndex>
@@ -5710,15 +5755,15 @@
         </Field>
         <Field Name="WorkDays">
           <DataField>WorkDays</DataField>
-          <rd:TypeName>System.Byte</rd:TypeName>
+          <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="PreDays">
           <DataField>PreDays</DataField>
-          <rd:TypeName>System.Byte</rd:TypeName>
+          <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="AbDays">
           <DataField>AbDays</DataField>
-          <rd:TypeName>System.Byte</rd:TypeName>
+          <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="RestDays">
           <DataField>RestDays</DataField>
@@ -6007,6 +6052,134 @@
         <Field Name="CatID">
           <DataField>CatID</DataField>
           <rd:TypeName>System.Int16</rd:TypeName>
+        </Field>
+        <Field Name="L1">
+          <DataField>L1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L2">
+          <DataField>L2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L3">
+          <DataField>L3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L4">
+          <DataField>L4</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L5">
+          <DataField>L5</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L6">
+          <DataField>L6</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L7">
+          <DataField>L7</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L8">
+          <DataField>L8</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L9">
+          <DataField>L9</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L11">
+          <DataField>L11</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L10">
+          <DataField>L10</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L12">
+          <DataField>L12</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L13">
+          <DataField>L13</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L14">
+          <DataField>L14</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L15">
+          <DataField>L15</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L16">
+          <DataField>L16</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L17">
+          <DataField>L17</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L19">
+          <DataField>L19</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L18">
+          <DataField>L18</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L20">
+          <DataField>L20</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L22">
+          <DataField>L22</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L21">
+          <DataField>L21</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L23">
+          <DataField>L23</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L24">
+          <DataField>L24</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L25">
+          <DataField>L25</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L26">
+          <DataField>L26</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L27">
+          <DataField>L27</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L28">
+          <DataField>L28</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L29">
+          <DataField>L29</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L30">
+          <DataField>L30</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="L31">
+          <DataField>L31</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="HalfLeavesDay">
+          <DataField>HalfLeavesDay</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>

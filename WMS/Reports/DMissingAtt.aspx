@@ -19,6 +19,14 @@
                     runat="server" Text="Generate Report" onclick="btnGenerateReport_Click" Width="190px" />
 
             </div>
+              <div class="button-div">
+                  <asp:DropDownList ID="DropDownList1" runat="server">
+                      <asp:ListItem Value="Any">Missing Any</asp:ListItem>
+                      <asp:ListItem Value="IN">Missing Only IN</asp:ListItem>
+                      <asp:ListItem Value="Out">Missing only Out</asp:ListItem>
+                  </asp:DropDownList>
+
+            </div>
             <div class="button-div"><asp:Button ID="btnEmployeeGrid" CssClass="btn btn-primary" runat="server" Text="Select Employee" onclick="btnEmployeeGrid_Click" Width="180px"/>
                 <div><asp:Label ID="lbEmpCount" runat="server" Text="Selected Employees: 0" Font-Bold="False" Font-Italic="True"  Font-Size="10pt" ForeColor="#F9F9F9"></asp:Label></div>
              </div>

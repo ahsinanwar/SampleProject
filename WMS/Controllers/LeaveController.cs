@@ -47,65 +47,25 @@ namespace WMS.Controllers
 
         public bool CheckLeaveBalance(LvApplication _lvapp)
         {
-            _empQuota.Clear();
-            int _EmpID;
+            bool balance = false;
             decimal RemainingLeaves;
-            _EmpID = _lvapp.EmpID;
-            using (var context = new TAS2013Entities())
+            using (var ctx = new TAS2013Entities())
             {
-                _empQuota = context.LvQuotas.Where(aa => aa.EmpID == _EmpID).ToList();
-                if (_empQuota.Count > 0)
+                List<LvConsumed> _lvConsumed = new List<LvConsumed>();
+                string empLvType = _lvapp.EmpID.ToString() + _lvapp.LvType;
+                _lvConsumed = ctx.LvConsumeds.Where(aa => aa.EmpLvType == empLvType).ToList();
+                RemainingLeaves = (decimal)_lvConsumed.FirstOrDefault().YearRemaining;
+                if ((RemainingLeaves - Convert.ToDecimal(_lvapp.NoOfDays)) >= 0)
                 {
-                    switch (_lvapp.LvType)
-                    {
-                        case "A":
-                            RemainingLeaves = (decimal)_empQuota.FirstOrDefault().A;
-                            break;
-                        case "B":
-                            RemainingLeaves = (decimal)_empQuota.FirstOrDefault().B;
-                            break;
-                        case "C":
-                            RemainingLeaves = (decimal)_empQuota.FirstOrDefault().C;
-                            break;
-                        case "D":
-                            RemainingLeaves = (decimal)_empQuota.FirstOrDefault().D;
-                            break;
-                        case "E":
-                            RemainingLeaves = (decimal)_empQuota.FirstOrDefault().E;
-                            break;
-                        case "F":
-                            RemainingLeaves = (decimal)_empQuota.FirstOrDefault().F;
-                            break;
-                        case "G":
-                            RemainingLeaves = (decimal)_empQuota.FirstOrDefault().G;
-                            break;
-                        case "H":
-                            RemainingLeaves = (decimal)_empQuota.FirstOrDefault().H;
-                            break;
-                        case "I":
-                            RemainingLeaves = (decimal)_empQuota.FirstOrDefault().I;
-                            break;
-                        case "J":
-                            RemainingLeaves = (decimal)_empQuota.FirstOrDefault().J;
-                            break;
-                        case "K":
-                            RemainingLeaves = (decimal)_empQuota.FirstOrDefault().K;
-                            break;
-                        default:
-                            RemainingLeaves = 1;
-                            break;
-                    }
-                    if ((RemainingLeaves - Convert.ToDecimal(_lvapp.NoOfDays)) >= 0)
-                    {
-                        return true;
-                    }
-                    else
-                        return false;
+                    balance= true;
                 }
                 else
-                    return false;
+                    balance= false;
 
             }
+
+            return balance;
+
         }
 
         public bool AddLeaveToLeaveAttData(LvApplication lvappl)
@@ -199,58 +159,283 @@ namespace WMS.Controllers
 
         public void BalanceLeaves(LvApplication lvappl)
         {
-            _empQuota.Clear();
-            using (var context = new TAS2013Entities())
+            using (var ctx = new TAS2013Entities())
             {
-                _empQuota = context.LvQuotas.Where(aa => aa.EmpID == lvappl.EmpID).ToList();
+                List<LvConsumed> _lvConsumed = new List<LvConsumed>();
+                string empLvType = lvappl.EmpID.ToString() + lvappl.LvType;
+                _lvConsumed = ctx.LvConsumeds.Where(aa => aa.EmpLvType == empLvType).ToList();
                 float _NoOfDays = lvappl.NoOfDays;
-                if (_empQuota.Count > 0)
+                if (_lvConsumed.Count > 0)
                 {
-                    switch (lvappl.LvType)
+                    _lvConsumed.FirstOrDefault().YearRemaining = (float)(_lvConsumed.FirstOrDefault().YearRemaining - _NoOfDays);
+                    _lvConsumed.FirstOrDefault().GrandTotalRemaining = (float)(_lvConsumed.FirstOrDefault().GrandTotalRemaining - _NoOfDays);
+                    if (lvappl.IsHalf == true)
                     {
-                        case "A":
-                            _empQuota.FirstOrDefault().A = (float)(_empQuota.FirstOrDefault().A - _NoOfDays);
-                            break;
-                        case "B":
-                            _empQuota.FirstOrDefault().B = (float)(_empQuota.FirstOrDefault().B - _NoOfDays);
-                            break;
-                        case "C":
-                            _empQuota.FirstOrDefault().C = (float)(_empQuota.FirstOrDefault().C - _NoOfDays);
-                            break;
-                        case "D":
-                            _empQuota.FirstOrDefault().D = (float)(_empQuota.FirstOrDefault().D - _NoOfDays);
-                            break;
-                        case "E":
-                            _empQuota.FirstOrDefault().E = (float)(_empQuota.FirstOrDefault().E - _NoOfDays);
-                            break;
-                        case "F":
-                            _empQuota.FirstOrDefault().F = (float)(_empQuota.FirstOrDefault().F - _NoOfDays);
-                            break;
-                        case "G":
-                            _empQuota.FirstOrDefault().G = (float)(_empQuota.FirstOrDefault().G - _NoOfDays);
-                            break;
-                        case "H":
-                            _empQuota.FirstOrDefault().H = (float)(_empQuota.FirstOrDefault().H - _NoOfDays);
-                            break;
-                        case "I":
-                            _empQuota.FirstOrDefault().I = (float)(_empQuota.FirstOrDefault().I - _NoOfDays);
-                            break;
-                        case "J":
-                            _empQuota.FirstOrDefault().J = (float)(_empQuota.FirstOrDefault().J - _NoOfDays);
-                            break;
-                        case "K":
-                            _empQuota.FirstOrDefault().K = (float)(_empQuota.FirstOrDefault().K - _NoOfDays);
-                            break;
-                        case "L":
-                            _empQuota.FirstOrDefault().L = (float)(_empQuota.FirstOrDefault().L - _NoOfDays);
-                            break;
-                        default:
-                            break;
+                        AddHalfLeaveBalancceMonthQuota(_lvConsumed, lvappl);
                     }
-                    context.SaveChanges();
+                    else
+                    {
+                        AddBalancceMonthQuota(_lvConsumed, lvappl);
+                    }
+                        ctx.SaveChanges();
                 }
+                ctx.Dispose();
             }
         }
+
+        private void AddBalancceMonthQuota(List<LvConsumed> _lvConsumed, LvApplication lvappl)
+        {
+            DateTime _dtStart = lvappl.FromDate;
+            DateTime _dtEnd = lvappl.ToDate;
+            while(_dtStart<=_dtEnd)
+            {
+                switch (_dtStart.Date.Month)
+                {
+                    case 1:
+                        _lvConsumed.FirstOrDefault().JanConsumed = _lvConsumed.FirstOrDefault().JanConsumed + 1;
+                        break;
+                    case 2:
+                        _lvConsumed.FirstOrDefault().FebConsumed = _lvConsumed.FirstOrDefault().FebConsumed + 1;
+                        break;
+                    case 3:
+                        _lvConsumed.FirstOrDefault().MarchConsumed = _lvConsumed.FirstOrDefault().MarchConsumed + 1;
+                        break;
+                    case 4:
+                        _lvConsumed.FirstOrDefault().AprConsumed = _lvConsumed.FirstOrDefault().AprConsumed + 1;
+                        break;
+                    case 5:
+                        _lvConsumed.FirstOrDefault().MayConsumed = _lvConsumed.FirstOrDefault().MayConsumed + 1;
+                        break;
+                    case 6:
+                        _lvConsumed.FirstOrDefault().JuneConsumed = _lvConsumed.FirstOrDefault().JuneConsumed + 1;
+                        break;
+                    case 7:
+                        _lvConsumed.FirstOrDefault().JulyConsumed = _lvConsumed.FirstOrDefault().JulyConsumed + 1;
+                        break;
+                    case 8:
+                        _lvConsumed.FirstOrDefault().AugustConsumed = _lvConsumed.FirstOrDefault().AugustConsumed + 1;
+                        break;
+                    case 9:
+                        _lvConsumed.FirstOrDefault().SepConsumed = _lvConsumed.FirstOrDefault().SepConsumed + 1;
+                        break;
+                    case 10:
+                        _lvConsumed.FirstOrDefault().OctConsumed = _lvConsumed.FirstOrDefault().OctConsumed + 1;
+                        break;
+                    case 11:
+                        _lvConsumed.FirstOrDefault().NovConsumed = _lvConsumed.FirstOrDefault().NovConsumed + 1;
+                        break;
+                    case 12:
+                        _lvConsumed.FirstOrDefault().DecConsumed = _lvConsumed.FirstOrDefault().DecConsumed + 1;
+                        break;
+
+                }
+                _dtStart = _dtStart.AddDays(1);
+            }
+        }
+
+        private void AddHalfLeaveBalancceMonthQuota(List<LvConsumed> _lvConsumed, LvApplication lvappl)
+        {
+            DateTime _dtStart = lvappl.FromDate;
+            DateTime _dtEnd = lvappl.ToDate;
+            while (_dtStart <= _dtEnd)
+            {
+                switch (_dtStart.Date.Month)
+                {
+                    case 1:
+                        _lvConsumed.FirstOrDefault().JanConsumed = _lvConsumed.FirstOrDefault().JanConsumed + 0.5;
+                        break;
+                    case 2:
+                        _lvConsumed.FirstOrDefault().FebConsumed = _lvConsumed.FirstOrDefault().FebConsumed + 0.5;
+                        break;
+                    case 3:
+                        _lvConsumed.FirstOrDefault().MarchConsumed = _lvConsumed.FirstOrDefault().MarchConsumed + 0.5;
+                        break;
+                    case 4:
+                        _lvConsumed.FirstOrDefault().AprConsumed = _lvConsumed.FirstOrDefault().AprConsumed + 0.5;
+                        break;
+                    case 5:
+                        _lvConsumed.FirstOrDefault().MayConsumed = _lvConsumed.FirstOrDefault().MayConsumed + 0.5;
+                        break;
+                    case 6:
+                        _lvConsumed.FirstOrDefault().JuneConsumed = _lvConsumed.FirstOrDefault().JuneConsumed + 0.5;
+                        break;
+                    case 7:
+                        _lvConsumed.FirstOrDefault().JulyConsumed = _lvConsumed.FirstOrDefault().JulyConsumed + 0.5;
+                        break;
+                    case 8:
+                        _lvConsumed.FirstOrDefault().AugustConsumed = _lvConsumed.FirstOrDefault().AugustConsumed + 0.5;
+                        break;
+                    case 9:
+                        _lvConsumed.FirstOrDefault().SepConsumed = _lvConsumed.FirstOrDefault().SepConsumed + 0.5;
+                        break;
+                    case 10:
+                        _lvConsumed.FirstOrDefault().OctConsumed = _lvConsumed.FirstOrDefault().OctConsumed + 0.5;
+                        break;
+                    case 11:
+                        _lvConsumed.FirstOrDefault().NovConsumed = _lvConsumed.FirstOrDefault().NovConsumed + 0.5;
+                        break;
+                    case 12:
+                        _lvConsumed.FirstOrDefault().DecConsumed = _lvConsumed.FirstOrDefault().DecConsumed + 0.5;
+                        break;
+
+                }
+                _dtStart = _dtStart.AddDays(1);
+            }
+        }
+
+        private void SubtractBalancceMonthQuota(List<LvConsumed> _lvConsumed, LvApplication lvappl)
+        {
+            DateTime _dtStart = lvappl.FromDate;
+            DateTime _dtEnd = lvappl.ToDate;
+            while (_dtStart <= _dtEnd)
+            {
+                switch (_dtStart.Date.Month)
+                {
+                    case 1:
+                        _lvConsumed.FirstOrDefault().JanConsumed = _lvConsumed.FirstOrDefault().JanConsumed - 1;
+                        break;
+                    case 2:
+                        _lvConsumed.FirstOrDefault().FebConsumed = _lvConsumed.FirstOrDefault().FebConsumed - 1;
+                        break;
+                    case 3:
+                        _lvConsumed.FirstOrDefault().MarchConsumed = _lvConsumed.FirstOrDefault().MarchConsumed - 1;
+                        break;
+                    case 4:
+                        _lvConsumed.FirstOrDefault().AprConsumed = _lvConsumed.FirstOrDefault().AprConsumed - 1;
+                        break;
+                    case 5:
+                        _lvConsumed.FirstOrDefault().MayConsumed = _lvConsumed.FirstOrDefault().MayConsumed - 1;
+                        break;
+                    case 6:
+                        _lvConsumed.FirstOrDefault().JuneConsumed = _lvConsumed.FirstOrDefault().JuneConsumed - 1;
+                        break;
+                    case 7:
+                        _lvConsumed.FirstOrDefault().JulyConsumed = _lvConsumed.FirstOrDefault().JulyConsumed - 1;
+                        break;
+                    case 8:
+                        _lvConsumed.FirstOrDefault().AugustConsumed = _lvConsumed.FirstOrDefault().AugustConsumed - 1;
+                        break;
+                    case 9:
+                        _lvConsumed.FirstOrDefault().SepConsumed = _lvConsumed.FirstOrDefault().SepConsumed - 1;
+                        break;
+                    case 10:
+                        _lvConsumed.FirstOrDefault().OctConsumed = _lvConsumed.FirstOrDefault().OctConsumed - 1;
+                        break;
+                    case 11:
+                        _lvConsumed.FirstOrDefault().NovConsumed = _lvConsumed.FirstOrDefault().NovConsumed - 1;
+                        break;
+                    case 12:
+                        _lvConsumed.FirstOrDefault().DecConsumed = _lvConsumed.FirstOrDefault().DecConsumed - 1;
+                        break;
+
+                }
+                _dtStart = _dtStart.AddDays(1);
+            }
+        }
+        private void SubtractHalfLeavesBalancceMonthQuota(List<LvConsumed> _lvConsumed, LvApplication lvappl)
+        {
+            DateTime _dtStart = lvappl.FromDate;
+            DateTime _dtEnd = lvappl.ToDate;
+            while (_dtStart <= _dtEnd)
+            {
+                switch (_dtStart.Date.Month)
+                {
+                    case 1:
+                        _lvConsumed.FirstOrDefault().JanConsumed = _lvConsumed.FirstOrDefault().JanConsumed - 0.5;
+                        break;
+                    case 2:
+                        _lvConsumed.FirstOrDefault().FebConsumed = _lvConsumed.FirstOrDefault().FebConsumed - 0.5;
+                        break;
+                    case 3:
+                        _lvConsumed.FirstOrDefault().MarchConsumed = _lvConsumed.FirstOrDefault().MarchConsumed - 0.5;
+                        break;
+                    case 4:
+                        _lvConsumed.FirstOrDefault().AprConsumed = _lvConsumed.FirstOrDefault().AprConsumed - 0.5;
+                        break;
+                    case 5:
+                        _lvConsumed.FirstOrDefault().MayConsumed = _lvConsumed.FirstOrDefault().MayConsumed - 0.5;
+                        break;
+                    case 6:
+                        _lvConsumed.FirstOrDefault().JuneConsumed = _lvConsumed.FirstOrDefault().JuneConsumed - 0.5;
+                        break;
+                    case 7:
+                        _lvConsumed.FirstOrDefault().JulyConsumed = _lvConsumed.FirstOrDefault().JulyConsumed - 0.5;
+                        break;
+                    case 8:
+                        _lvConsumed.FirstOrDefault().AugustConsumed = _lvConsumed.FirstOrDefault().AugustConsumed - 0.5;
+                        break;
+                    case 9:
+                        _lvConsumed.FirstOrDefault().SepConsumed = _lvConsumed.FirstOrDefault().SepConsumed - 0.5;
+                        break;
+                    case 10:
+                        _lvConsumed.FirstOrDefault().OctConsumed = _lvConsumed.FirstOrDefault().OctConsumed - 0.5;
+                        break;
+                    case 11:
+                        _lvConsumed.FirstOrDefault().NovConsumed = _lvConsumed.FirstOrDefault().NovConsumed - 0.5;
+                        break;
+                    case 12:
+                        _lvConsumed.FirstOrDefault().DecConsumed = _lvConsumed.FirstOrDefault().DecConsumed - 0.5;
+                        break;
+
+                }
+                _dtStart = _dtStart.AddDays(1);
+            }
+        }
+
+        //public void BalanceLeaves(LvApplication lvappl)
+        //{
+        //    _empQuota.Clear();
+        //    using (var context = new TAS2013Entities())
+        //    {
+        //        _empQuota = context.LvQuotas.Where(aa => aa.EmpID == lvappl.EmpID).ToList();
+        //        float _NoOfDays = lvappl.NoOfDays;
+        //        if (_empQuota.Count > 0)
+        //        {
+        //            switch (lvappl.LvType)
+        //            {
+        //                case "A":
+        //                    _empQuota.FirstOrDefault().A = (float)(_empQuota.FirstOrDefault().A - _NoOfDays);
+        //                    break;
+        //                case "B":
+        //                    _empQuota.FirstOrDefault().B = (float)(_empQuota.FirstOrDefault().B - _NoOfDays);
+        //                    break;
+        //                case "C":
+        //                    _empQuota.FirstOrDefault().C = (float)(_empQuota.FirstOrDefault().C - _NoOfDays);
+        //                    break;
+        //                case "D":
+        //                    _empQuota.FirstOrDefault().D = (float)(_empQuota.FirstOrDefault().D - _NoOfDays);
+        //                    break;
+        //                case "E":
+        //                    _empQuota.FirstOrDefault().E = (float)(_empQuota.FirstOrDefault().E - _NoOfDays);
+        //                    break;
+        //                case "F":
+        //                    _empQuota.FirstOrDefault().F = (float)(_empQuota.FirstOrDefault().F - _NoOfDays);
+        //                    break;
+        //                case "G":
+        //                    _empQuota.FirstOrDefault().G = (float)(_empQuota.FirstOrDefault().G - _NoOfDays);
+        //                    break;
+        //                case "H":
+        //                    _empQuota.FirstOrDefault().H = (float)(_empQuota.FirstOrDefault().H - _NoOfDays);
+        //                    break;
+        //                case "I":
+        //                    _empQuota.FirstOrDefault().I = (float)(_empQuota.FirstOrDefault().I - _NoOfDays);
+        //                    break;
+        //                case "J":
+        //                    _empQuota.FirstOrDefault().J = (float)(_empQuota.FirstOrDefault().J - _NoOfDays);
+        //                    break;
+        //                case "K":
+        //                    _empQuota.FirstOrDefault().K = (float)(_empQuota.FirstOrDefault().K - _NoOfDays);
+        //                    break;
+        //                case "L":
+        //                    _empQuota.FirstOrDefault().L = (float)(_empQuota.FirstOrDefault().L - _NoOfDays);
+        //                    break;
+        //                default:
+        //                    break;
+        //            }
+        //            context.SaveChanges();
+        //        }
+        //    }
+        //}
 
         #endregion
 
@@ -309,10 +494,8 @@ namespace WMS.Controllers
                         _EmpAttData.Remarks.Replace("[EO]", "-");
                     if (_EmpAttData.Remarks.Contains("[LI]"))
                         _EmpAttData.Remarks.Replace("[LI]", "");
-                    _EmpAttData.StatusAB = false;
                     _EmpAttData.StatusLeave = true;
-                    _EmpAttData.StatusP = true;
-                    _EmpAttData.StatusLeave = true;
+                    //_EmpAttData.statushl
                     _EmpAttData.StatusEO = false;
                     _EmpAttData.EarlyOut = 0;
                     _EmpAttData.LateIn = 0;
@@ -324,66 +507,90 @@ namespace WMS.Controllers
 
         public bool CheckHalfLeaveBalance(LvApplication lvapplication)
         {
-            _empQuota.Clear();
-            int _EmpID;
+            bool check = false;
             float RemainingLeaves;
-            _EmpID = lvapplication.EmpID;
-            using (var context = new TAS2013Entities())
+            List<LvConsumed> _lvConsumed = new List<LvConsumed>();
+            using (var ctx = new TAS2013Entities())
             {
-                _empQuota = context.LvQuotas.Where(aa => aa.EmpID == _EmpID).ToList();
-                if (_empQuota.Count > 0)
+                string empLvType = lvapplication.EmpID.ToString() + lvapplication.LvType;
+                _lvConsumed = ctx.LvConsumeds.Where(aa => aa.EmpLvType == empLvType).ToList();
+                if (_lvConsumed.Count > 0)
                 {
-                    switch (lvapplication.LvType)
+                    RemainingLeaves = (float)_lvConsumed.FirstOrDefault().YearRemaining;
+                     if ((RemainingLeaves - (float)lvapplication.NoOfDays) >= 0)
                     {
-                        case "A":
-                            RemainingLeaves = (float)_empQuota.FirstOrDefault().A;
-                            break;
-                        case "B":
-                            RemainingLeaves = (float)_empQuota.FirstOrDefault().B;
-                            break;
-                        case "C":
-                            RemainingLeaves = (float)_empQuota.FirstOrDefault().C;
-                            break;
-                        case "D":
-                            RemainingLeaves = (float)_empQuota.FirstOrDefault().D;
-                            break;
-                        case "E":
-                            RemainingLeaves = (float)_empQuota.FirstOrDefault().E;
-                            break;
-                        case "F":
-                            RemainingLeaves = (float)_empQuota.FirstOrDefault().F;
-                            break;
-                        case "G":
-                            RemainingLeaves = (float)_empQuota.FirstOrDefault().G;
-                            break;
-                        case "H":
-                            RemainingLeaves = (float)_empQuota.FirstOrDefault().H;
-                            break;
-                        case "I":
-                            RemainingLeaves = (float)_empQuota.FirstOrDefault().I;
-                            break;
-                        case "J":
-                            RemainingLeaves = (float)_empQuota.FirstOrDefault().J;
-                            break;
-                        case "K":
-                            RemainingLeaves = (float)_empQuota.FirstOrDefault().K;
-                            break;
-                        default:
-                            RemainingLeaves = 1;
-                            break;
-                    }
-                    if ((RemainingLeaves - (float)lvapplication.NoOfDays) >= 0)
-                    {
-                        return true;
+                        check =true;
                     }
                     else
-                        return false;
+                        check= false;
                 }
-                else
-                    return false;
-
             }
+            return check;
+
         }
+
+        //public bool CheckHalfLeaveBalance(LvApplication lvapplication)
+        //{
+        //    _empQuota.Clear();
+        //    int _EmpID;
+        //    float RemainingLeaves;
+        //    _EmpID = lvapplication.EmpID;
+        //    using (var context = new TAS2013Entities())
+        //    {
+        //        _empQuota = context.LvQuotas.Where(aa => aa.EmpID == _EmpID).ToList();
+        //        if (_empQuota.Count > 0)
+        //        {
+        //            switch (lvapplication.LvType)
+        //            {
+        //                case "A":
+        //                    RemainingLeaves = (float)_empQuota.FirstOrDefault().A;
+        //                    break;
+        //                case "B":
+        //                    RemainingLeaves = (float)_empQuota.FirstOrDefault().B;
+        //                    break;
+        //                case "C":
+        //                    RemainingLeaves = (float)_empQuota.FirstOrDefault().C;
+        //                    break;
+        //                case "D":
+        //                    RemainingLeaves = (float)_empQuota.FirstOrDefault().D;
+        //                    break;
+        //                case "E":
+        //                    RemainingLeaves = (float)_empQuota.FirstOrDefault().E;
+        //                    break;
+        //                case "F":
+        //                    RemainingLeaves = (float)_empQuota.FirstOrDefault().F;
+        //                    break;
+        //                case "G":
+        //                    RemainingLeaves = (float)_empQuota.FirstOrDefault().G;
+        //                    break;
+        //                case "H":
+        //                    RemainingLeaves = (float)_empQuota.FirstOrDefault().H;
+        //                    break;
+        //                case "I":
+        //                    RemainingLeaves = (float)_empQuota.FirstOrDefault().I;
+        //                    break;
+        //                case "J":
+        //                    RemainingLeaves = (float)_empQuota.FirstOrDefault().J;
+        //                    break;
+        //                case "K":
+        //                    RemainingLeaves = (float)_empQuota.FirstOrDefault().K;
+        //                    break;
+        //                default:
+        //                    RemainingLeaves = 1;
+        //                    break;
+        //            }
+        //            if ((RemainingLeaves - (float)lvapplication.NoOfDays) >= 0)
+        //            {
+        //                return true;
+        //            }
+        //            else
+        //                return false;
+        //        }
+        //        else
+        //            return false;
+
+        //    }
+        //}
 
         #endregion
 
@@ -400,8 +607,8 @@ namespace WMS.Controllers
                     if (_id != null)
                     {
                         LvData lvvdata = context.LvDatas.Find(_id);
-                        lvvdata.Active = false;
-                        //context.LvDatas.Remove(lvvdata);
+                        //lvvdata.Active = false;
+                        context.LvDatas.Remove(lvvdata);
                         context.SaveChanges();
                     }
                 }
@@ -411,86 +618,59 @@ namespace WMS.Controllers
 
         public void DeleteLeaveFromAttData(LvApplication lvappl)
         {
-            int _EmpID = lvappl.EmpID;
-            DateTime Date = lvappl.FromDate;
-            while (Date <= lvappl.ToDate)
+            try
             {
-                using (var context = new TAS2013Entities())
+                int _EmpID = lvappl.EmpID;
+                DateTime Date = lvappl.FromDate;
+                while (Date <= lvappl.ToDate)
                 {
-                    if (context.AttProcesses.Where(aa => aa.ProcessDate == Date.Date).Count() > 0)
+                    using (var context = new TAS2013Entities())
                     {
-                        string _empdate = _EmpID.ToString() + Date.Date.ToString("yyMMdd");
-                        var _AttData = context.AttDatas.Where(aa => aa.EmpDate == _empdate);
-                        if (_AttData != null)
+                        if (context.AttProcesses.Where(aa => aa.ProcessDate == Date.Date).Count() > 0)
                         {
-                            _AttData.FirstOrDefault().StatusLeave = false;
-                            _AttData.FirstOrDefault().Remarks.Replace("[SL]", "");
-                            _AttData.FirstOrDefault().Remarks.Replace("[CL]", "");
-                            _AttData.FirstOrDefault().Remarks.Replace("[AL]", "");
-                            if (_AttData.FirstOrDefault().TimeIn == null && _AttData.FirstOrDefault().TimeOut == null && _AttData.FirstOrDefault().DutyCode == "D")
+                            string _empdate = _EmpID.ToString() + Date.Date.ToString("yyMMdd");
+                            var _AttData = context.AttDatas.Where(aa => aa.EmpDate == _empdate);
+                            if (_AttData != null)
                             {
-                                _AttData.FirstOrDefault().Remarks = "[Absent]";
-                                _AttData.FirstOrDefault().StatusAB = true;
+                                _AttData.FirstOrDefault().StatusLeave = false;
+                                _AttData.FirstOrDefault().Remarks.Replace("[SL]", "");
+                                _AttData.FirstOrDefault().Remarks.Replace("[CL]", "");
+                                _AttData.FirstOrDefault().Remarks.Replace("[AL]", "");
+                                if (_AttData.FirstOrDefault().TimeIn == null && _AttData.FirstOrDefault().TimeOut == null && _AttData.FirstOrDefault().DutyCode == "D")
+                                {
+                                    _AttData.FirstOrDefault().Remarks = "[Absent]";
+                                    _AttData.FirstOrDefault().StatusAB = true;
+                                }
+                                //context.LvDatas.Remove(lvvdata);
+                                context.SaveChanges();
                             }
-                            //context.LvDatas.Remove(lvvdata);
-                            context.SaveChanges();
                         }
                     }
+                    Date = Date.AddDays(1);
                 }
-                Date = Date.AddDays(1);
+            }
+            catch (Exception ex)
+            {
+                
             }
         }
 
         public void UpdateLeaveBalance(LvApplication lvappl)
         {
-            _empQuota.Clear();
             float LvDays = (float)lvappl.NoOfDays;
-            using (var context = new TAS2013Entities())
+            List<LvConsumed> _lvConsumed = new List<LvConsumed>();
+            using (var ctx = new TAS2013Entities())
             {
-                _empQuota = context.LvQuotas.Where(aa => aa.EmpID == lvappl.EmpID).ToList();
-                if (_empQuota.Count > 0)
+                string empLvType = lvappl.EmpID.ToString() + lvappl.LvType;
+                _lvConsumed = ctx.LvConsumeds.Where(aa => aa.EmpLvType == empLvType).ToList();
+                if (_lvConsumed.Count > 0)
                 {
-                    switch (lvappl.LvType)
-                    {
-                        case "A":
-                            _empQuota.FirstOrDefault().A = (float)(_empQuota.FirstOrDefault().A + LvDays);
-                            break;
-                        case "B":
-                            _empQuota.FirstOrDefault().B = (float)(_empQuota.FirstOrDefault().B + LvDays);
-                            break;
-                        case "C":
-                            _empQuota.FirstOrDefault().C = (float)(_empQuota.FirstOrDefault().C + LvDays);
-                            break;
-                        case "D":
-                            _empQuota.FirstOrDefault().D = (float)(_empQuota.FirstOrDefault().D + LvDays);
-                            break;
-                        case "E":
-                            _empQuota.FirstOrDefault().E = (float)(_empQuota.FirstOrDefault().E + LvDays);
-                            break;
-                        case "F":
-                            _empQuota.FirstOrDefault().F = (float)(_empQuota.FirstOrDefault().F + LvDays);
-                            break;
-                        case "G":
-                            _empQuota.FirstOrDefault().G = (float)(_empQuota.FirstOrDefault().G + LvDays);
-                            break;
-                        case "H":
-                            _empQuota.FirstOrDefault().H = (float)(_empQuota.FirstOrDefault().H + LvDays);
-                            break;
-                        case "I":
-                            _empQuota.FirstOrDefault().I = (float)(_empQuota.FirstOrDefault().I + LvDays);
-                            break;
-                        case "J":
-                            _empQuota.FirstOrDefault().J = (float)(_empQuota.FirstOrDefault().J + LvDays);
-                            break;
-                        case "K":
-                            _empQuota.FirstOrDefault().K = (float)(_empQuota.FirstOrDefault().K + LvDays);
-                            break;
-                        case "L":
-                            _empQuota.FirstOrDefault().L = (float)(_empQuota.FirstOrDefault().L + LvDays);
-                            break;
-                    }
-                    context.SaveChanges();
+                    _lvConsumed.FirstOrDefault().YearRemaining = (float)(_lvConsumed.FirstOrDefault().YearRemaining + LvDays);
+                    _lvConsumed.FirstOrDefault().GrandTotalRemaining = (float)(_lvConsumed.FirstOrDefault().GrandTotalRemaining + LvDays);
+                    SubtractBalancceMonthQuota(_lvConsumed, lvappl);
+                    ctx.SaveChanges();
                 }
+                ctx.Dispose();
             }
         }
 
@@ -509,8 +689,8 @@ namespace WMS.Controllers
                     if (_id != null)
                     {
                         LvData lvvdata = context.LvDatas.Find(_id);
-                        lvvdata.Active = false;
-                        //context.LvDatas.Remove(lvvdata);
+                        //lvvdata.Active = false;
+                        context.LvDatas.Remove(lvvdata);
                         context.SaveChanges();
                     }
                 }
@@ -520,85 +700,58 @@ namespace WMS.Controllers
 
         public void DeleteHLFromAttData(LvApplication lvappl)
         {
-            int _EmpID = lvappl.EmpID;
-            DateTime Date = lvappl.FromDate;
-            while (Date <= lvappl.ToDate)
+            try
             {
-                using (var context = new TAS2013Entities())
+                int _EmpID = lvappl.EmpID;
+                DateTime Date = lvappl.FromDate;
+                while (Date <= lvappl.ToDate)
                 {
-                    if (context.AttProcesses.Where(aa => aa.ProcessDate == Date.Date).Count() > 0)
+                    using (var context = new TAS2013Entities())
                     {
-                        string _empdate = _EmpID.ToString() + Date.Date.ToString("yyMMdd");
-                        var _AttData = context.AttDatas.Where(aa => aa.EmpDate == _empdate);
-                        if (_AttData != null)
+                        if (context.AttProcesses.Where(aa => aa.ProcessDate == Date.Date).Count() > 0)
                         {
-                            _AttData.FirstOrDefault().StatusLeave = false;
-                            _AttData.FirstOrDefault().Remarks.Replace("[H-SL]", "");
-                            _AttData.FirstOrDefault().Remarks.Replace("[H-CL]", "");
-                            _AttData.FirstOrDefault().Remarks.Replace("[H-AL]", "");
-                            if (_AttData.FirstOrDefault().TimeIn == null && _AttData.FirstOrDefault().TimeOut == null && _AttData.FirstOrDefault().DutyCode == "D")
+                            string _empdate = _EmpID.ToString() + Date.Date.ToString("yyMMdd");
+                            var _AttData = context.AttDatas.Where(aa => aa.EmpDate == _empdate);
+                            if (_AttData != null)
                             {
-                                _AttData.FirstOrDefault().Remarks = "[Absent]";
-                                _AttData.FirstOrDefault().StatusAB = true;
+                                _AttData.FirstOrDefault().StatusLeave = false;
+                                _AttData.FirstOrDefault().Remarks.Replace("[H-SL]", "");
+                                _AttData.FirstOrDefault().Remarks.Replace("[H-CL]", "");
+                                _AttData.FirstOrDefault().Remarks.Replace("[H-AL]", "");
+                                if (_AttData.FirstOrDefault().TimeIn == null && _AttData.FirstOrDefault().TimeOut == null && _AttData.FirstOrDefault().DutyCode == "D")
+                                {
+                                    _AttData.FirstOrDefault().Remarks = "[Absent]";
+                                    _AttData.FirstOrDefault().StatusAB = true;
+                                }
+                                context.SaveChanges();
                             }
-                            context.SaveChanges();
                         }
                     }
+                    Date = Date.AddDays(1);
                 }
-                Date = Date.AddDays(1);
+            }
+            catch (Exception ex)
+            {
+                
             }
         }
 
         public void UpdateHLeaveBalance(LvApplication lvappl)
         {
-            _empQuota.Clear();
             float LvDays = (float)lvappl.NoOfDays;
-            using (var context = new TAS2013Entities())
+            List<LvConsumed> _lvConsumed = new List<LvConsumed>();
+            using (var ctx = new TAS2013Entities())
             {
-                _empQuota = context.LvQuotas.Where(aa => aa.EmpID == lvappl.EmpID).ToList();
-                if (_empQuota.Count > 0)
+                string empLvType = lvappl.EmpID.ToString() + lvappl.LvType;
+                _lvConsumed = ctx.LvConsumeds.Where(aa => aa.EmpLvType == empLvType).ToList();
+                if (_lvConsumed.Count > 0)
                 {
-                    switch (lvappl.LvType)
-                    {
-                        case "A":
-                            _empQuota.FirstOrDefault().A = (float)(_empQuota.FirstOrDefault().A + LvDays);
-                            break;
-                        case "B":
-                            _empQuota.FirstOrDefault().B = (float)(_empQuota.FirstOrDefault().B + LvDays);
-                            break;
-                        case "C":
-                            _empQuota.FirstOrDefault().C = (float)(_empQuota.FirstOrDefault().C + LvDays);
-                            break;
-                        case "D":
-                            _empQuota.FirstOrDefault().D = (float)(_empQuota.FirstOrDefault().D + LvDays);
-                            break;
-                        case "E":
-                            _empQuota.FirstOrDefault().E = (float)(_empQuota.FirstOrDefault().E + LvDays);
-                            break;
-                        case "F":
-                            _empQuota.FirstOrDefault().F = (float)(_empQuota.FirstOrDefault().F + LvDays);
-                            break;
-                        case "G":
-                            _empQuota.FirstOrDefault().G = (float)(_empQuota.FirstOrDefault().G + LvDays);
-                            break;
-                        case "H":
-                            _empQuota.FirstOrDefault().H = (float)(_empQuota.FirstOrDefault().H + LvDays);
-                            break;
-                        case "I":
-                            _empQuota.FirstOrDefault().I = (float)(_empQuota.FirstOrDefault().I + LvDays);
-                            break;
-                        case "J":
-                            _empQuota.FirstOrDefault().J = (float)(_empQuota.FirstOrDefault().J + LvDays);
-                            break;
-                        case "K":
-                            _empQuota.FirstOrDefault().K = (float)(_empQuota.FirstOrDefault().K + LvDays);
-                            break;
-                        case "L":
-                            _empQuota.FirstOrDefault().L = (float)(_empQuota.FirstOrDefault().L + LvDays);
-                            break;
-                    }
-                    context.SaveChanges();
+                    _lvConsumed.FirstOrDefault().YearRemaining = (float)(_lvConsumed.FirstOrDefault().YearRemaining + LvDays);
+                    _lvConsumed.FirstOrDefault().GrandTotalRemaining = (float)(_lvConsumed.FirstOrDefault().GrandTotalRemaining + LvDays);
+                    SubtractHalfLeavesBalancceMonthQuota(_lvConsumed, lvappl);
+                    ctx.SaveChanges();
                 }
+                ctx.Dispose();
             }
         }
 

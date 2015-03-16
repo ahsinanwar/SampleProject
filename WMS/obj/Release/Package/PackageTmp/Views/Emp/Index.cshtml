@@ -1,5 +1,5 @@
 ﻿@*@model IEnumerable<WMSModel.Emp>*@
-@model PagedList.IPagedList<WMS.Models.Emp>
+@model PagedList.IPagedList<WMS.Models.EmpView>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
@@ -75,16 +75,16 @@
                     @Html.DisplayFor(modelItem => item.NicNo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Designation.DesignationName)
+                    @Html.DisplayFor(modelItem => item.DesignationName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Section.SectionName)
+                    @Html.DisplayFor(modelItem => item.SectionName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Section.Department.DeptName)
+                    @Html.DisplayFor(modelItem => item.DeptName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Section.Department.Division.DivisionName)
+                    @Html.DisplayFor(modelItem => item.DivisionName)
                 </td>
                  <td>
                      @if (item.Status==true)

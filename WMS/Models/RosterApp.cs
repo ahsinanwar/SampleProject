@@ -16,7 +16,7 @@ namespace WMS.Models
     {
         public RosterApp()
         {
-            this.RotaSubApps = new HashSet<RotaSubApp>();
+            this.RosterDetails = new HashSet<RosterDetail>();
         }
     
         public int RotaApplD { get; set; }
@@ -30,8 +30,10 @@ namespace WMS.Models
         public Nullable<byte> RotaTypeID { get; set; }
         public Nullable<short> WorkMin { get; set; }
         public Nullable<System.TimeSpan> DutyTime { get; set; }
+        public Nullable<byte> ShiftID { get; set; }
     
         public virtual RosterType RosterType { get; set; }
-        public virtual ICollection<RotaSubApp> RotaSubApps { get; set; }
+        public virtual Shift Shift { get; set; }
+        public virtual ICollection<RosterDetail> RosterDetails { get; set; }
     }
 }

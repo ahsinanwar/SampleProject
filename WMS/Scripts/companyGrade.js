@@ -1,12 +1,17 @@
 ﻿$(document).ready(function () {
 
+    var selectedItemID = document.getElementById("selectedGradeIdHidden").value;
+
     $('#GradeID').empty();
     var URL = '/WMS/Emp/GradeList';
     //var URL = '/Emp/GradeList';
     $.getJSON(URL + '/' + $('#CompanyID').val(), function (data) {
         var items;
         $.each(data, function (i, state) {
-            items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
+            if (state.Value == selectedItemID)
+                items += "<option selected value='" + state.Value + "'>" + state.Text + "</option>";
+            else
+                items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
             // state.Value cannot contain ' character. We are OK because state.Value = cnt++;
         });
         $('#GradeID').html(items);
@@ -21,7 +26,10 @@
         $.getJSON(URL + '/' + $('#CompanyID').val(), function (data) {
             var items;
             $.each(data, function (i, state) {
-                items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
+                if (state.Value == selectedItemID)
+                    items += "<option selected value='" + state.Value + "'>" + state.Text + "</option>";
+                else
+                    items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
                 // state.Value cannot contain ' character. We are OK because state.Value = cnt++;
             });
             $('#GradeID').html(items);

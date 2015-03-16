@@ -93,7 +93,7 @@ namespace WMS.Controllers
         public ActionResult Create()
         {
             ViewBag.EmpID = new SelectList(db.Emps, "EmpID", "EmpNo");
-            ViewBag.LvType = new SelectList(db.LvTypes, "LvType1", "LvDesc");
+            ViewBag.LvType = new SelectList(db.LvTypes.Where(aa=>aa.Enable==true).ToList(), "LvType1", "LvDesc");
             return View();
         }
         
@@ -209,7 +209,7 @@ namespace WMS.Controllers
                 return HttpNotFound();
             }
             ViewBag.EmpID = new SelectList(db.Emps, "EmpID", "EmpNo", lvapplication.EmpID);
-            ViewBag.LvType = new SelectList(db.LvTypes, "LvType1", "LvDesc", lvapplication.LvType);
+            ViewBag.LvType = new SelectList(db.LvTypes.Where(aa => aa.Enable == true).ToList(), "LvType1", "LvDesc", lvapplication.LvType);
             return View(lvapplication);
         }
 
@@ -232,7 +232,7 @@ namespace WMS.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.EmpID = new SelectList(db.Emps, "EmpID", "EmpNo", lvapplication.EmpID);
-            ViewBag.LvType = new SelectList(db.LvTypes, "LvType1", "LvDesc", lvapplication.LvType);
+            ViewBag.LvType = new SelectList(db.LvTypes.Where(aa => aa.Enable == true).ToList(), "LvType1", "LvDesc", lvapplication.LvType);
             return View(lvapplication);
         }
 
@@ -261,21 +261,22 @@ namespace WMS.Controllers
         {
             LeaveController LvProcessController = new LeaveController();
             LvApplication lvapplication = db.LvApplications.Find(id);
-            lvapplication.Active = false;
-            db.Entry(lvapplication).State = EntityState.Modified;
-            db.SaveChanges();
             if (lvapplication.IsHalf == false)
             {
                 LvProcessController.DeleteFromLVData(lvapplication);
                 LvProcessController.DeleteLeaveFromAttData(lvapplication);
                 LvProcessController.UpdateLeaveBalance(lvapplication);
+                //lvapplication.Active = false;
+                db.LvApplications.Remove(lvapplication);
             }
             else
             {
                 LvProcessController.DeleteHLFromLVData(lvapplication);
                 LvProcessController.DeleteHLFromAttData(lvapplication);
                 LvProcessController.UpdateHLeaveBalance(lvapplication);
+                db.LvApplications.Remove(lvapplication);
             }
+            db.SaveChanges();
             //UpdateLeaveBalance(lvapplication);
             //db.LvApplications.Remove(lvapplication);
             //db.SaveChanges();

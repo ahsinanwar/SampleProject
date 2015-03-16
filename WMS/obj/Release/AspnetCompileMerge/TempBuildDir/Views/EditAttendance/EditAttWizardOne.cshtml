@@ -194,7 +194,7 @@
         </div><hr />
             <h4>Device Data</h4>
             <section class="row">
-                @if (ViewBag.PollDataIn != null && ViewBag.PollDataIn != null)
+                @if (ViewBag.PollsDataIn != null)
                 {
                 <div class="col-md-4">
                      @foreach (var item in ViewBag.PollsDataIn) {
@@ -210,7 +210,11 @@
                         </div>
                         </div>  
                     }
+                    
                 </div>
+                    }
+                    @if( ViewBag.PollsDataOut != null)
+                    {
                 <div class="col-md-6">
                     
                     @foreach (var item in ViewBag.PollsDataOut) {
@@ -226,10 +230,8 @@
                         </div>
                         </div>  
                     }
-                    
                 </div>
                 }
-                <p style="margin-left:10%;">No Record Found</p>
                  
             </section>
            
@@ -294,6 +296,23 @@
                         }, new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidthSmall" }) 
                 </div>
             </div>
+            <div class="form-group">
+                <div class="col-md-2">
+                    Shift Minutes
+                </div>
+                <div class="col-md-2">
+                    @*@Html.Editor("OutHour")*@
+                     @if (Model.ShifMin != null)
+                {
+                    <input type="number" step="1" max= "800" min= "0" id="ShiftMin" name="ShiftMin" class="form-control"value="@Model.ShifMin.Value">
+                }
+                else
+                {
+                   <input type="number" step="1" max= "800" min= "0" id="ShiftMin" name="ShiftMin" class="form-control"value="0000">
+                }
+                    
+                </div>
+             </div>
              <div class="form-group">
                 <div class="col-md-2">
                     Remarks

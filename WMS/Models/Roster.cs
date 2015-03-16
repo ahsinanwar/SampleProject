@@ -25,7 +25,5 @@ namespace WMS.Models
         public Nullable<int> UserID { get; set; }
         public Nullable<bool> OpenShift { get; set; }
         public Nullable<int> RosterSubAppID { get; set; }
-    
-        public virtual RotaSubApp RotaSubApp { get; set; }
     }
 }

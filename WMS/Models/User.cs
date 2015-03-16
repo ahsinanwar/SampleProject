@@ -25,8 +25,7 @@ namespace WMS.Models
         public Nullable<byte> RoleID { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public string Name { get; set; }
-        public bool Status { get; set; }
-        public Nullable<short> Department { get; set; }
+        public Nullable<bool> Status { get; set; }
         public Nullable<bool> CanEdit { get; set; }
         public Nullable<bool> CanDelete { get; set; }
         public Nullable<bool> CanView { get; set; }
@@ -54,6 +53,7 @@ namespace WMS.Models
         public Nullable<bool> ViewContractual { get; set; }
         public Nullable<bool> ViewLocation { get; set; }
         public Nullable<short> LocationID { get; set; }
+        public Nullable<bool> MRoster { get; set; }
     
         public virtual Company Company { get; set; }
         public virtual Emp Emp { get; set; }

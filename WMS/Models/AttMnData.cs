@@ -51,12 +51,13 @@ namespace WMS.Models
         public string D30 { get; set; }
         public string D31 { get; set; }
         public Nullable<byte> TotalDays { get; set; }
-        public Nullable<byte> WorkDays { get; set; }
-        public Nullable<byte> PreDays { get; set; }
-        public Nullable<byte> AbDays { get; set; }
+        public Nullable<double> WorkDays { get; set; }
+        public Nullable<double> PreDays { get; set; }
+        public Nullable<double> AbDays { get; set; }
         public Nullable<byte> RestDays { get; set; }
         public Nullable<byte> GZDays { get; set; }
         public Nullable<byte> LeaveDays { get; set; }
+        public Nullable<double> HalfLeavesDay { get; set; }
         public Nullable<byte> OfficialDutyDays { get; set; }
         public Nullable<short> TEarlyIn { get; set; }
         public Nullable<short> TEarlyOut { get; set; }
@@ -97,6 +98,37 @@ namespace WMS.Models
         public Nullable<short> OT29 { get; set; }
         public Nullable<short> OT30 { get; set; }
         public Nullable<short> OT31 { get; set; }
+        public string L1 { get; set; }
+        public string L2 { get; set; }
+        public string L3 { get; set; }
+        public string L4 { get; set; }
+        public string L5 { get; set; }
+        public string L6 { get; set; }
+        public string L7 { get; set; }
+        public string L8 { get; set; }
+        public string L9 { get; set; }
+        public string L10 { get; set; }
+        public string L11 { get; set; }
+        public string L12 { get; set; }
+        public string L13 { get; set; }
+        public string L14 { get; set; }
+        public string L15 { get; set; }
+        public string L16 { get; set; }
+        public string L17 { get; set; }
+        public string L18 { get; set; }
+        public string L19 { get; set; }
+        public string L20 { get; set; }
+        public string L21 { get; set; }
+        public string L22 { get; set; }
+        public string L23 { get; set; }
+        public string L24 { get; set; }
+        public string L25 { get; set; }
+        public string L26 { get; set; }
+        public string L27 { get; set; }
+        public string L28 { get; set; }
+        public string L29 { get; set; }
+        public string L30 { get; set; }
+        public string L31 { get; set; }
     
         public virtual Emp Emp { get; set; }
     }

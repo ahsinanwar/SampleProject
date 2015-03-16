@@ -32,6 +32,7 @@ namespace WMS.Reports
                 SelectedEmps.Clear();
                 SelectedLocs.Clear();
                 SelectedSections.Clear();
+                
                 SelectedShifts.Clear();
                 RefreshLabels();
                 DateTime dt = DateTime.Today.Date;
@@ -476,7 +477,19 @@ namespace WMS.Reports
             ReportViewer1.Visible = true;
             List<ViewMissingAtt> _ViewList = new List<ViewMissingAtt>();
             List<ViewMissingAtt> _TempViewList = new List<ViewMissingAtt>();
-            _ViewList = context.ViewMissingAtts.Where(aa => (aa.AttDate >= DateFrom.Date && aa.AttDate <= DateTo.Date)  && ((aa.TimeIn == null && aa.TimeOut != null) || (aa.TimeIn != null && aa.TimeOut == null))).ToList();
+            if (Option == "Any")
+            {
+                _ViewList = context.ViewMissingAtts.Where(aa => (aa.AttDate >= DateFrom.Date && aa.AttDate <= DateTo.Date) && ((aa.TimeIn == null && aa.TimeOut != null) || (aa.TimeIn != null && aa.TimeOut == null))).ToList();
+            }
+            if (Option == "IN")
+            {
+                _ViewList = context.ViewMissingAtts.Where(aa => (aa.AttDate >= DateFrom.Date && aa.AttDate <= DateTo.Date) && ((aa.TimeIn == null && aa.TimeOut != null))).ToList();
+            }
+
+            if (Option == "Out")
+            {
+                _ViewList = context.ViewMissingAtts.Where(aa => (aa.AttDate >= DateFrom.Date && aa.AttDate <= DateTo.Date) && ((aa.TimeIn != null && aa.TimeOut == null))).ToList();
+            }
             if (SelectedEmps.Count > 0)
             {
                 foreach (var emp in SelectedEmps)
@@ -599,6 +612,16 @@ namespace WMS.Reports
                     return DateTime.Parse(dateTo.Value);
             }
         }
+         public string Option
+        {
+            get
+            {
+                if (DropDownList1.Text == "")
+                    return "";
+                else
+                    return DropDownList1.Text;
+            }
+        }
         private void LoadReport(string path, List<ViewMissingAtt> _Employee)
         {
             string DateToFor = "";
@@ -625,5 +648,11 @@ namespace WMS.Reports
             this.ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { rp, rp1 });
             ReportViewer1.LocalReport.Refresh();
         }
+
+        //public string Options
+        //{
+        //    get { return cbo}
+        //    set { }
+        //}
     }
 }

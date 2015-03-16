@@ -21,8 +21,8 @@ namespace WMS.Models
             this.AttMnDatas = new HashSet<AttMnData>();
             this.Cards = new HashSet<Card>();
             this.EmpAccesses = new HashSet<EmpAccess>();
-            this.EmpPhotoes = new HashSet<EmpPhoto>();
             this.LvApplications = new HashSet<LvApplication>();
+            this.LvConsumeds = new HashSet<LvConsumed>();
             this.LvShorts = new HashSet<LvShort>();
             this.Users = new HashSet<User>();
         }
@@ -72,6 +72,7 @@ namespace WMS.Models
         public virtual Company Company { get; set; }
         public virtual Crew Crew { get; set; }
         public virtual Designation Designation { get; set; }
+        public virtual EmpPhoto EmpPhoto { get; set; }
         public virtual Grade Grade { get; set; }
         public virtual JobTitle JobTitle { get; set; }
         public virtual Location Location { get; set; }
@@ -81,8 +82,8 @@ namespace WMS.Models
         public virtual ICollection<EmpAccess> EmpAccesses { get; set; }
         public virtual EmpFace EmpFace { get; set; }
         public virtual EmpFp EmpFp { get; set; }
-        public virtual ICollection<EmpPhoto> EmpPhotoes { get; set; }
         public virtual ICollection<LvApplication> LvApplications { get; set; }
+        public virtual ICollection<LvConsumed> LvConsumeds { get; set; }
         public virtual LvQuota LvQuota { get; set; }
         public virtual ICollection<LvShort> LvShorts { get; set; }
         public virtual ICollection<User> Users { get; set; }

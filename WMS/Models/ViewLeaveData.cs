@@ -48,5 +48,13 @@ namespace WMS.Models
         public Nullable<short> CompanyID { get; set; }
         public byte TypeID { get; set; }
         public Nullable<short> CatID { get; set; }
+        public short LocID { get; set; }
+        public Nullable<int> DesignationID { get; set; }
+        public Nullable<short> CrewID { get; set; }
+        public byte GradeID { get; set; }
+        public Nullable<short> SectionID { get; set; }
+        public Nullable<short> DeptID { get; set; }
+        public byte ShiftID { get; set; }
+        public Nullable<short> DivisionID { get; set; }
     }
 }

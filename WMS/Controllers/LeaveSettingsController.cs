@@ -12,11 +12,29 @@ namespace WMS.Controllers
         //
         // GET: /LeaveSettings/
         //[HttpPost]
+
+        TAS2013Entities db = new TAS2013Entities();
         public ActionResult Index()
         {
+            User LoggedInUser = Session["LoggedUser"] as User;
+            ViewBag.EmployeeCat = new SelectList(db.Categories.Where(aa=>aa.CompanyID == LoggedInUser.CompanyID).ToList(), "CatID", "CatName");
             return View();
         }
 
+        [HttpPost]
+        public ActionResult CreateLeaveQuota()
+        {
+            int AL = Convert.ToInt32(Request.Form["ALeaves"].ToString());
+            int CL = Convert.ToInt32(Request.Form["CLeaves"].ToString());
+            int SL = Convert.ToInt32(Request.Form["SLeaves"].ToString());
+            List<Emp> _Emp = new List<Emp>();
+            List<LvType> _lvType = new List<LvType>();
+            byte _catID = Convert.ToByte(Request.Form["EmployeeCat"].ToString());
+            _Emp = db.Emps.Where(aa=>aa.EmpType.CatID == _catID).ToList();
+            _lvType  =db.LvTypes.Where(aa=>aa.Enable == true).ToList();
+            GenerateLeaveQuotaAttributes(_Emp, _lvType, AL, CL, SL);
+            return View();
+        }
         //
         // GET: /LeaveSettings/Details/5
         public ActionResult Details(int id)
@@ -26,42 +44,85 @@ namespace WMS.Controllers
 
         //
         // GET: /LeaveSettings/Create
-        public ActionResult AddLeaveQuota()
+        [HttpPost]
+        public ActionResult AddLeaveQuota(string EmployeeCat)
         {
             int AL = Convert.ToInt32(Request.Form["ALeaves"].ToString());
             int CL = Convert.ToInt32(Request.Form["CLeaves"].ToString());
             int SL = Convert.ToInt32(Request.Form["SLeaves"].ToString());
             using (var ctx = new TAS2013Entities())
             {
-                List<LvQuota> _LvQuota = new List<LvQuota>();
-                List<LvQuota> _TemLvQuota = new List<LvQuota>();
-                _LvQuota = ctx.LvQuotas.ToList();
+                User LoggedInUser = Session["LoggedUser"] as User;
+                List<LvConsumed> _LvConsumed = new List<LvConsumed>();
+                List<LvConsumed> _TemLvQuota = new List<LvConsumed>();
+                _LvConsumed = ctx.LvConsumeds.Where(aa => aa.CompanyID == LoggedInUser.CompanyID).ToList();
                 List<Emp> _Emps = new List<Emp>();
-                _Emps = ctx.Emps.Where(aa => aa.Status == true).ToList();
+                _Emps = ctx.Emps.Where(aa => aa.Status == true && aa.CompanyID == LoggedInUser.CompanyID).ToList();
+                List<LvType> _lvType = new List<LvType>();
+                _lvType = ctx.LvTypes.Where(aa => aa.Enable == true && aa.CompanyID == LoggedInUser.CompanyID).ToList();
                 foreach (var emp in _Emps)
                 {
-                    _TemLvQuota = _LvQuota.Where(aa => aa.EmpID == emp.EmpID).ToList();
-                    if (_TemLvQuota.Count() > 0)
+                    foreach (var lvType in _lvType)
                     {
-                        _TemLvQuota.FirstOrDefault().A = AL;
-                        _TemLvQuota.FirstOrDefault().B = CL;
-                        _TemLvQuota.FirstOrDefault().C = SL;
-                        _TemLvQuota.FirstOrDefault().TA = AL + _TemLvQuota.FirstOrDefault().TA;
-                        _TemLvQuota.FirstOrDefault().TB = CL + _TemLvQuota.FirstOrDefault().TB;
-                        _TemLvQuota.FirstOrDefault().TC = SL + _TemLvQuota.FirstOrDefault().TC;
-                        ctx.SaveChanges();
-                    }
-                    else
-                    {
-                        LvQuota _lvQuota = new LvQuota();
-                        _lvQuota.EmpID = emp.EmpID;
-                        _lvQuota.A = AL;
-                        _lvQuota.B = CL;
-                        _lvQuota.C = SL;
-                        _lvQuota.TA = AL;
-                        _lvQuota.TB = CL;
-                        _lvQuota.TC = SL;
-                        ctx.LvQuotas.Add(_lvQuota);
+                        string empType = emp.EmpID.ToString() + lvType.LvType1;
+                        _TemLvQuota = _LvConsumed.Where(aa => aa.EmpLvType == empType).ToList();
+                        switch (lvType.LvType1)
+                        {
+                            case "A"://CL
+                                _TemLvQuota.FirstOrDefault().TotalForYear = CL;
+                                _TemLvQuota.FirstOrDefault().YearRemaining = CL;
+                                _TemLvQuota.FirstOrDefault().GrandTotal = _TemLvQuota.FirstOrDefault().GrandTotal + CL;
+                                _TemLvQuota.FirstOrDefault().GrandTotalRemaining = _TemLvQuota.FirstOrDefault().GrandTotalRemaining + CL;
+                                _TemLvQuota.FirstOrDefault().JanConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().FebConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().MarchConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().AprConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().MayConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().JuneConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().JulyConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().AugustConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().SepConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().OctConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().NovConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().DecConsumed = 0;
+                                break;
+                            case "B"://AL
+                                _TemLvQuota.FirstOrDefault().TotalForYear = AL;
+                                _TemLvQuota.FirstOrDefault().YearRemaining = AL;
+                                _TemLvQuota.FirstOrDefault().GrandTotal = _TemLvQuota.FirstOrDefault().GrandTotal + AL;
+                                _TemLvQuota.FirstOrDefault().GrandTotalRemaining = _TemLvQuota.FirstOrDefault().GrandTotalRemaining + AL;
+                                _TemLvQuota.FirstOrDefault().JanConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().FebConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().MarchConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().AprConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().MayConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().JuneConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().JulyConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().AugustConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().SepConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().OctConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().NovConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().DecConsumed = 0;
+                                break;
+                            case "C"://SL
+                                _TemLvQuota.FirstOrDefault().TotalForYear = SL;
+                                _TemLvQuota.FirstOrDefault().YearRemaining = SL;
+                                _TemLvQuota.FirstOrDefault().GrandTotal = _TemLvQuota.FirstOrDefault().GrandTotal + SL;
+                                _TemLvQuota.FirstOrDefault().GrandTotalRemaining = _TemLvQuota.FirstOrDefault().GrandTotalRemaining + SL;
+                                _TemLvQuota.FirstOrDefault().JanConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().FebConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().MarchConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().AprConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().MayConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().JuneConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().JulyConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().AugustConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().SepConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().OctConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().NovConsumed = 0;
+                                _TemLvQuota.FirstOrDefault().DecConsumed = 0;
+                                break;
+                        }
                         ctx.SaveChanges();
                     }
                 }
@@ -70,6 +131,63 @@ namespace WMS.Controllers
             return View("Index");
         }
 
+        public void GenerateLeaveQuotaAttributes(List<Emp> _emp, List<LvType> _lvType,int AL,int CL,int SL)
+        {
+            using (var ctx = new TAS2013Entities())
+            {
+                foreach (var emp in _emp)
+                {
+                    foreach (var lvType in _lvType)
+                    {
+                        string empType = emp.EmpID.ToString() + lvType.LvType1;
+                        LvConsumed lvConsumed = new LvConsumed();
+                        lvConsumed.EmpLvType = empType;
+                        lvConsumed.EmpID = emp.EmpID;
+                        lvConsumed.LeaveType = lvType.LvType1;
+                        lvConsumed.JanConsumed= 0;
+                        lvConsumed.FebConsumed= 0;
+                        lvConsumed.MarchConsumed= 0;
+                        lvConsumed.AprConsumed= 0;
+                        lvConsumed.MayConsumed= 0;
+                        lvConsumed.JuneConsumed= 0;
+                        lvConsumed.JulyConsumed= 0;
+                        lvConsumed.AugustConsumed= 0;
+                        lvConsumed.SepConsumed= 0;
+                        lvConsumed.OctConsumed= 0;
+                        lvConsumed.NovConsumed= 0;
+                        lvConsumed.DecConsumed= 0;
+                        lvConsumed.CompanyID = emp.CompanyID;
+                        switch (lvType.LvType1)
+                        {
+                            case "A"://CL
+                                lvConsumed.TotalForYear = CL;
+                                lvConsumed.YearRemaining = CL;
+                                lvConsumed.GrandTotal = CL;
+                                lvConsumed.GrandTotalRemaining = CL;
+                                break;
+                            case "B"://AL
+                                lvConsumed.TotalForYear = AL;
+                                lvConsumed.YearRemaining = AL;
+                                lvConsumed.GrandTotal = AL;
+                                lvConsumed.GrandTotalRemaining = AL;
+                                break;
+                            case "C"://SL
+                                lvConsumed.TotalForYear = SL;
+                                lvConsumed.YearRemaining = SL;
+                                lvConsumed.GrandTotal = SL;
+                                lvConsumed.GrandTotalRemaining = SL;
+                                break;
+                        }
+                        ctx.LvConsumeds.Add(lvConsumed);
+                        ctx.SaveChanges();
+
+                    }
+                }
+
+                ctx.Dispose();
+            }
+
+        }
         //
         // POST: /LeaveSettings/Create
         [HttpPost]

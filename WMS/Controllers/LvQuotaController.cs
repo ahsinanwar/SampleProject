@@ -34,7 +34,7 @@ namespace WMS.Controllers
             }
             User LoggedInUser = Session["LoggedUser"] as User;
             ViewBag.CurrentFilter = searchString;
-            var lvquotas = db.LvQuotas.Where(aa=>aa.CompanyID==LoggedInUser.CompanyID).Include(l => l.Emp);
+            var lvquotas = db.LvConsumeds.Where(aa => aa.CompanyID == LoggedInUser.CompanyID).Include(l => l.Emp);
             if (!String.IsNullOrEmpty(searchString))
             {
                 lvquotas = lvquotas.Where(s => s.Emp.EmpName.ToUpper().Contains(searchString.ToUpper())

@@ -3671,7 +3671,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Microsoft.VisualBasic.Interaction.iif((Fields!TNOT.Value = 0), "", (Microsoft.VisualBasic.Strings.right("0" &amp; Microsoft.VisualBasic.Conversion.int(Sum(Fields!TNOT.Value) / 60), 2) &amp; ":" &amp; Microsoft.VisualBasic.Strings.right("0" &amp; Microsoft.VisualBasic.Conversion.int((Sum(Fields!TNOT.Value) Mod 60)), 2)))</Value>
+                                  <Value>=iif((Fields!TNOT.Value = 0), "",(right("0" &amp; int(sum(Fields!TNOT.Value)/60),3) &amp; ":" 
+&amp; right("0" &amp; int((sum(Fields!TNOT.Value) Mod 60)),2)))</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>

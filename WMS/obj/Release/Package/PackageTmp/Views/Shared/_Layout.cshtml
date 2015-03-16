@@ -54,7 +54,10 @@
                         @*<li><a href="~/Site">Sites</a></li>
                         <li><a href="~/City">Cities</a></li>
                         <li><a href="~/Region">Regions</a></li>*@
+                             @if(Session["MRoster"].ToString() == "1")
+                        {
                         <li><a href="~/Roster">Roster</a></li>
+                             }
                         @if(Session["MUser"].ToString() == "1")
                         {
                         <li><a href="~/User">Users</a></li>

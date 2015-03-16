@@ -14,13 +14,17 @@ namespace WMS.Models
     
     public partial class RosterDetail
     {
-        public int EmpID { get; set; }
-        public byte RType { get; set; }
-        public Nullable<bool> Repeat { get; set; }
-        public System.DateTime FromDate { get; set; }
-        public System.DateTime ToDate { get; set; }
-        public Nullable<int> CreatedBy { get; set; }
+        public string CriteriaValueDate { get; set; }
+        public Nullable<int> RosterAppID { get; set; }
+        public string DutyCode { get; set; }
+        public System.TimeSpan DutyTime { get; set; }
+        public short WorkMin { get; set; }
+        public string Remarks { get; set; }
+        public Nullable<short> CompanyID { get; set; }
+        public Nullable<bool> OpenShift { get; set; }
+        public Nullable<System.DateTime> RosterDate { get; set; }
+        public Nullable<int> UserID { get; set; }
     
-        public virtual RosterType RosterType { get; set; }
+        public virtual RosterApp RosterApp { get; set; }
     }
 }

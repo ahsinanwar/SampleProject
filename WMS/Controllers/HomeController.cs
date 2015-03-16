@@ -12,6 +12,9 @@ using System.Xml.Serialization;
 using WMS.Controllers.Filters;
 using WMS.HelperClass;
 using WMS.Models;
+using System.DirectoryServices;
+using System.DirectoryServices.AccountManagement;
+using System.Data;
 
 namespace WMS.Controllers
 {
@@ -21,6 +24,11 @@ namespace WMS.Controllers
         // GET: /Home/
         public ActionResult Index()
         {
+            //TAS2013Entities db = new TAS2013Entities();
+            //Class1 c = new Class1();
+            //c.CreateDatatable();
+            //DataTable dt = c.GetLV(db.Emps.ToList(), DateTime.Now.Month);
+            
             //using (var ctx = new TAS2013Entities())
             //{
             //    DateTime refDate = new DateTime(2015,02,01);
@@ -39,8 +47,10 @@ namespace WMS.Controllers
             //        }
             //    }
             //    _TempAttData = _TempAttData.OrderBy(aa => aa.NewTimeIn).ToList();
-               
+
             //}
+
+            
             try
             {
                 if (Session["LogedUserID"] == null)
@@ -60,6 +70,7 @@ namespace WMS.Controllers
                     Session["MRAudit"] = "0";
                     Session["MRManualEditAtt"] = "0";
                     Session["MREmployee"] = "0";
+                    Session["MRoster"] = "0";
                     Session["MRDetail"] = "0";
                     Session["MRSummary"] = "0";
                     return View();
@@ -75,81 +86,112 @@ namespace WMS.Controllers
             }
             catch (Exception ex)
             {
-               return View();
+                return View();
             }
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(User u)
         {
             try
             {
-                // this action is for handle post (login)
-                if (ModelState.IsValid) // this is check validity
-                {
-                    using (TAS2013Entities dc = new TAS2013Entities())
-                    {
-                        var v = dc.Users.Where(a => a.UserName.Equals(u.UserName) && a.Password.Equals(u.Password) && a.Status == true).FirstOrDefault();
-                        if (v != null)
+                //using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "fatima-group.com"))
+                //{
+                //     //validate the credentials
+                //    //bool isValid = pc.ValidateCredentials("ffl.ithelpdesk", "fatima@0202");
+                //    bool isValid = pc.ValidateCredentials(u.UserName, u.Password);
+                //    if (isValid)
+                //    {
+                        if (ModelState.IsValid) // this is check validity
                         {
-                            Session["MDevice"] = "0";
-                            Session["MHR"] = "0";
-                            Session["MDevice"] = "0";
-                            Session["MLeave"] = "0";
-                            Session["MEditAtt"] = "0";
-                            Session["MUser"] = "0";
-                            Session["LogedUserFullname"] = "";
-                            Session["UserCompany"] = "";
-                            Session["MRDailyAtt"] = "0";
-                            Session["MRLeave"] = "0";
-                            Session["MRMonthly"] = "0";
-                            Session["MRAudit"] = "0";
-                            Session["MRManualEditAtt"] = "0";
-                            Session["MREmployee"] = "0";
-                            Session["MRDetail"] = "0";
-                            Session["MRSummary"] = "0";
-                            Session["LogedUserID"] = v.UserID.ToString();
-                            Session["LogedUserFullname"] = v.UserName;
-                            Session["LoggedUser"] = v;
-                            Session["UserCompany"] = v.CompanyID.ToString();
-                            if (v.MHR == true)
-                                Session["MHR"] = "1";
-                            if (v.MDevice == true)
-                                Session["MDevice"] = "1";
-                            if (v.MLeave == true)
-                                Session["MLeave"] = "1";
-                            if (v.MEditAtt == true)
-                                Session["MEditAtt"] = "1";
-                            if (v.MUser == true)
-                                Session["MUser"] = "1";
-                            if (v.MRDailyAtt == true)
-                                Session["MRDailyAtt"] = "1";
-                            if (v.MRLeave == true)
-                                Session["MRLeave"] = "1";
-                            if (v.MRMonthly == true)
-                                Session["MRMonthly"] = "1";
-                            if (v.MRAudit == true)
-                                Session["MRAudit"] = "1";
-                            if (v.MRManualEditAtt == true)
-                                Session["MRManualEditAtt"] = "1";
-                            if (v.MREmployee == true)
-                                Session["MREmployee"] = "1";
-                            if (v.MRDetail == true)
-                                Session["MRDetail"] = "1";
-                            if (v.MRSummary == true)
-                                Session["MRSummary"] = "1";
-                            HelperClass.MyHelper.SaveAuditLog(v.UserID, (byte)MyEnums.FormName.LogIn, (byte)MyEnums.Operation.LogIn, DateTime.Now);
-                            return RedirectToAction("AfterLogin");
+                            using (TAS2013Entities dc = new TAS2013Entities())
+                            {
+                                var v = dc.Users.Where(a => a.UserName.Equals(u.UserName) && a.Status == true).FirstOrDefault();
+                                if (v != null)
+                                {
+                                    Session["MDevice"] = "0";
+                                    Session["MHR"] = "0";
+                                    Session["MDevice"] = "0";
+                                    Session["MLeave"] = "0";
+                                    Session["MEditAtt"] = "0";
+                                    Session["MUser"] = "0";
+                                    Session["LogedUserFullname"] = "";
+                                    Session["UserCompany"] = "";
+                                    Session["MRDailyAtt"] = "0";
+                                    Session["MRLeave"] = "0";
+                                    Session["MRMonthly"] = "0";
+                                    Session["MRAudit"] = "0";
+                                    Session["MRManualEditAtt"] = "0";
+                                    Session["MREmployee"] = "0";
+                                    Session["MRDetail"] = "0";
+                                    Session["MRSummary"] = "0";
+                                    Session["LogedUserID"] = v.UserID.ToString();
+                                    Session["LogedUserFullname"] = v.UserName;
+                                    Session["LoggedUser"] = v;
+                                    Session["UserCompany"] = v.CompanyID.ToString();
+                                    if (v.MHR == true)
+                                        Session["MHR"] = "1";
+                                    if (v.MDevice == true)
+                                        Session["MDevice"] = "1";
+                                    if (v.MLeave == true)
+                                        Session["MLeave"] = "1";
+                                    if (v.MEditAtt == true)
+                                        Session["MEditAtt"] = "1";
+                                    if (v.MUser == true)
+                                        Session["MUser"] = "1";
+                                    if (v.MRDailyAtt == true)
+                                        Session["MRDailyAtt"] = "1";
+                                    if (v.MRLeave == true)
+                                        Session["MRLeave"] = "1";
+                                    if (v.MRMonthly == true)
+                                        Session["MRMonthly"] = "1";
+                                    if (v.MRAudit == true)
+                                        Session["MRAudit"] = "1";
+                                    if (v.MRManualEditAtt == true)
+                                        Session["MRManualEditAtt"] = "1";
+                                    if (v.MREmployee == true)
+                                        Session["MREmployee"] = "1";
+                                    if (v.MRDetail == true)
+                                        Session["MRDetail"] = "1";
+                                    if (v.MRSummary == true)
+                                        Session["MRSummary"] = "1";
+                                    if (v.MRoster == true)
+                                        Session["MRoster"] = "1";
+                                    HelperClass.MyHelper.SaveAuditLog(v.UserID, (byte)MyEnums.FormName.LogIn, (byte)MyEnums.Operation.LogIn, DateTime.Now);
+                                    return RedirectToAction("AfterLogin");
+                                }
+                            }
                         }
-                    }
-                }
-                return RedirectToAction("Index");
+                    //}
+                    return RedirectToAction("index");
+                //}
+
+
+
+
+                //using (var context = new PrincipalContext(ContextType.Domain, "fatima-group.com", "ffl.ithelpdesk@fatima-group.com", "fatima@0202"))
+                //{
+                //    using (var searcher = new PrincipalSearcher(new UserPrincipal(context)))
+                //    {
+                //        foreach (var result in searcher.FindAll())
+                //        {
+                //            DirectoryEntry de = result.GetUnderlyingObject() as DirectoryEntry;
+                //            string name = result.Name;
+                //            //label1.Text += "Name:    " + result.Name;
+                //            //label1.Text += "      account name   :    " + result.UserPrincipalName;
+                //            //label1.Text += "      Server:    " + result.Context.ConnectedServer + "\r";
+
+                //        }
+                //    }
+                //}
+                // this action is for handle post (login)
+
             }
             catch (Exception ex)
             {
                 ViewBag.Message = "There seems to be a problem with the network. Please contact your network administrator";
-               return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
         }
         public ActionResult AfterLogin()
@@ -234,25 +276,29 @@ namespace WMS.Controllers
                 List<Section> _secList = db.Sections.ToList();
                 //return Json(movies, JsonRequestBehavior.AllowGet);
                 //string output = SerializeObject(secs);
-            if (HttpContext.Request.IsAjaxRequest())
-                return Json(ConvertToJsonList(secs, _secList), JsonRequestBehavior.AllowGet);
+                if (HttpContext.Request.IsAjaxRequest())
+                    return Json(ConvertToJsonList(secs, _secList), JsonRequestBehavior.AllowGet);
             }
             return RedirectToAction("Index");
         }
 
-        private object ConvertToJsonList(List<DailySumSection> _sec,List<Section> _secList)
+        private object ConvertToJsonList(List<DailySumSection> _sec, List<Section> _secList)
         {
             var data = new List<object>();
             foreach (var item in _sec)
             {
                 string SecName = _secList.Where(aa => aa.SectionID == _sec.FirstOrDefault().SectionID).FirstOrDefault().SectionName;
-                data.Add(new {  SectionName = SecName, 
-                                Date = item.SummaryDate.Value.ToString("dd-MMM-yyyy"),
-                                TotalEmp = item.TotalEmp,
-                                });
+                data.Add(new
+                {
+                    SectionName = SecName,
+                    Date = item.SummaryDate.Value.ToString("dd-MMM-yyyy"),
+                    TotalEmp = item.TotalEmp,
+                });
             }
             return data;
         }
-// Usage:
-	}
+
+
+        // Usage:
+    }
 }

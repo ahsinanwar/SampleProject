@@ -84,6 +84,7 @@
                             </div>
                             <div class="col-md-3 ">
                                  <select class="btn btn-default dropdown-toggle dropdown ComboBoxWidth" id="TypeID" name="TypeID"></select>
+                               @Html.HiddenFor(model => model.SecID , new { id = "selectedTypeIdHidden" })  
                             </div>
                         </div>
                         <div class="form-group">
@@ -99,6 +100,7 @@
                             </div>
                             <div class="col-md-3 ">
                                 <select class="btn btn-default dropdown-toggle dropdown ComboBoxWidth" id="GradeID" name="GradeID"></select>
+                                 @Html.HiddenFor(model => model.SecID , new { id = "selectedGradeIdHidden" })
                             </div>
                         </div>
 
@@ -125,8 +127,8 @@
                                 <label for="Section">Section</label>
                             </div>
                             <div class="col-md-3 ">
-                               
-                                 <select class="btn btn-default dropdown-toggle dropdown ComboBoxWidth" id="SecID" name="SecID"></select>
+                             <select class="btn btn-default dropdown-toggle dropdown ComboBoxWidth" id="SecID" name="SecID"></select>
+                        @Html.HiddenFor(model => model.SecID , new { id = "selectedSectionIdHidden" })          
                             </div>
                         </div>
 

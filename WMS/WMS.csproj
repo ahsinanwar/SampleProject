@@ -64,6 +64,9 @@
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.DirectoryServices.Protocols" />
     <Reference Include="System.Runtime.DurableInstancing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -148,13 +151,15 @@
     <Content Include="Reports\EmpAttSummary.aspx" />
     <Content Include="Reports\EmployeeDetail.aspx" />
     <Content Include="Reports\LeaveDatewise.aspx" />
-    <Content Include="Reports\LeaveQuota.aspx" />
+    <Content Include="Reports\LvQuota.aspx" />
     <Content Include="Reports\MDetailExcelC.aspx" />
     <Content Include="Reports\MDetailExcelP.aspx" />
+    <Content Include="Reports\MLvConsumed.aspx" />
     <Content Include="Reports\MSheet.aspx" />
     <Content Include="Reports\MSheetC.aspx" />
     <Content Include="Reports\MSummary.aspx" />
     <Content Include="Reports\MSummaryC.aspx" />
+    <Content Include="Reports\YLvConsumed.aspx" />
     <Content Include="Scripts\dx.chartjs.js" />
     <Content Include="Scripts\empTypeCategory.js" />
     <Content Include="Scripts\globalize.min.js" />
@@ -309,11 +314,14 @@
     <Compile Include="Controllers\GradeController.cs" />
     <Compile Include="Controllers\HolidayController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobCardAppRController.cs" />
+    <Compile Include="Controllers\JobCardEmpRController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\LeaveSettingsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\LvAppController.cs" />
+    <Compile Include="Controllers\LvConsumedController.cs" />
     <Compile Include="Controllers\LvQuotaController.cs" />
     <Compile Include="Controllers\LvShortController.cs" />
     <Compile Include="Controllers\ReaderController.cs" />
@@ -327,6 +335,8 @@
     <Compile Include="Controllers\ShiftController.cs" />
     <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="CustomClass\CustomFunc.cs" />
+    <Compile Include="CustomClass\DatatableToList.cs" />
+    <Compile Include="CustomClass\QueryBuilder.cs" />
     <Compile Include="HelperClass\ImageConversion.cs" />
     <Compile Include="Models\AccessEmp.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
@@ -457,6 +467,9 @@
     <Compile Include="Models\LvApplication.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LvConsumed.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\LvData.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
@@ -502,10 +515,10 @@
     <Compile Include="Models\RosterApp.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\RosterType.cs">
+    <Compile Include="Models\RosterDetail.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\RotaSubApp.cs">
+    <Compile Include="Models\RosterType.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Section.cs">
@@ -539,9 +552,6 @@
       <DependentUpon>TASModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>TASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserModule.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserRole.cs">
@@ -581,6 +591,9 @@
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewLeaveQuota.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewLvConsumed.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewMissingAtt.cs">
@@ -762,12 +775,12 @@
     <Compile Include="Reports\LeaveDatewise.aspx.designer.cs">
       <DependentUpon>LeaveDatewise.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Reports\LeaveQuota.aspx.cs">
-      <DependentUpon>LeaveQuota.aspx</DependentUpon>
+    <Compile Include="Reports\LvQuota.aspx.cs">
+      <DependentUpon>LvQuota.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Reports\LeaveQuota.aspx.designer.cs">
-      <DependentUpon>LeaveQuota.aspx</DependentUpon>
+    <Compile Include="Reports\LvQuota.aspx.designer.cs">
+      <DependentUpon>LvQuota.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\MDetailExcelC.aspx.cs">
       <DependentUpon>MDetailExcelC.aspx</DependentUpon>
@@ -782,6 +795,13 @@
     </Compile>
     <Compile Include="Reports\MDetailExcelP.aspx.designer.cs">
       <DependentUpon>MDetailExcelP.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MLvConsumed.aspx.cs">
+      <DependentUpon>MLvConsumed.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\MLvConsumed.aspx.designer.cs">
+      <DependentUpon>MLvConsumed.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\MSheet.aspx.cs">
       <DependentUpon>MSheet.aspx</DependentUpon>
@@ -817,6 +837,13 @@
     </Compile>
     <Compile Include="Reports\ReportHome.aspx.designer.cs">
       <DependentUpon>ReportHome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\YLvConsumed.aspx.cs">
+      <DependentUpon>YLvConsumed.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\YLvConsumed.aspx.designer.cs">
+      <DependentUpon>YLvConsumed.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site1.Master.cs">
       <DependentUpon>Site1.Master</DependentUpon>
@@ -956,6 +983,24 @@
     <Content Include="Views\Emp\Index.cshtml" />
     <Content Include="Views\LeaveSettings\Index.cshtml" />
     <Content Include="Views\Roster\Create.cshtml" />
+    <Content Include="Views\User\ListOfADUser.cshtml" />
+    <Content Include="Views\Roster\RosterAppIndex.cshtml" />
+    <Content Include="Views\LvConsumed\Create.cshtml" />
+    <Content Include="Views\LvConsumed\Delete.cshtml" />
+    <Content Include="Views\LvConsumed\Details.cshtml" />
+    <Content Include="Views\LvConsumed\Edit.cshtml" />
+    <Content Include="Views\LvConsumed\Index.cshtml" />
+    <Content Include="Views\JobCardAppR\Create.cshtml" />
+    <Content Include="Views\JobCardAppR\Delete.cshtml" />
+    <Content Include="Views\JobCardAppR\Details.cshtml" />
+    <Content Include="Views\JobCardAppR\Edit.cshtml" />
+    <Content Include="Views\JobCardAppR\Index.cshtml" />
+    <Content Include="Views\JobCardEmpR\Create.cshtml" />
+    <Content Include="Views\JobCardEmpR\Delete.cshtml" />
+    <Content Include="Views\JobCardEmpR\Details.cshtml" />
+    <Content Include="Views\JobCardEmpR\Edit.cshtml" />
+    <Content Include="Views\JobCardEmpR\Index.cshtml" />
+    <Content Include="Views\Roster\RosterDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -974,6 +1019,8 @@
     <EmbeddedResource Include="Reports\RDLC\DRShortLeave.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\EmpAttSummary.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\Employee.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\MLvApplication.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\YLvConsumed.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\RAuditLog.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\MRDetailExcelC.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\MRDetailExcelP.rdlc" />

@@ -71,8 +71,10 @@
                     <% if (Session["MRMonthly"].ToString() == "1") %> 
                      <% { %>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-tower"></span><span> Monthly</span> <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-tower"></span><span> Summary</span> <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">
+                            <li><a href="/WMS/Reports/MLvConsumed.aspx">Monthly Leaves</a></li>
+                            <li><a href="/WMS/Reports/YLvConsumed.aspx">Yearly Leaves</a></li>
                             <li><a href="/WMS/Reports/MSheet.aspx">Monthly Sheet Permanent</a></li>
                             <li><a href="/WMS/Reports/MSheetC.aspx">Monthly Sheet Contractual </a></li>
                             <li><a href="/WMS/Reports/MSummary.aspx">Monthly Summary Permanent</a></li>
@@ -94,7 +96,7 @@
                     </li>
                     <% } %>
 
-                   <%-- <% if (Session["MRDetail"].ToString() == "1") %> 
+                    <% if (Session["MRDetail"].ToString() == "1") %> 
                      <% { %>
                      <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-tower"></span><span> Detiled</span> <b class="caret"></b></a>
@@ -102,7 +104,7 @@
                             <li><a href="/WMS/Reports/EmpAttSummary.aspx">Employee Detailed Attendance</a></li>
                         </ul>
                     </li>
-                    <% } %>--%>
+                    <% } %>
                     <%--<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-stats"></span><span>  Trends</span> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
