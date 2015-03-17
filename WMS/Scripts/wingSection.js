@@ -1,13 +1,11 @@
 ﻿$(document).ready(function () {
 
 
-    var selectedItemID = document.getElementById("selectedSectionIdHidden").value;
-
-
     $('#SecID').empty();
     var URL = '/WMS/Emp/SectionList';
     //var URL = '/Emp/SectionList';
     $.getJSON(URL + '/' + $('#DeptID').val(), function (data) {
+        var selectedItemID = document.getElementById("selectedSectionIdHidden").value;
         var items;
         $.each(data, function (i, state) {
             if (state.Value == selectedItemID)
@@ -26,6 +24,7 @@
         var URL = '/WMS/Emp/SectionList';
         //var URL = '/Emp/SectionList';
         $.getJSON(URL + '/' + $('#DeptID').val(), function (data) {
+            var selectedItemID = document.getElementById("selectedSectionIdHidden").value;
             var items;
             $.each(data, function (i, state) {
                 if (state.Value == selectedItemID)

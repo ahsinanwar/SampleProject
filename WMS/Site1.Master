@@ -119,9 +119,9 @@
                     <li class="dropdown">
                         <a href="/WMS/Home" ><span class="glyphicon glyphicon-home"></span><span>  Home</span></a>
                     </li>
-                    <li class="dropdown">
+                    <%--<li class="dropdown">
                         <a href="/Home/LogOut" ><span>  LogOut</span></a>
-                    </li>
+                    </li>--%>
                   </ul>
             </div>
         </div>

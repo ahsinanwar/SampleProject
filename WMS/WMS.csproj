@@ -216,6 +216,7 @@
       <DependentUpon>TASReportDataSet.xsd</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\as.pubxml" />
+    <None Include="Properties\PublishProfiles\WMSFatima.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

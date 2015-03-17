@@ -67,15 +67,23 @@
         <article class="row">
             <section class="col-md-6">
                 <div>
-                 <div class="row">
+                @* <div class="row">
                         <div class="col-md-6">
                             <label>Select Category</label>
                         </div>
                         <div class="col-md-6">
                             @Html.DropDownList("EmployeeCat",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
                         </div>
+                    </div>*@
+                     <div class="row" style="margin-left:5%; margin-bottom:3%">
+                        <div class="col-md-6">
+                            <label>Enter P. No</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input id="EmpNo" name="EmpNo" type="text" class="form-control"/>
+                        </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="margin-left:5%; margin-bottom:3%">
                         <div class="col-md-6">
                             <label>Casual Leaves</label>
                         </div>
@@ -83,7 +91,7 @@
                             <input id="CLeaves" name="CLeaves" type="number" class="form-control"/>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="margin-left:5%; margin-bottom:3%">
                         <div class="col-md-6">
                             <label>Annual Leaves</label>
                         </div>
@@ -91,7 +99,7 @@
                             <input id="ALeaves" name="ALeaves" type="number" class="form-control"/>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="margin-left:5%; margin-bottom:3%">
                         <div class="col-md-6">
                             <label>Sick Leaves</label>
                         </div>
@@ -100,7 +108,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="ErorrMessage">@ViewBag.CMessage</p>
+                <p class="ErorrMessage" style="margin-left:5%; margin-bottom:3%">@ViewBag.CMessage</p>
                 <div class="row" style="margin-left:10%; margin-bottom:3%">
                     <div class="col-md-6">
                     </div>

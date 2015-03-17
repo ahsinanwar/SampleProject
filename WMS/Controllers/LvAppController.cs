@@ -35,7 +35,9 @@ namespace WMS.Controllers
             }
             User LoggedInUser = Session["LoggedUser"] as User;
             ViewBag.CurrentFilter = searchString;
-            var lvapplications = db.LvApplications.Where(aa=>aa.CompanyID==LoggedInUser.CompanyID && aa.Active == true).Include(l => l.Emp).Include(l => l.LvType1);
+            DateTime dt = DateTime.Today;
+            DateTime dt2 = new DateTime(dt.Year, 1, 1);
+            var lvapplications = db.LvApplications.Where(aa=>aa.CompanyID==LoggedInUser.CompanyID && aa.ToDate>=dt2).Include(l => l.Emp).Include(l => l.LvType1);
             if (!String.IsNullOrEmpty(searchString))
             {
                 lvapplications = lvapplications.Where(s => s.Emp.EmpName.ToUpper().Contains(searchString.ToUpper())

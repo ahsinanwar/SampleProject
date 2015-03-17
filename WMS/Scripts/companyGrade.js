@@ -1,11 +1,10 @@
 ﻿$(document).ready(function () {
 
-    var selectedItemID = document.getElementById("selectedGradeIdHidden").value;
-
     $('#GradeID').empty();
     var URL = '/WMS/Emp/GradeList';
     //var URL = '/Emp/GradeList';
     $.getJSON(URL + '/' + $('#CompanyID').val(), function (data) {
+        var selectedItemID = document.getElementById("selectedGradeIdHidden").value;
         var items;
         $.each(data, function (i, state) {
             if (state.Value == selectedItemID)
@@ -24,6 +23,7 @@
         var URL = '/WMS/Emp/GradeList';
         //var URL = '/Emp/GradeList';
         $.getJSON(URL + '/' + $('#CompanyID').val(), function (data) {
+            var selectedItemID = document.getElementById("selectedGradeIdHidden").value;
             var items;
             $.each(data, function (i, state) {
                 if (state.Value == selectedItemID)

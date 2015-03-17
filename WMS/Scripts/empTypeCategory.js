@@ -1,15 +1,13 @@
 ﻿$(document).ready(function () {
 
-
-    var selectedItemID = document.getElementById("selectedTypeIdHidden").value;
-
-
     $('#TypeID').empty();
     var URL = '/WMS/Emp/EmpTypeList';
     //var URL = '/Emp/EmpTypeList';
     $.getJSON(URL + '/' + $('#CatID').val(), function (data) {
+        var selectedItemID = document.getElementById("selectedTypeIdHidden").value;
         var items;
         $.each(data, function (i, state) {
+
             if (state.Value == selectedItemID)
                 items += "<option selected value='" + state.Value + "'>" + state.Text + "</option>";
             else
@@ -26,6 +24,7 @@
         var URL = '/WMS/Emp/EmpTypeList';
         //var URL = '/Emp/EmpTypeList';
         $.getJSON(URL + '/' + $('#CatID').val(), function (data) {
+            var selectedItemID = document.getElementById("selectedTypeIdHidden").value;
             var items;
             $.each(data, function (i, state) {
                 if (state.Value == selectedItemID)

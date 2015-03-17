@@ -46,7 +46,7 @@ namespace WMS.Controllers
             User LoggedInUser = Session["LoggedUser"] as User;
             QueryBuilder qb = new QueryBuilder();
             string query = qb.MakeCustomizeQuery(LoggedInUser);
-            DataTable dt = qb.GetValuesfromDB("select * from EmpView "+query+" and (Status=1)");
+            DataTable dt = qb.GetValuesfromDB("select * from EmpView "+query);
             List<EmpView> emps = dt.ToList<EmpView>();
             
             ViewBag.CurrentFilter = searchString;
@@ -63,12 +63,19 @@ namespace WMS.Controllers
                 }
                 else
                 {
-                    emps = emps.Where(s => s.EmpName.ToUpper().Contains(searchString.ToUpper())
-                     || s.DeptName.ToUpper().Contains(searchString.ToUpper())
-                     || s.EmpNo.Contains(searchString.ToUpper())
-                     || s.SectionName.ToUpper().Contains(searchString.ToUpper())
-                     || s.ShiftName.ToUpper().Contains(searchString.ToUpper())
-                     || s.DesignationName.ToUpper().Contains(searchString.ToUpper())).ToList();
+                    try
+                    {
+                        emps = emps.Where(s => s.EmpName.ToUpper().Contains(searchString.ToUpper())
+                         || s.DeptName.ToUpper().Contains(searchString.ToUpper())
+                         || s.EmpNo.Contains(searchString.ToUpper())
+                         || s.SectionName.ToUpper().Contains(searchString.ToUpper())
+                         || s.ShiftName.ToUpper().Contains(searchString.ToUpper())
+                         || s.DesignationName.ToUpper().Contains(searchString.ToUpper())).ToList();
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
                 }
             }
 
@@ -185,11 +192,11 @@ namespace WMS.Controllers
                 if (db.Emps.Where(aa => aa.EmpNo.ToUpper() == emp.EmpNo.ToUpper()).Count() > 0)
                     ModelState.AddModelError("EmpNo", "Emp No should be unique!");
             }
-            if (emp.FpID != null)
-            {
-                if (db.Emps.Where(aa => aa.FpID == emp.FpID).Count() > 0)
-                    ModelState.AddModelError("FpID", "FP ID should be unique!");
-            }
+            //if (emp.FpID != null)
+            //{
+            //    if (db.Emps.Where(aa => aa.FpID == emp.FpID).Count() > 0)
+            //        ModelState.AddModelError("FpID", "FP ID should be unique!");
+            //}
             if (emp.CardNo != null)
             {
                 if (db.Emps.Where(aa => aa.CardNo == emp.CardNo).Count() > 0)
@@ -202,6 +209,12 @@ namespace WMS.Controllers
                 if (emp.EmpName.Length > 40)
                     ModelState.AddModelError("EmpName", "String length exceeds!");
             }
+            if(emp.SecID== null)
+                ModelState.AddModelError("SecID", "Please Specify section!");
+            if (emp.TypeID == null)
+                ModelState.AddModelError("TypeID", "Please Specify Type!");
+            if (emp.GradeID == null)
+                ModelState.AddModelError("GradeID", "Please Specify Grade!");
 
             if (ModelState.IsValid)
             {
@@ -336,6 +349,12 @@ namespace WMS.Controllers
                 if (emp.EmpName.Length > 40)
                     ModelState.AddModelError("EmpName", "String length exceeds!");
             }
+            if (emp.SecID == null)
+                ModelState.AddModelError("SecID", "Please Specify section!");
+            if (emp.TypeID == null)
+                ModelState.AddModelError("TypeID", "Please Specify Type!");
+            if (emp.GradeID == null)
+                ModelState.AddModelError("GradeID", "Please Specify Grade!");
             if (ModelState.IsValid)
             {
                 emp.EmpNo = emp.EmpNo.ToUpper();

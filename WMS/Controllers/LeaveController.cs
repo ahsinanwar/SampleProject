@@ -104,10 +104,10 @@ namespace WMS.Controllers
                             _EmpAttData.StatusOD = null;
                             if (lvappl.LvType == "A")//Casual Leave
                                 _EmpAttData.Remarks = "[CL]";
-                            if (lvappl.LvType == "B")//Sick Leave
-                                _EmpAttData.Remarks = "[SL]";
-                            if (lvappl.LvType == "C")//Casual Leave
+                            if (lvappl.LvType == "B")//Anual Leave
                                 _EmpAttData.Remarks = "[AL]";
+                            if (lvappl.LvType == "C")//Sick Leave
+                                _EmpAttData.Remarks = "[SL]";
                             _EmpAttData.StatusAB = false;
                             _EmpAttData.StatusLeave = true;
                             context.SaveChanges();
@@ -483,10 +483,10 @@ namespace WMS.Controllers
                     _EmpAttData = db.AttDatas.First(aa => aa.EmpDate == _EmpDate);
                     if (lvappl.LvType == "A")//Casual Leave
                         _EmpAttData.Remarks = _EmpAttData.Remarks+"[H-CL]";
-                    if (lvappl.LvType == "B")//Sick Leave
-                        _EmpAttData.Remarks = _EmpAttData.Remarks+"[H-SL]";
-                    if (lvappl.LvType == "C")//Casual Leave
+                    if (lvappl.LvType == "B")//Anual Leave
                         _EmpAttData.Remarks = _EmpAttData.Remarks+"[H-AL]";
+                    if (lvappl.LvType == "C")//Sick Leave
+                        _EmpAttData.Remarks = _EmpAttData.Remarks+"[H-SL]";
 
                     if (_EmpAttData.Remarks.Contains("[Absent]"))
                         _EmpAttData.Remarks.Replace("[Abesnt]", "");
