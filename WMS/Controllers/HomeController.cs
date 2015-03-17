@@ -48,9 +48,11 @@ namespace WMS.Controllers
             //    }
             //    _TempAttData = _TempAttData.OrderBy(aa => aa.NewTimeIn).ToList();
 
+
             //}
 
             
+
             try
             {
                 if (Session["LogedUserID"] == null)
