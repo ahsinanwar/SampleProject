@@ -160,9 +160,10 @@
     <Content Include="Reports\MSummary.aspx" />
     <Content Include="Reports\MSummaryC.aspx" />
     <Content Include="Reports\YLvConsumed.aspx" />
-    <Content Include="Scripts\Copy of wingSection.js" />
+    <Content Include="Scripts\companyGradeCreate.js" />
     <Content Include="Scripts\dx.chartjs.js" />
     <Content Include="Scripts\empTypeCategory.js" />
+    <Content Include="Scripts\empTypeCategoryCreate.js" />
     <Content Include="Scripts\globalize.min.js" />
     <Content Include="Scripts\JavaScript1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
@@ -285,6 +286,7 @@
     <Content Include="Scripts\rosterScript.js" />
     <Content Include="Scripts\site.avatar.js" />
     <Content Include="Scripts\wingSection.js" />
+    <Content Include="Scripts\wingSectionCreate.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
