@@ -1,31 +1,31 @@
 ﻿$(document).ready(function () {
 
-    $('#GradeID').empty();
-    var URL = '/WMS/Emp/GradeList';
-    //var URL = '/Emp/GradeList';
-    $.getJSON(URL + '/' + $('#CompanyID').val(), function (data) {
+    $('#TypeID').empty();
+    var URL = '/WMS/Emp/EmpTypeList';
+    //var URL = '/Emp/EmpTypeList';
+    $.getJSON(URL + '/' + $('#CatID').val(), function (data) {
         var items;
         $.each(data, function (i, state) {
                 items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
             // state.Value cannot contain ' character. We are OK because state.Value = cnt++;
         });
-        $('#GradeID').html(items);
-        $('#GradesDivID').show();
+        $('#TypeID').html(items);
+        $('#EmpTypeDivID').show();
     });
 
 
-    $('#CompanyID').change(function () {
-        $('#GradeID').empty();
-        var URL = '/WMS/Emp/GradeList';
-        //var URL = '/Emp/GradeList';
-        $.getJSON(URL + '/' + $('#CompanyID').val(), function (data) {
+    $('#CatID').change(function () {
+        $('#TypeID').empty();
+        var URL = '/WMS/Emp/EmpTypeList';
+        //var URL = '/Emp/EmpTypeList';
+        $.getJSON(URL + '/' + $('#CatID').val(), function (data) {
             var items;
             $.each(data, function (i, state) {
                     items += "<option value='" + state.Value + "'>" + state.Text + "</option>";
                 // state.Value cannot contain ' character. We are OK because state.Value = cnt++;
             });
-            $('#GradeID').html(items);
-            $('#GradesDivID').show();
+            $('#TypeID').html(items);
+            $('#EmpTypeDivID').show();
         });
     });
 
