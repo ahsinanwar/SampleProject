@@ -8,6 +8,7 @@ using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.Reporting.WebForms;
+using WMS.CustomClass;
 using WMS.Models;
 
 namespace WMS.Reports
@@ -115,32 +116,12 @@ namespace WMS.Reports
         }
         private void LoadEmpView(User _loggedUser)
         {
-            string connectionString = WebConfigurationManager.ConnectionStrings["TAS2013ConnectionString"].ConnectionString;
-            string selectSQL = "";
-            string _Query = "";
-            List<EmpView> _EmpView = new List<EmpView>();
-            if (_loggedUser.ViewContractual == true && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == false)
-            {
-                _EmpView = context.EmpViews.Where(aa => aa.CatID == 3).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == true && _loggedUser.ViewPermanentStaff == false)
-            {
-                _EmpView = context.EmpViews.Where(aa => aa.CatID == 2).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == true)
-            {
-                _EmpView = context.EmpViews.Where(aa => aa.CatID == 2).ToList();
-            }
-            else
-            {
-                _EmpView = context.EmpViews.ToList();
-            }
-            //_Query = "SELECT EmpID, EmpNo,EmpName,DesignationName,CardNo,CrewName,TypeName,CatName,ShiftName, SectionName FROM TAS2013.dbo.EmpView where CompanyID = " + _loggedUser.CompanyID + selectSQL;
-            //grid_Employee.DataSource = GetValuesFromDatabase(_Query, "EmpView");
-            grid_Employee.DataSource = context.EmpViews.ToList();
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.MakeCustomizeQuery(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query + " and (Status=1)");
+            List<EmpView> _View = dt.ToList<EmpView>();
+            grid_Employee.DataSource = _View;
             grid_Employee.DataBind();
-
-
         }
 
         //private DataSet GetValuesFromDatabase(string _query, string _tableName)
@@ -588,22 +569,10 @@ namespace WMS.Reports
             List<EmpView> _ViewList = new List<EmpView>();
             List<EmpView> _TempViewList = new List<EmpView>();
             User _loggedUser = HttpContext.Current.Session["LoggedUser"] as User;
-            if (_loggedUser.ViewContractual == true && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == false)
-            {
-                _ViewList = context.EmpViews.Where(aa => aa.CatID == 3).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == true && _loggedUser.ViewPermanentStaff == false)
-            {
-                _ViewList = context.EmpViews.Where(aa => aa.CatID == 2).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == true)
-            {
-                _ViewList = context.EmpViews.Where(aa => aa.CatID == 2).ToList();
-            }
-            else
-            {
-                _ViewList = context.EmpViews.ToList();
-            }
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.MakeCustomizeQuery(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query + " and (Status=1)");
+            _ViewList = dt.ToList<EmpView>();
             if (SelectedEmps.Count > 0)
             {
                 foreach (var emp in SelectedEmps)

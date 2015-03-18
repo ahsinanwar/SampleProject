@@ -123,7 +123,7 @@ namespace WMS.Controllers
                 string Remarks = form["NewRemarks"].ToString();
                 string SDutyH = DutyTime.Substring(0, 2);
                 string SDutyM = DutyTime.Substring(2, 2);
-                string ShiftMinString = form["ShiftMin"].ToString();
+                string ShiftMinString = form["ShiftMinHidden"].ToString();
                 if (TimeValid(STimeIn, STimeOut))
                 {
                     TimeSpan _TimeIn = new TimeSpan(Convert.ToInt16(STimeInH), Convert.ToInt16(STimeInM), 0);

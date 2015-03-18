@@ -47,8 +47,6 @@ namespace WMS.Controllers
             //        }
             //    }
             //    _TempAttData = _TempAttData.OrderBy(aa => aa.NewTimeIn).ToList();
-
-
             //}
 
             
@@ -168,8 +166,6 @@ namespace WMS.Controllers
                     }
                     return RedirectToAction("index");
                 }
-
-
 
 
                 //using (var context = new PrincipalContext(ContextType.Domain, "fatima-group.com", "ffl.ithelpdesk@fatima-group.com", "fatima@0202"))

@@ -309,7 +309,7 @@ namespace WMS.Controllers.EditAttendance
                         }
 
                         // CalculateShiftEndTime = ShiftStart + DutyHours
-                        DateTime shiftEnd = CalculateShiftEndTime(shift, attendanceRecord.AttDate.Value, attendanceRecord.DutyTime.Value);
+                        DateTime shiftEnd = CalculateShiftEndTime(shift, attendanceRecord.AttDate.Value, attendanceRecord.DutyTime.Value,(short)attendanceRecord.ShifMin);
 
                         //Calculate Early Out, Compare margin with Shift Early Out
                         if (attendanceRecord.TimeOut < shiftEnd)
@@ -389,7 +389,7 @@ namespace WMS.Controllers.EditAttendance
                             }
                         //Calculate OverTime = EI+OT, Compare margin with Shift OverTime
                         //----to-do----- Handle from shift
-                        if (attendanceRecord.LateOut > shift.LateOut)
+                        if (attendanceRecord.LateOut >0)
                         {
                             if (attendanceRecord.StatusGZ != true || attendanceRecord.StatusDO != true)
                             {
@@ -466,7 +466,7 @@ namespace WMS.Controllers.EditAttendance
                             else
                             {
                                 // CalculateShiftEndTime = ShiftStart + DutyHours
-                                TimeSpan shiftEnd = CalculateShiftEndTime(shift, attendanceRecord.AttDate.Value.DayOfWeek);
+                                TimeSpan shiftEnd = CalculateShiftEndTime(shift,(short)attendanceRecord.ShifMin);
                                 attendanceRecord.WorkMin = (short)(mins.TotalMinutes);
                                 //Calculate OverTIme, 
                                 if (mins.TotalMinutes > (CalculateShiftMinutes(shift, attendanceRecord.AttDate.Value.DayOfWeek) + shift.OverTimeMin))
@@ -570,7 +570,11 @@ namespace WMS.Controllers.EditAttendance
             }
             return shift.StartTime + (new TimeSpan(0, workMins, 0));
         }
+        private TimeSpan CalculateShiftEndTime(Shift shift,short ShiftMins)
+        {
 
+            return shift.StartTime + (new TimeSpan(0, ShiftMins, 0));
+        }
         private DateTime CalculateShiftEndTime(Shift shift, DateTime _AttDate, TimeSpan _DutyTime)
         {
             Int16 workMins = 0;
@@ -612,6 +616,14 @@ namespace WMS.Controllers.EditAttendance
             return _datetime;
         }
 
+        private DateTime CalculateShiftEndTime(Shift shift, DateTime _AttDate, TimeSpan _DutyTime,short ShiftMins)
+        {
+            DateTime _datetime = new DateTime();
+            TimeSpan _Time = new TimeSpan(0, ShiftMins, 0);
+            _datetime = _AttDate.Date.Add(_DutyTime);
+            _datetime = _datetime.Add(_Time);
+            return _datetime;
+        }
         private Int16 CalculateShiftMinutes(Shift shift, DayOfWeek dayOfWeek)
         {
             Int16 workMins = 0;

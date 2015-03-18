@@ -160,6 +160,7 @@
     <Content Include="Reports\MSummary.aspx" />
     <Content Include="Reports\MSummaryC.aspx" />
     <Content Include="Reports\YLvConsumed.aspx" />
+    <Content Include="Scripts\Copy of wingSection.js" />
     <Content Include="Scripts\dx.chartjs.js" />
     <Content Include="Scripts\empTypeCategory.js" />
     <Content Include="Scripts\globalize.min.js" />
