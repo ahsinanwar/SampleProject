@@ -33,7 +33,7 @@ namespace WMS.CustomClass
             string subQuery = "";
             List<string> _Criteria = new List<string>();
             List<string> _CriteriaForOr = new List<string>();
-            if (_user.ViewLocation == true)
+           if (_user.ViewLocation == true)
             {
                 _Criteria.Add(" LocID = " + _user.LocationID.ToString());
             }

@@ -154,6 +154,7 @@
     <Content Include="Reports\LvQuota.aspx" />
     <Content Include="Reports\MDetailExcelC.aspx" />
     <Content Include="Reports\MDetailExcelP.aspx" />
+    <Content Include="Reports\MYLeaveSummary.aspx" />
     <Content Include="Reports\MLvConsumed.aspx" />
     <Content Include="Reports\MSheet.aspx" />
     <Content Include="Reports\MSheetC.aspx" />
@@ -800,6 +801,13 @@
     <Compile Include="Reports\MDetailExcelP.aspx.designer.cs">
       <DependentUpon>MDetailExcelP.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\MYLeaveSummary.aspx.cs">
+      <DependentUpon>MYLeaveSummary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\MYLeaveSummary.aspx.designer.cs">
+      <DependentUpon>MYLeaveSummary.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\MLvConsumed.aspx.cs">
       <DependentUpon>MLvConsumed.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1024,6 +1032,7 @@
     <EmbeddedResource Include="Reports\RDLC\EmpAttSummary.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\Employee.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\MLvApplication.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\MYLeaveSummary.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\YLvConsumed.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\RAuditLog.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\MRDetailExcelC.rdlc" />

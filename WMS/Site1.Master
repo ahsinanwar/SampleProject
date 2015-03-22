@@ -74,7 +74,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-tower"></span><span> Summary</span> <b class="caret"></b></a>
                         <ul class="dropdown-menu multi-level">
                             <li><a href="/WMS/Reports/MLvConsumed.aspx">Monthly Leaves</a></li>
-                            <li><a href="/WMS/Reports/YLvConsumed.aspx">Yearly Leaves</a></li>
+                            <li><a href="/WMS/Reports/MYLeaveSummary.aspx">Yearly Leaves</a></li>
                             <li><a href="/WMS/Reports/MSheet.aspx">Monthly Sheet Permanent</a></li>
                             <li><a href="/WMS/Reports/MSheetC.aspx">Monthly Sheet Contractual </a></li>
                             <li><a href="/WMS/Reports/MSummary.aspx">Monthly Summary Permanent</a></li>
