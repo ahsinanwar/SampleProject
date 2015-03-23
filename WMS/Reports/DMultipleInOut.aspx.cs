@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.Reporting.WebForms;
+using WMS.CustomClass;
 using WMS.Models;
 
 namespace WMS.Reports
@@ -35,14 +37,20 @@ namespace WMS.Reports
                 SelectedSections.Clear();
                 SelectedShifts.Clear();
                 RefreshLabels();
-                DateTime dt = DateTime.Today.Date;
+                LoadGridViews();
+                DateTime date = DateTime.Today.Date.AddDays(-1);
                 if (GlobalVariables.DeploymentType == false)
                 {
                     PathString = "/Reports/RDLC/DRMultipleInOut.rdlc";
                 }
                 else
                     PathString = "/WMS/Reports/RDLC/DRMultipleInOut.rdlc";
-                LoadReport(PathString, context.ViewMultipleInOuts.Where(aa => aa.AttDate == dt && aa.StatusP == true).ToList());
+                User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
+                QueryBuilder qb = new QueryBuilder();
+                string query = qb.MakeCustomizeQuery(LoggedInUser);
+                DataTable datatable = qb.GetValuesfromDB("select * from ViewMultipleInOut " + query + " and AttDate = '" + date.Date.Year.ToString() + "-" + date.Date.Month.ToString() + "-" + date.Date.Day.ToString() + "'");
+                List<ViewMultipleInOut> _View = datatable.ToList<ViewMultipleInOut>();
+                LoadReport(PathString, _View);
             }
         }
         protected void grid_Employee_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -278,7 +286,96 @@ namespace WMS.Reports
             }
         }
         #endregion
+        #region --Load GridViews --
+        private void LoadGridViews()
+        {
+            User _loggedUser = HttpContext.Current.Session["LoggedUser"] as User;
+            LoadEmpTypeGrid(_loggedUser);
+            LoadLocationGrid(_loggedUser);
+            LoadShiftGrid(_loggedUser);
+            LoadEmpGrid(_loggedUser);
+            LoadSectionGrid(_loggedUser);
+            LoadDeptGrid(_loggedUser);
+            LoadCrewGrid(_loggedUser);
+        }
 
+        private void LoadEmpTypeGrid(User _loggedUser)
+        {
+            //string connectionString = WebConfigurationManager.ConnectionStrings["TAS2013ConnectionString"].ConnectionString;
+            //string selectSQL = "";
+            //string _Query = "";
+            List<EmpType> _empType = new List<EmpType>();
+            _empType = context.EmpTypes.ToList();
+            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
+            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
+            //grid_EmpType.DataBind();
+            grid_EmpType.DataSource = _empType;
+            grid_EmpType.DataBind();
+        }
+
+        private void LoadLocationGrid(User _loggedUser)
+        {
+            List<Location> _objectList = new List<Location>();
+            _objectList = context.Locations.ToList();
+            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
+            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
+            //grid_EmpType.DataBind();
+            grid_Location.DataSource = _objectList;
+            grid_Location.DataBind();
+        }
+
+        private void LoadShiftGrid(User _loggedUser)
+        {
+            List<Shift> _objectList = new List<Shift>();
+            _objectList = context.Shifts.Where(aa => aa.CompanyID == _loggedUser.CompanyID).ToList();
+            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
+            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
+            //grid_EmpType.DataBind();
+            grid_Shift.DataSource = _objectList;
+            grid_Shift.DataBind();
+        }
+
+        private void LoadEmpGrid(User _loggedUser)
+        {
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.MakeCustomizeQuery(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query + " and (Status=1)");
+            List<EmpView> _View = dt.ToList<EmpView>();
+            grid_Employee.DataSource = _View;
+            grid_Employee.DataBind();
+
+
+        }
+
+        private void LoadSectionGrid(User _loggedUser)
+        {
+            List<Section> _objectList = new List<Section>();
+            _objectList = context.Sections.Where(aa => aa.Department.CompanyID == _loggedUser.CompanyID).ToList();
+            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
+            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
+            //grid_EmpType.DataBind();
+            grid_Section.DataSource = _objectList;
+            grid_Section.DataBind();
+        }
+
+        private void LoadDeptGrid(User _loggedUser)
+        {
+            List<Department> _objectList = new List<Department>();
+            _objectList = context.Departments.Where(aa => aa.CompanyID == _loggedUser.CompanyID).ToList();
+            grid_Dept.DataSource = _objectList;
+            grid_Dept.DataBind();
+        }
+
+        private void LoadCrewGrid(User _loggedUser)
+        {
+            List<Crew> _objectList = new List<Crew>();
+            _objectList = context.Crews.Where(aa => aa.CompanyID == _loggedUser.CompanyID).ToList();
+            grid_Crew.DataSource = _objectList;
+            grid_Crew.DataBind();
+        }
+
+
+        #endregion
         private void RefreshLabels()
         {
             lbSectionCount.Text = "Selected Sections : " + SelectedSections.Count.ToString();
@@ -475,9 +572,14 @@ namespace WMS.Reports
             DivLocGrid.Visible = false;
             DivTypeGrid.Visible = false;
             ReportViewer1.Visible = true;
-            List<ViewMultipleInOut> _ViewList = new List<ViewMultipleInOut>();
             List<ViewMultipleInOut> _TempViewList = new List<ViewMultipleInOut>();
-            _ViewList = context.ViewMultipleInOuts.Where(aa => aa.AttDate >= DateFrom.Date && aa.AttDate <= DateTo.Date && aa.StatusP == true).ToList();
+            User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.MakeCustomizeQuery(LoggedInUser);
+            string _dateTo = "'" + DateTo.Date.Year.ToString() + "-" + DateTo.Date.Month.ToString() + "-" + DateTo.Date.Day.ToString() + "'";
+            string _dateFrom = "'" + DateFrom.Date.Year.ToString() + "-" + DateFrom.Date.Month.ToString() + "-" + DateFrom.Date.Day.ToString() + "'";
+            DataTable dt = qb.GetValuesfromDB("select * from ViewMultipleInOut " + query + " and (AttDate >= " + _dateFrom + " and AttDate <= " + _dateTo + " )");
+            List<ViewMultipleInOut> _ViewList = dt.ToList<ViewMultipleInOut>();
             if (SelectedEmps.Count > 0)
             {
                 foreach (var emp in SelectedEmps)

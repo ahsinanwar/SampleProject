@@ -199,7 +199,14 @@
                  </asp:ObjectDataSource>
              </div>
              <div>
-
+                 <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
+                     <LocalReport ReportPath="Reports\RDLC\MYLeaveSummary.rdlc">
+                         <DataSources>
+                             <rsweb:ReportDataSource DataSourceId="ObjectDataSource8" Name="DataSet1" />
+                         </DataSources>
+                     </LocalReport>
+                 </rsweb:ReportViewer>
+                 <asp:ObjectDataSource ID="ObjectDataSource8" runat="server" SelectMethod="Select" TypeName="WMS.Models.TASReportDataSetTableAdapters.ViewYLSummaryDataTable"></asp:ObjectDataSource>
                  <asp:ScriptManager ID="ScriptManager1" runat="server">
                  </asp:ScriptManager>
              </div>
