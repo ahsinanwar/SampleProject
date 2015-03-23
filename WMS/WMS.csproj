@@ -850,6 +850,7 @@
     <Compile Include="Reports\ReportHome.aspx.designer.cs">
       <DependentUpon>ReportHome.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\ViewLateOuts.cs" />
     <Compile Include="Reports\YLvConsumed.aspx.cs">
       <DependentUpon>YLvConsumed.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
