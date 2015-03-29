@@ -12,20 +12,8 @@ namespace WMS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Location
+    public partial class ZTable
     {
-        public Location()
-        {
-            this.Emps = new HashSet<Emp>();
-            this.Readers = new HashSet<Reader>();
-        }
-    
-        public short LocID { get; set; }
-        public string LocName { get; set; }
-        public Nullable<short> SiteID { get; set; }
-    
-        public virtual ICollection<Emp> Emps { get; set; }
-        public virtual Site Site { get; set; }
-        public virtual ICollection<Reader> Readers { get; set; }
+        public string EmpNo { get; set; }
     }
 }

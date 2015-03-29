@@ -651,7 +651,7 @@ namespace WMS.Reports
             }
             else
                 PathString = "/WMS/Reports/RDLC/MYLeaveSummary.rdlc";
-            LoadReport(PathString, _ViewList);
+            //LoadReport(PathString, _ViewList);
         }
         //public DateTime DateFrom
         //{
@@ -673,16 +673,14 @@ namespace WMS.Reports
         //            return DateTime.Parse(dateTo.Value);
         //    }
         //}
-        private void LoadReport(string path, List<ViewLvConsumed> _Employee)
+        private void LoadReport(string path, DataTable _LvSummary)
         {
-            string _Header = context.Options.FirstOrDefault().CompanyName + " - Yearly Leave Report";
+            string _Header = context.Options.FirstOrDefault().CompanyName + " - Year wise Leaves Summary";
             ReportViewer1.ProcessingMode = ProcessingMode.Local;
             ReportViewer1.LocalReport.ReportPath = Server.MapPath(path);
             System.Security.PermissionSet sec = new System.Security.PermissionSet(System.Security.Permissions.PermissionState.Unrestricted);
             ReportViewer1.LocalReport.SetBasePermissionsForSandboxAppDomain(sec);
-            IEnumerable<ViewLvConsumed> ie;
-            ie = _Employee.AsQueryable();
-            ReportDataSource datasource1 = new ReportDataSource("DataSet1", ie);
+            ReportDataSource datasource1 = new ReportDataSource("DataSet1", _LvSummary);
             ReportViewer1.LocalReport.DataSources.Clear();
             ReportViewer1.LocalReport.DataSources.Add(datasource1);
             ReportParameter rp = new ReportParameter("Header", _Header, false);

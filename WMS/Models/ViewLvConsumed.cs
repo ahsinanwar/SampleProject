@@ -49,9 +49,8 @@ namespace WMS.Models
         public string PhoneNo { get; set; }
         public string SectionName { get; set; }
         public string DeptName { get; set; }
-        public string DivisionName { get; set; }
         public Nullable<short> CompanyID { get; set; }
-        public byte TypeID { get; set; }
+        public Nullable<byte> TypeID { get; set; }
         public Nullable<short> CatID { get; set; }
         public Nullable<double> JanConsumed { get; set; }
         public Nullable<double> FebConsumed { get; set; }
@@ -71,13 +70,10 @@ namespace WMS.Models
         public Nullable<double> GrandTotalRemaining { get; set; }
         public string EmpLvType { get; set; }
         public string LvDesc { get; set; }
-        public Nullable<short> DivisionID { get; set; }
-        public byte ShiftID { get; set; }
+        public Nullable<byte> ShiftID { get; set; }
         public Nullable<short> DeptID { get; set; }
-        public Nullable<short> SectionID { get; set; }
-        public byte GradeID { get; set; }
+        public Nullable<byte> GradeID { get; set; }
         public Nullable<short> CrewID { get; set; }
-        public Nullable<int> DesignationID { get; set; }
-        public short LocID { get; set; }
+        public Nullable<short> LocID { get; set; }
     }
 }

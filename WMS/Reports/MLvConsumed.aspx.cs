@@ -42,10 +42,10 @@ namespace WMS.Reports
                 string _period = DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString();
                 if (GlobalVariables.DeploymentType == false)
                 {
-                    PathString = "/Reports/RDLC/MLvApplication.rdlc";
+                    PathString = "/Reports/RDLC/MRLeaveBal.rdlc";
                 }
                 else
-                    PathString = "/WMS/Reports/RDLC/MLvApplication.rdlc";
+                    PathString = "/WMS/Reports/RDLC/MRLeaveBal.rdlc";
                 User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
                 QueryBuilder qb = new QueryBuilder();
                 string query = qb.MakeCustomizeQuery(LoggedInUser);
@@ -69,26 +69,8 @@ namespace WMS.Reports
 
         private void LoadEmpTypeGrid(User _loggedUser)
         {
-            //string connectionString = WebConfigurationManager.ConnectionStrings["TAS2013ConnectionString"].ConnectionString;
-            //string selectSQL = "";
-            //string _Query = "";
             List<EmpType> _empType = new List<EmpType>();
-            if (_loggedUser.ViewContractual == true && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == false)
-            {
-                _empType = context.EmpTypes.Where(aa => aa.CatID == 3).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == true && _loggedUser.ViewPermanentStaff == false)
-            {
-                _empType = context.EmpTypes.Where(aa => aa.CatID == 2).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == true)
-            {
-                _empType = context.EmpTypes.Where(aa => aa.CatID == 2).ToList();
-            }
-            else
-            {
-                _empType = context.EmpTypes.ToList();
-            }
+            _empType = context.EmpTypes.ToList();
             //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
             //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
             //grid_EmpType.DataBind();
@@ -601,9 +583,12 @@ namespace WMS.Reports
             DivLocGrid.Visible = false;
             DivTypeGrid.Visible = false;
             ReportViewer1.Visible = true;
-            List<EmpView> _ViewList = new List<EmpView>();
             List<EmpView> _TempViewList = new List<EmpView>();
-            _ViewList = context.EmpViews.ToList();
+            User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.MakeCustomizeQuery(LoggedInUser);
+            DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query);
+            List<EmpView> _ViewList = dt.ToList<EmpView>();
             if (SelectedEmps.Count > 0)
             {
                 foreach (var emp in SelectedEmps)
@@ -702,10 +687,10 @@ namespace WMS.Reports
             _TempViewList.Clear();
             if (GlobalVariables.DeploymentType == false)
             {
-                PathString = "/Reports/RDLC/MLvApplication.rdlc";
+                PathString = "/Reports/RDLC/MRLeaveBal.rdlc";
             }
             else
-                PathString = "/WMS/Reports/RDLC/MLvApplication.rdlc";
+                PathString = "/WMS/Reports/RDLC/MRLeaveBal.rdlc";
             List<EmpView> _emp = context.EmpViews.ToList();
             LoadReport(PathString, GetLV(_ViewList.ToList(), DateTo.Date.Month));
         }
@@ -807,7 +792,6 @@ namespace WMS.Reports
                                 BeforeAL = (int)eAL.TotalForYear - (int)eAL.JanConsumed;
                                 UsedAL = (int)eAL.FebConsumed;
                                 break;
-                                _month = "Febu";
                             case 3:
                                 // casual
                                 BeforeCL = (int)eCL.TotalForYear - ((int)eCL.JanConsumed + (int)eCL.FebConsumed);

@@ -60,7 +60,7 @@ namespace WMS.CustomClass
                     _Criteria.Add(" CompanyID= 1 or CompanyID = 2 ");
                     break;
                 case 3:
-                    _Criteria.Add(" CompanyID>= 3 and CompanyID <= 7 ");
+                    _Criteria.Add(" CompanyID>= 3");
                     break;
                 case 4:
                     _Criteria.Add(" CompanyID = "+_user.CompanyID.ToString());
@@ -83,6 +83,29 @@ namespace WMS.CustomClass
             subQuery = subQuery + _CriteriaForOr[_CriteriaForOr.Count - 1];
             subQuery = subQuery + " ) ";
             query = query + subQuery;
+            return query;
+        }
+
+        public string QueryForCompanySegeration(User _user)
+        {
+            string query = "";
+            switch (_user.RoleID)
+            {
+                case 1:
+
+                    break;
+                case 2:
+                    query = " CompanyID= 1 or CompanyID = 2 ";
+                    break;
+                case 3:
+                    query=" CompanyID>= 3";
+                    break;
+                case 4:
+                    query=" CompanyID = " + _user.CompanyID.ToString();
+                    break;
+                case 5:
+                    break;
+            }
             return query;
         }
     }

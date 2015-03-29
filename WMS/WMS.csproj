@@ -160,7 +160,6 @@
     <Content Include="Reports\MSheetC.aspx" />
     <Content Include="Reports\MSummary.aspx" />
     <Content Include="Reports\MSummaryC.aspx" />
-    <Content Include="Reports\YLvConsumed.aspx" />
     <Content Include="Scripts\companyGradeCreate.js" />
     <Content Include="Scripts\dx.chartjs.js" />
     <Content Include="Scripts\empTypeCategory.js" />
@@ -391,15 +390,6 @@
     <Compile Include="Models\Crew.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DailySumDept.cs">
-      <DependentUpon>TASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DailySumSection.cs">
-      <DependentUpon>TASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DailySumShift.cs">
-      <DependentUpon>TASModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\DaysName.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
@@ -493,6 +483,9 @@
     <Compile Include="Models\PollData.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PollDataUnIdentified.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RdrDutyCode.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
@@ -556,7 +549,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TASModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\TestView.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserModule.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserRole.cs">
@@ -626,6 +625,9 @@
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewSummary.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ZTable.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Reports\AuditLog.aspx.cs">
@@ -851,13 +853,6 @@
       <DependentUpon>ReportHome.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\ViewLateOuts.cs" />
-    <Compile Include="Reports\YLvConsumed.aspx.cs">
-      <DependentUpon>YLvConsumed.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reports\YLvConsumed.aspx.designer.cs">
-      <DependentUpon>YLvConsumed.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Site1.Master.cs">
       <DependentUpon>Site1.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1032,9 +1027,8 @@
     <EmbeddedResource Include="Reports\RDLC\DRShortLeave.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\EmpAttSummary.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\Employee.rdlc" />
-    <EmbeddedResource Include="Reports\RDLC\MLvApplication.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\MRLeaveBal.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\MYLeaveSummary.rdlc" />
-    <EmbeddedResource Include="Reports\RDLC\YLvConsumed.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\RAuditLog.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\MRDetailExcelC.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\MRDetailExcelP.rdlc" />

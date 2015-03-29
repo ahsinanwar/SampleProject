@@ -206,7 +206,7 @@
                          </DataSources>
                      </LocalReport>
                  </rsweb:ReportViewer>
-                 <asp:ObjectDataSource ID="ObjectDataSource8" runat="server" SelectMethod="Select" TypeName="WMS.Models.TASReportDataSetTableAdapters.ViewYLSummaryDataTable"></asp:ObjectDataSource>
+                 <asp:ObjectDataSource ID="ObjectDataSource8" runat="server"></asp:ObjectDataSource>
                  <asp:ScriptManager ID="ScriptManager1" runat="server">
                  </asp:ScriptManager>
              </div>

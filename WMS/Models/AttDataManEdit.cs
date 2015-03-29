@@ -31,7 +31,10 @@ namespace WMS.Models
         public Nullable<short> CompanyID { get; set; }
         public string OldRemarks { get; set; }
         public string NewRemarks { get; set; }
+        public Nullable<short> OldShiftMin { get; set; }
+        public Nullable<short> NewShiftMin { get; set; }
     
         public virtual Emp Emp { get; set; }
+        public virtual User User { get; set; }
     }
 }

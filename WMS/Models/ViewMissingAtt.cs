@@ -15,7 +15,7 @@ namespace WMS.Models
     public partial class ViewMissingAtt
     {
         public string EmpDate { get; set; }
-        public int EmpID { get; set; }
+        public Nullable<int> EmpID { get; set; }
         public string EmpNo { get; set; }
         public string EmpName { get; set; }
         public string JobTitle { get; set; }
@@ -46,15 +46,15 @@ namespace WMS.Models
         public string Remarks { get; set; }
         public Nullable<System.DateTime> TimeIn { get; set; }
         public Nullable<short> CompanyID { get; set; }
-        public byte TypeID { get; set; }
+        public Nullable<byte> TypeID { get; set; }
         public Nullable<short> CatID { get; set; }
-        public short LocID { get; set; }
+        public Nullable<short> DivisionID { get; set; }
+        public Nullable<byte> ShiftID { get; set; }
+        public Nullable<short> DeptID { get; set; }
+        public Nullable<short> LocID { get; set; }
         public Nullable<int> DesignationID { get; set; }
         public Nullable<short> CrewID { get; set; }
-        public byte GradeID { get; set; }
-        public Nullable<short> DeptID { get; set; }
+        public Nullable<byte> GradeID { get; set; }
         public Nullable<short> SectionID { get; set; }
-        public byte ShiftID { get; set; }
-        public Nullable<short> DivisionID { get; set; }
     }
 }

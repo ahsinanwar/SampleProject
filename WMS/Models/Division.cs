@@ -21,6 +21,7 @@ namespace WMS.Models
     
         public short DivisionID { get; set; }
         public string DivisionName { get; set; }
+        public Nullable<short> CompanyID { get; set; }
     
         public virtual ICollection<Department> Departments { get; set; }
     }

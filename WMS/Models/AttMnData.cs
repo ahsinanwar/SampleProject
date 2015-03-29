@@ -129,7 +129,6 @@ namespace WMS.Models
         public string L29 { get; set; }
         public string L30 { get; set; }
         public string L31 { get; set; }
-    
-        public virtual Emp Emp { get; set; }
+        public Nullable<short> CompanyID { get; set; }
     }
 }

@@ -16,6 +16,8 @@ namespace WMS.Models
     {
         public User()
         {
+            this.AttDataManEdits = new HashSet<AttDataManEdit>();
+            this.AuditLogs = new HashSet<AuditLog>();
             this.LvApplications = new HashSet<LvApplication>();
         }
     
@@ -26,6 +28,7 @@ namespace WMS.Models
         public Nullable<System.DateTime> DateCreated { get; set; }
         public string Name { get; set; }
         public Nullable<bool> Status { get; set; }
+        public Nullable<short> Department { get; set; }
         public Nullable<bool> CanEdit { get; set; }
         public Nullable<bool> CanDelete { get; set; }
         public Nullable<bool> CanView { get; set; }
@@ -55,9 +58,8 @@ namespace WMS.Models
         public Nullable<short> LocationID { get; set; }
         public Nullable<bool> MRoster { get; set; }
     
-        public virtual Company Company { get; set; }
-        public virtual Emp Emp { get; set; }
-        public virtual Location Location { get; set; }
+        public virtual ICollection<AttDataManEdit> AttDataManEdits { get; set; }
+        public virtual ICollection<AuditLog> AuditLogs { get; set; }
         public virtual ICollection<LvApplication> LvApplications { get; set; }
         public virtual UserRole UserRole { get; set; }
     }

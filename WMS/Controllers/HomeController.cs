@@ -263,38 +263,38 @@ namespace WMS.Controllers
             return xmlSerial.Deserialize(xmlStream);
         }
 
-        public ActionResult TestData()
-        {
-            short Code = 7;
+        //public ActionResult TestData()
+        //{
+        //    short Code = 7;
 
-            using (var db = new TAS2013Entities())
-            {
-                db.Configuration.ProxyCreationEnabled = false;
-                List<DailySumSection> secs = db.DailySumSections.Where(aa => aa.SectionID == Code).ToList();
-                List<Section> _secList = db.Sections.ToList();
-                //return Json(movies, JsonRequestBehavior.AllowGet);
-                //string output = SerializeObject(secs);
-                if (HttpContext.Request.IsAjaxRequest())
-                    return Json(ConvertToJsonList(secs, _secList), JsonRequestBehavior.AllowGet);
-            }
-            return RedirectToAction("Index");
-        }
+        //    using (var db = new TAS2013Entities())
+        //    {
+        //        db.Configuration.ProxyCreationEnabled = false;
+        //        List<DailySumSection> secs = db.DailySumSections.Where(aa => aa.SectionID == Code).ToList();
+        //        List<Section> _secList = db.Sections.ToList();
+        //        //return Json(movies, JsonRequestBehavior.AllowGet);
+        //        //string output = SerializeObject(secs);
+        //        if (HttpContext.Request.IsAjaxRequest())
+        //            return Json(ConvertToJsonList(secs, _secList), JsonRequestBehavior.AllowGet);
+        //    }
+        //    return RedirectToAction("Index");
+        //}
 
-        private object ConvertToJsonList(List<DailySumSection> _sec, List<Section> _secList)
-        {
-            var data = new List<object>();
-            foreach (var item in _sec)
-            {
-                string SecName = _secList.Where(aa => aa.SectionID == _sec.FirstOrDefault().SectionID).FirstOrDefault().SectionName;
-                data.Add(new
-                {
-                    SectionName = SecName,
-                    Date = item.SummaryDate.Value.ToString("dd-MMM-yyyy"),
-                    TotalEmp = item.TotalEmp,
-                });
-            }
-            return data;
-        }
+        //private object ConvertToJsonList(List<DailySumSection> _sec, List<Section> _secList)
+        //{
+        //    var data = new List<object>();
+        //    foreach (var item in _sec)
+        //    {
+        //        string SecName = _secList.Where(aa => aa.SectionID == _sec.FirstOrDefault().SectionID).FirstOrDefault().SectionName;
+        //        data.Add(new
+        //        {
+        //            SectionName = SecName,
+        //            Date = item.SummaryDate.Value.ToString("dd-MMM-yyyy"),
+        //            TotalEmp = item.TotalEmp,
+        //        });
+        //    }
+        //    return data;
+        //}
 
 
         // Usage:

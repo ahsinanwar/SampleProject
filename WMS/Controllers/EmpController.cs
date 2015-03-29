@@ -156,20 +156,21 @@ namespace WMS.Controllers
             {
                 _wings = context.Divisions.ToList();
             }
-            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
-            ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName");
-            ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName");
-            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
+            User LoggedInUser = Session["LoggedUser"] as User;
+            ViewBag.CompanyID = new SelectList(db.Companies.Where(aa=>aa.CompID==LoggedInUser.CompanyID), "CompID", "CompName");
+            ViewBag.CrewID = new SelectList(db.Crews.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "CrewID", "CrewName");
+            ViewBag.DesigID = new SelectList(db.Designations.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "DesignationID", "DesignationName");
+            ViewBag.GradeID = new SelectList(db.Grades.Where(aa => aa.CompID == LoggedInUser.CompanyID), "GradeID", "GradeName");
             ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1");
             ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
-            ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName");
+            ViewBag.SecID = new SelectList(db.Sections.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "SectionID", "SectionName");
             ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName");
-            ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName");
+            ViewBag.TypeID = new SelectList(db.EmpTypes.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "TypeID", "TypeName");
             ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
             ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
             ViewBag.EmpID = new SelectList(db.LvQuotas, "EmpID", "EmpID");
             ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
-            ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName");
+            ViewBag.DeptID = new SelectList(db.Departments.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "DeptID", "DeptName");
             return View();
         }
 
@@ -245,20 +246,21 @@ namespace WMS.Controllers
             {
                 _wings = context.Divisions.ToList();
             ViewBag.Wing = new SelectList(_wings, "WingID", "WingName");
-            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", emp.CompanyID);
-            ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName", emp.CrewID);
-            ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName", emp.DesigID);
-            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName", emp.GradeID);
-            ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1", emp.JobID);
-            ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName", emp.LocID);
-            ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName", context.EmpTypes.First(aa=>aa.TypeID == emp.TypeID).CatID);
-            ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName", emp.SecID);
-            ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName", context.Sections.First(aa => aa.SectionID== emp.SecID).DeptID);
-            ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName", emp.ShiftID);
-            ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName", emp.TypeID);
-            ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1", emp.EmpID);
-            ViewBag.EmpID = new SelectList(db.EmpPhotoes, "EmpID", "EmpID", emp.EmpID);
-            ViewBag.EmpID = new SelectList(db.LvQuotas, "EmpID", "EmpID", emp.EmpID);
+            User LoggedInUser = Session["LoggedUser"] as User;
+            ViewBag.CompanyID = new SelectList(db.Companies.Where(aa => aa.CompID == LoggedInUser.CompanyID), "CompID", "CompName");
+            ViewBag.CrewID = new SelectList(db.Crews.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "CrewID", "CrewName");
+            ViewBag.DesigID = new SelectList(db.Designations.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "DesignationID", "DesignationName");
+            ViewBag.GradeID = new SelectList(db.Grades.Where(aa => aa.CompID == LoggedInUser.CompanyID), "GradeID", "GradeName");
+            ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1");
+            ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
+            ViewBag.SecID = new SelectList(db.Sections.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "SectionID", "SectionName");
+            ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName");
+            ViewBag.TypeID = new SelectList(db.EmpTypes.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "TypeID", "TypeName");
+            ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
+            ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
+            ViewBag.EmpID = new SelectList(db.LvQuotas, "EmpID", "EmpID");
+            ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
+            ViewBag.DeptID = new SelectList(db.Departments.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "DeptID", "DeptName");
             }
             return View(emp);
             //if (ModelState.IsValid)
@@ -296,21 +298,21 @@ namespace WMS.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName", emp.EmpType.CatID);
-            ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName", emp.Section.DeptID);
-            ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName", emp.SecID);
-            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", emp.CompanyID);
-            ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName", emp.CrewID);
-            ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName", emp.DesigID);
-            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName", emp.GradeID);
-            ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1", emp.JobID);
-            ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName", emp.LocID);
-            ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName", emp.SecID);
-            ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName", emp.ShiftID);
-            ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName", emp.TypeID);
-            ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1", emp.EmpID);
-            ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1", emp.EmpID);
-            ViewBag.EmpID = new SelectList(db.LvQuotas, "EmpID", "EmpID", emp.EmpID);
+            User LoggedInUser = Session["LoggedUser"] as User;
+            ViewBag.CompanyID = new SelectList(db.Companies.Where(aa => aa.CompID == LoggedInUser.CompanyID), "CompID", "CompName");
+            ViewBag.CrewID = new SelectList(db.Crews.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "CrewID", "CrewName");
+            ViewBag.DesigID = new SelectList(db.Designations.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "DesignationID", "DesignationName");
+            ViewBag.GradeID = new SelectList(db.Grades.Where(aa => aa.CompID == LoggedInUser.CompanyID), "GradeID", "GradeName");
+            ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1");
+            ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
+            ViewBag.SecID = new SelectList(db.Sections.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "SectionID", "SectionName");
+            ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName");
+            ViewBag.TypeID = new SelectList(db.EmpTypes.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "TypeID", "TypeName");
+            ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
+            ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
+            ViewBag.EmpID = new SelectList(db.LvQuotas, "EmpID", "EmpID");
+            ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
+            ViewBag.DeptID = new SelectList(db.Departments.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "DeptID", "DeptName");
             return View(emp);
         }
 
@@ -364,20 +366,21 @@ namespace WMS.Controllers
                 HelperClass.MyHelper.SaveAuditLog(_userID, (byte)MyEnums.FormName.Employee, (byte)MyEnums.Operation.Edit, DateTime.Now);
                 return RedirectToAction("Index");
             }
-            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", emp.CompanyID);
-            ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName", emp.CrewID);
-            ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName", emp.DesigID);
-            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName", emp.GradeID);
-            ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1", emp.JobID);
-            ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName", emp.LocID);
-            ViewBag.DeptID = new SelectList(db.Departments, "ID", "Name", emp.Section.DeptID);
-            ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName", emp.ShiftID);
-            ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName", emp.TypeID);
-            ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1", emp.EmpID);
-            ViewBag.EmpID = new SelectList(db.EmpPhotoes, "EmpID", "EmpID", emp.EmpID);
-            ViewBag.EmpID = new SelectList(db.LvQuotas, "EmpID", "EmpID", emp.EmpID);
-            ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName", emp.EmpType.CatID);
-            ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName", emp.SecID);
+            User LoggedInUser = Session["LoggedUser"] as User;
+            ViewBag.CompanyID = new SelectList(db.Companies.Where(aa => aa.CompID == LoggedInUser.CompanyID), "CompID", "CompName");
+            ViewBag.CrewID = new SelectList(db.Crews.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "CrewID", "CrewName");
+            ViewBag.DesigID = new SelectList(db.Designations.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "DesignationID", "DesignationName");
+            ViewBag.GradeID = new SelectList(db.Grades.Where(aa => aa.CompID == LoggedInUser.CompanyID), "GradeID", "GradeName");
+            ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1");
+            ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
+            ViewBag.SecID = new SelectList(db.Sections.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "SectionID", "SectionName");
+            ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName");
+            ViewBag.TypeID = new SelectList(db.EmpTypes.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "TypeID", "TypeName");
+            ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
+            ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
+            ViewBag.EmpID = new SelectList(db.LvQuotas, "EmpID", "EmpID");
+            ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
+            ViewBag.DeptID = new SelectList(db.Departments.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "DeptID", "DeptName");
             return View(emp);
             //if (ModelState.IsValid)
             //{

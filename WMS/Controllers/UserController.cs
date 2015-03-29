@@ -22,7 +22,7 @@ namespace WMS.Controllers
         public ActionResult Index()
         {
             User LoggedInUser = Session["LoggedUser"] as User;
-            var users = db.Users.Where(aa=>aa.CompanyID==LoggedInUser.CompanyID).Include(u => u.UserRole).Include(u => u.Location).Include(u => u.Company);
+            var users = db.Users.Where(aa=>aa.CompanyID==LoggedInUser.CompanyID).Include(u => u.UserRole);
             return View(users.ToList());
         }
 

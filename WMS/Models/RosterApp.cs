@@ -31,6 +31,7 @@ namespace WMS.Models
         public Nullable<short> WorkMin { get; set; }
         public Nullable<System.TimeSpan> DutyTime { get; set; }
         public Nullable<byte> ShiftID { get; set; }
+        public Nullable<short> CompanyID { get; set; }
     
         public virtual RosterType RosterType { get; set; }
         public virtual Shift Shift { get; set; }

@@ -29,6 +29,7 @@ namespace WMS.Models
         public bool Status { get; set; }
         public Nullable<short> LocID { get; set; }
         public Nullable<short> CompanyID { get; set; }
+        public Nullable<bool> isSafe { get; set; }
     
         public virtual Company Company { get; set; }
         public virtual ICollection<EmpRdr> EmpRdrs { get; set; }

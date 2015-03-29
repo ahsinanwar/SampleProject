@@ -15,25 +15,6 @@ namespace WMS.Models
     public partial class ViewLeaveQuota
     {
         public int EmpID { get; set; }
-        public string EmpLvType { get; set; }
-        public string LeaveType { get; set; }
-        public Nullable<short> CompanyID { get; set; }
-        public Nullable<double> JanConsumed { get; set; }
-        public Nullable<double> FebConsumed { get; set; }
-        public Nullable<double> MarchConsumed { get; set; }
-        public Nullable<double> AprConsumed { get; set; }
-        public Nullable<double> MayConsumed { get; set; }
-        public Nullable<double> JuneConsumed { get; set; }
-        public Nullable<double> JulyConsumed { get; set; }
-        public Nullable<double> AugustConsumed { get; set; }
-        public Nullable<double> OctConsumed { get; set; }
-        public Nullable<double> SepConsumed { get; set; }
-        public Nullable<double> NovConsumed { get; set; }
-        public Nullable<double> DecConsumed { get; set; }
-        public Nullable<double> TotalForYear { get; set; }
-        public Nullable<double> YearRemaining { get; set; }
-        public Nullable<double> GrandTotal { get; set; }
-        public Nullable<double> GrandTotalRemaining { get; set; }
         public string DesignationName { get; set; }
         public string GradeName { get; set; }
         public string CompName { get; set; }
@@ -48,24 +29,38 @@ namespace WMS.Models
         public string ShiftName { get; set; }
         public string EmpNo { get; set; }
         public string EmpName { get; set; }
-        public Nullable<System.DateTime> JoinDate { get; set; }
-        public Nullable<System.DateTime> ValidDate { get; set; }
-        public Nullable<System.DateTime> IssueDate { get; set; }
+        public Nullable<byte> Gender { get; set; }
         public Nullable<bool> Status { get; set; }
-        public string Remarks { get; set; }
         public string SectionName { get; set; }
         public string DeptName { get; set; }
         public string DivisionName { get; set; }
-        public Nullable<short> Expr1 { get; set; }
-        public Nullable<byte> TypeID { get; set; }
+        public int Expr1 { get; set; }
+        public double B { get; set; }
+        public double C { get; set; }
+        public Nullable<double> D { get; set; }
+        public Nullable<double> E { get; set; }
+        public Nullable<double> F { get; set; }
+        public Nullable<double> G { get; set; }
+        public Nullable<double> H { get; set; }
+        public Nullable<double> I { get; set; }
+        public Nullable<double> J { get; set; }
+        public Nullable<double> K { get; set; }
+        public Nullable<double> L { get; set; }
+        public double A { get; set; }
+        public Nullable<double> TA { get; set; }
+        public Nullable<double> TB { get; set; }
+        public Nullable<double> TC { get; set; }
+        public Nullable<double> TD { get; set; }
+        public Nullable<double> TE { get; set; }
+        public Nullable<double> TF { get; set; }
+        public Nullable<double> TG { get; set; }
+        public Nullable<double> TH { get; set; }
+        public Nullable<double> TI { get; set; }
+        public Nullable<double> TJ { get; set; }
+        public Nullable<double> TK { get; set; }
+        public Nullable<double> TL { get; set; }
+        public Nullable<short> CompanyID { get; set; }
+        public byte TypeID { get; set; }
         public Nullable<short> CatID { get; set; }
-        public Nullable<short> DivisionID { get; set; }
-        public Nullable<byte> ShiftID { get; set; }
-        public Nullable<short> SectionID { get; set; }
-        public Nullable<short> DeptID { get; set; }
-        public Nullable<byte> GradeID { get; set; }
-        public Nullable<short> CrewID { get; set; }
-        public Nullable<int> DesignationID { get; set; }
-        public Nullable<short> LocID { get; set; }
     }
 }

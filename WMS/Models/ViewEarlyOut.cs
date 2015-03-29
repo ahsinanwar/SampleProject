@@ -63,16 +63,16 @@ namespace WMS.Models
         public Nullable<bool> StatusSL { get; set; }
         public string Remarks { get; set; }
         public string DivisionName { get; set; }
-        public Nullable<short> CompanyID { get; set; }
-        public Nullable<byte> TypeID { get; set; }
+        public Nullable<short> DivisionID { get; set; }
+        public Nullable<byte> ShiftID { get; set; }
+        public Nullable<short> DeptID { get; set; }
+        public Nullable<short> SectionID { get; set; }
+        public Nullable<byte> GradeID { get; set; }
+        public Nullable<short> CrewID { get; set; }
+        public Nullable<int> DesignationID { get; set; }
         public Nullable<short> LocID { get; set; }
         public Nullable<short> CatID { get; set; }
-        public Nullable<int> DesignationID { get; set; }
-        public Nullable<short> CrewID { get; set; }
-        public Nullable<byte> GradeID { get; set; }
-        public Nullable<short> SectionID { get; set; }
-        public Nullable<short> DeptID { get; set; }
-        public Nullable<byte> ShiftID { get; set; }
-        public Nullable<short> DivisionID { get; set; }
+        public Nullable<byte> TypeID { get; set; }
+        public Nullable<short> CompanyID { get; set; }
     }
 }
