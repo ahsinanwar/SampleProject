@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.Reporting.WebForms;
 using WMS.Models;
+using WMS.CustomClass;
 
 namespace WMS.Reports
 {
@@ -36,6 +37,7 @@ namespace WMS.Reports
                 SelectedLocs.Clear();
                 SelectedSections.Clear();
                 SelectedShifts.Clear();
+                LoadGridViews();
                 RefreshLabels();
                 if (GlobalVariables.DeploymentType == false)
                 {
@@ -43,26 +45,13 @@ namespace WMS.Reports
                 }
                 else
                     PathString = "/WMS/Reports/RDLC/Employee.rdlc";
-                User _loggedUser = HttpContext.Current.Session["LoggedUser"] as User;
-                List<EmpView> _ViewList = new List<EmpView>();
-                if (_loggedUser.ViewContractual == true && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == false)
-                {
-                    _ViewList = context.EmpViews.Where(aa => aa.CatID == 3).ToList();
-                }
-                else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == true && _loggedUser.ViewPermanentStaff == false)
-                {
-                    _ViewList = context.EmpViews.Where(aa => aa.CatID == 2).ToList();
-                }
-                else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == true)
-                {
-                    _ViewList = context.EmpViews.Where(aa => aa.CatID == 2).ToList();
-                }
-                else
-                {
-                    _ViewList = context.EmpViews.ToList();
-                }
-                LoadReport(PathString, _ViewList);
-                LoadReport(PathString, context.EmpViews.ToList());
+                User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
+                QueryBuilder qb = new QueryBuilder();
+                string query = qb.MakeCustomizeQuery(LoggedInUser);
+                DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                List<EmpView> _View = dt.ToList<EmpView>();
+                LoadReport(PathString, _View);
+             
             }
         }
         protected void grid_Employee_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -106,34 +95,22 @@ namespace WMS.Reports
         private void LoadGridViews()
         {
             User _loggedUser = HttpContext.Current.Session["LoggedUser"] as User;
-            LoadEmpView(_loggedUser);
-            LoadShiftView(_loggedUser);
-            LoadLocationView(_loggedUser);
-            LoadEmpTypeView(_loggedUser);
+            LoadEmpTypeGrid(_loggedUser);
+            LoadLocationGrid(_loggedUser);
+            LoadShiftGrid(_loggedUser);
+            LoadEmpGrid(_loggedUser);
+            LoadSectionGrid(_loggedUser);
+            LoadDeptGrid(_loggedUser);
+            LoadCrewGrid(_loggedUser);
         }
 
-        private void LoadEmpTypeView(User _loggedUser)
+        private void LoadEmpTypeGrid(User _loggedUser)
         {
             //string connectionString = WebConfigurationManager.ConnectionStrings["TAS2013ConnectionString"].ConnectionString;
             //string selectSQL = "";
             //string _Query = "";
             List<EmpType> _empType = new List<EmpType>();
-            if (_loggedUser.ViewContractual == true && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == false)
-            {
-                _empType = context.EmpTypes.Where(aa => aa.CatID == 3).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == true && _loggedUser.ViewPermanentStaff == false)
-            {
-                _empType = context.EmpTypes.Where(aa => aa.CatID == 2).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == true)
-            {
-                _empType = context.EmpTypes.Where(aa => aa.CatID == 2).ToList();
-            }
-            else
-            {
-                _empType = context.EmpTypes.ToList();
-            }
+            _empType = context.EmpTypes.ToList();
             //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
             //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
             //grid_EmpType.DataBind();
@@ -141,43 +118,65 @@ namespace WMS.Reports
             grid_EmpType.DataBind();
         }
 
-        private void LoadLocationView(User _loggedUser)
+        private void LoadLocationGrid(User _loggedUser)
         {
-
+            List<Location> _objectList = new List<Location>();
+            _objectList = context.Locations.ToList();
+            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
+            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
+            //grid_EmpType.DataBind();
+            grid_Location.DataSource = _objectList;
+            grid_Location.DataBind();
         }
 
-        private void LoadShiftView(User _loggedUser)
+        private void LoadShiftGrid(User _loggedUser)
         {
-
+            List<Shift> _objectList = new List<Shift>();
+            _objectList = context.Shifts.Where(aa => aa.CompanyID == _loggedUser.CompanyID).ToList();
+            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
+            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
+            //grid_EmpType.DataBind();
+            grid_Shift.DataSource = _objectList;
+            grid_Shift.DataBind();
         }
-        private void LoadEmpView(User _loggedUser)
+
+        private void LoadEmpGrid(User _loggedUser)
         {
-            string connectionString = WebConfigurationManager.ConnectionStrings["TAS2013ConnectionString"].ConnectionString;
-            string selectSQL = "";
-            string _Query = "";
-            List<EmpView> _EmpView = new List<EmpView>();
-            if (_loggedUser.ViewContractual == true && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == false)
-            {
-                _EmpView = context.EmpViews.Where(aa => aa.CatID == 3).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == true && _loggedUser.ViewPermanentStaff == false)
-            {
-                _EmpView = context.EmpViews.Where(aa => aa.CatID == 2).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == true)
-            {
-                _EmpView = context.EmpViews.Where(aa => aa.CatID == 2).ToList();
-            }
-            else
-            {
-                _EmpView = context.EmpViews.ToList();
-            }
-            //_Query = "SELECT EmpID, EmpNo,EmpName,DesignationName,CardNo,CrewName,TypeName,CatName,ShiftName, SectionName FROM TAS2013.dbo.EmpView where CompanyID = " + _loggedUser.CompanyID + selectSQL;
-            //grid_Employee.DataSource = GetValuesFromDatabase(_Query, "EmpView");
-            grid_Employee.DataSource = context.EmpViews.ToList();
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.MakeCustomizeQuery(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query + " and (Status=1)");
+            List<EmpView> _View = dt.ToList<EmpView>();
+            grid_Employee.DataSource = _View;
             grid_Employee.DataBind();
 
 
+        }
+
+        private void LoadSectionGrid(User _loggedUser)
+        {
+            List<Section> _objectList = new List<Section>();
+            _objectList = context.Sections.Where(aa => aa.Department.CompanyID == _loggedUser.CompanyID).ToList();
+            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
+            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
+            //grid_EmpType.DataBind();
+            grid_Section.DataSource = _objectList;
+            grid_Section.DataBind();
+        }
+
+        private void LoadDeptGrid(User _loggedUser)
+        {
+            List<Department> _objectList = new List<Department>();
+            _objectList = context.Departments.Where(aa => aa.CompanyID == _loggedUser.CompanyID).ToList();
+            grid_Dept.DataSource = _objectList;
+            grid_Dept.DataBind();
+        }
+
+        private void LoadCrewGrid(User _loggedUser)
+        {
+            List<Crew> _objectList = new List<Crew>();
+            _objectList = context.Crews.Where(aa => aa.CompanyID == _loggedUser.CompanyID).ToList();
+            grid_Crew.DataSource = _objectList;
+            grid_Crew.DataBind();
         }
 
         //private DataSet GetValuesFromDatabase(string _query, string _tableName)
@@ -191,6 +190,7 @@ namespace WMS.Reports
         //    adapter.Fill(ds, _tableName);
         //    return ds;
         //}
+
         #endregion
         #region --Filters Button--
         protected void btnEmployeeGrid_Click(object sender, EventArgs e)
@@ -585,25 +585,14 @@ namespace WMS.Reports
             DivLocGrid.Visible = false;
             DivTypeGrid.Visible = false;
             ReportViewer1.Visible = true;
-            List<EmpView> _ViewList = new List<EmpView>();
+
             List<EmpView> _TempViewList = new List<EmpView>();
-            User _loggedUser = HttpContext.Current.Session["LoggedUser"] as User;
-            if (_loggedUser.ViewContractual == true && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == false)
-            {
-                _ViewList = context.EmpViews.Where(aa => aa.CatID == 3 ).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == true && _loggedUser.ViewPermanentStaff == false)
-            {
-                _ViewList = context.EmpViews.Where(aa => aa.CatID == 2).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == true)
-            {
-                _ViewList = context.EmpViews.Where(aa => aa.CatID == 2).ToList();
-            }
-            else
-            {
-                _ViewList = context.EmpViews.ToList();
-            }
+            User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.MakeCustomizeQuery(LoggedInUser);
+            DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query);
+            List<EmpView> _ViewList = dt.ToList<EmpView>();
+
             if (SelectedEmps.Count > 0)
             {
                 foreach (var emp in SelectedEmps)

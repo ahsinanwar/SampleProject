@@ -87,7 +87,7 @@
               <%-- Section Grid --%>
              <div runat="server" id="DivGridSection" style="margin: 20px;">
                  <div style="font-size: 15px;margin: 10px;font-weight: bold;">Press Ctrl+F to Find a Section </div>
-             <asp:GridView ID="grid_Section" runat="server" AutoGenerateColumns="False" DataKeyNames="SectionID" DataSourceID="ObjectDataSource2">
+             <asp:GridView ID="grid_Section" runat="server" AutoGenerateColumns="False" DataKeyNames="SectionID">
                  <Columns>
                      <asp:TemplateField>
                             <ItemTemplate>
@@ -99,14 +99,13 @@
                      <asp:BoundField DataField="DeptID" HeaderText="DeptID" SortExpression="DeptID" />
                  </Columns>
              </asp:GridView>
-                 <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" TypeName="WMS.Models.TASReportDataSetTableAdapters.SectionTableAdapter">
-                 </asp:ObjectDataSource>
+        
              </div>
 
              <%-- Department Grid --%>
              <div runat="server" id="DivGridDept" style="margin: 20px;">
                  <div style="font-size: 15px;margin: 10px;font-weight: bold;">Press Ctrl+F to Find a Department </div>
-                 <asp:GridView ID="grid_Dept" runat="server" AutoGenerateColumns="False" DataKeyNames="DeptID" DataSourceID="ObjectDataSource3">
+                 <asp:GridView ID="grid_Dept" runat="server" AutoGenerateColumns="False" DataKeyNames="DeptID">
                      <Columns>
                          <asp:TemplateField>
                             <ItemTemplate>
@@ -118,14 +117,13 @@
                          <asp:BoundField DataField="DivID" HeaderText="DivID" SortExpression="DivID" />
                      </Columns>
                  </asp:GridView>
-                 <asp:ObjectDataSource ID="ObjectDataSource3" runat="server"  OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" TypeName="WMS.Models.TASReportDataSetTableAdapters.DepartmentTableAdapter">
-                 </asp:ObjectDataSource>
+                
              </div>
 
              <%-- Location Grid --%>
              <div runat="server" id="DivLocGrid" style="margin: 20px;">
                  <div style="font-size: 15px;margin: 10px;font-weight: bold;">Press Ctrl+F to Find a Location </div>
-                 <asp:GridView ID="grid_Location" runat="server" AutoGenerateColumns="False" DataKeyNames="LocID" DataSourceID="ObjectDataSource4">
+                 <asp:GridView ID="grid_Location" runat="server" AutoGenerateColumns="False" DataKeyNames="LocID">
                      <Columns>
                          <asp:TemplateField>
                                 <ItemTemplate>
@@ -136,14 +134,13 @@
                          <asp:BoundField DataField="LocName" HeaderText="LocName" SortExpression="LocName" />
                      </Columns>
                  </asp:GridView>
-                 <asp:ObjectDataSource ID="ObjectDataSource4" runat="server"  OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" TypeName="WMS.Models.TASReportDataSetTableAdapters.LocationTableAdapter">
-                 </asp:ObjectDataSource>
+                 
              </div>
 
              <%-- Crew Grid --%>
              <div runat="server" id="DivGridCrew" style="margin: 20px;">
                  <div style="font-size: 15px;margin: 10px;font-weight: bold;">Press Ctrl+F to Find a Crew </div>
-                 <asp:GridView ID="grid_Crew" runat="server" AutoGenerateColumns="False" DataKeyNames="CrewID" DataSourceID="ObjectDataSource5">
+                 <asp:GridView ID="grid_Crew" runat="server" AutoGenerateColumns="False" DataKeyNames="CrewID">
                      <Columns>
                          <asp:TemplateField>
                             <ItemTemplate>
@@ -154,8 +151,7 @@
                          <asp:BoundField DataField="CrewName" HeaderText="CrewName" SortExpression="CrewName" />
                      </Columns>
                  </asp:GridView>
-                 <asp:ObjectDataSource ID="ObjectDataSource5" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" TypeName="WMS.Models.TASReportDataSetTableAdapters.CrewTableAdapter">
-                 </asp:ObjectDataSource>
+                
              </div>
 
              <%-- EmpType Grid --%>
@@ -173,14 +169,13 @@
                          <asp:BoundField DataField="CatID" HeaderText="CatID" SortExpression="CatID" />
                      </Columns>
                  </asp:GridView>
-                <%-- <asp:ObjectDataSource ID="ObjectDataSource6" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" TypeName="WMS.Models.TASReportDataSetTableAdapters.EmpTypeTableAdapter" >
-                 </asp:ObjectDataSource>--%>
+              
              </div>
 
              <%-- Shift Grid --%>
              <div runat="server" id="DivShiftGrid" style="margin: 20px;">
                  <div style="font-size: 15px;margin: 10px;font-weight: bold;">Press Ctrl+F to Find a Shift </div>
-                 <asp:GridView ID="grid_Shift" runat="server" AutoGenerateColumns="False" DataKeyNames="ShiftID" DataSourceID="ObjectDataSource7">
+                 <asp:GridView ID="grid_Shift" runat="server" AutoGenerateColumns="False" DataKeyNames="ShiftID">
                      <Columns>
                          <asp:TemplateField>
                             <ItemTemplate>
@@ -192,8 +187,6 @@
                          <asp:BoundField DataField="StartTime" HeaderText="StartTime" SortExpression="StartTime" />
                      </Columns>
                  </asp:GridView>
-                 <asp:ObjectDataSource ID="ObjectDataSource7" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" TypeName="WMS.Models.TASReportDataSetTableAdapters.ShiftTableAdapter" >
-                 </asp:ObjectDataSource>
              </div>
              <div>
                  <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">

@@ -706,7 +706,6 @@ namespace WMS.Reports
             }
             else
                 PathString = "/WMS/Reports/RDLC/MLvApplication.rdlc";
-            List<EmpView> _emp = context.EmpViews.ToList();
             LoadReport(PathString, GetLV(_ViewList.ToList(), DateTo.Date.Month));
         }
         public DateTime DateTo
