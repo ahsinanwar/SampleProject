@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.Reporting.WebForms;
 using WMS.Models;
+using WMS.CustomClass;
+using System.Data;
 
 namespace WMS.Reports
 {
@@ -33,17 +35,126 @@ namespace WMS.Reports
                 SelectedLocs.Clear();
                 SelectedSections.Clear();
                 SelectedShifts.Clear();
+                LoadGridViews();
                 RefreshLabels();
-                DateTime dt = DateTime.Today.Date.AddDays(-5);
+                DateTime date = DateTime.Today.Date.AddDays(-5);
                 if (GlobalVariables.DeploymentType == false)
                 {
                     PathString = "/Reports/RDLC/DRLeave.rdlc";
                 }
                 else
                     PathString = "/WMS/Reports/RDLC/DRLeave.rdlc";
-                LoadReport(PathString, context.ViewLeaveDatas.Where(aa => aa.LvDate == dt).ToList());
+                User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
+                QueryBuilder qb = new QueryBuilder();
+                string query = qb.MakeCustomizeQuery(LoggedInUser);
+                DataTable dt = qb.GetValuesfromDB("select * from ViewLeaveData " + query + " and AttDate = '" + date.Date.Year.ToString() + "-" + date.Date.Month.ToString() + "-" + date.Date.Day.ToString() + "'" + " and LvStatus= 0");
+                List<ViewLeaveData> _View = dt.ToList<ViewLeaveData>();
+                LoadReport(PathString, _View);
             }
         }
+
+        #region --Load GridViews --
+        private void LoadGridViews()
+        {
+            User _loggedUser = HttpContext.Current.Session["LoggedUser"] as User;
+            LoadEmpTypeGrid(_loggedUser);
+            LoadLocationGrid(_loggedUser);
+            LoadShiftGrid(_loggedUser);
+            LoadEmpGrid(_loggedUser);
+            LoadSectionGrid(_loggedUser);
+            LoadDeptGrid(_loggedUser);
+            LoadCrewGrid(_loggedUser);
+        }
+
+        private void LoadEmpTypeGrid(User _loggedUser)
+        {
+            //string connectionString = WebConfigurationManager.ConnectionStrings["TAS2013ConnectionString"].ConnectionString;
+            //string selectSQL = "";
+            //string _Query = "";
+            List<EmpType> _empType = new List<EmpType>();
+            _empType = context.EmpTypes.ToList();
+            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
+            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
+            //grid_EmpType.DataBind();
+            grid_EmpType.DataSource = _empType;
+            grid_EmpType.DataBind();
+        }
+
+        private void LoadLocationGrid(User _loggedUser)
+        {
+            List<Location> _objectList = new List<Location>();
+            _objectList = context.Locations.ToList();
+            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
+            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
+            //grid_EmpType.DataBind();
+            grid_Location.DataSource = _objectList;
+            grid_Location.DataBind();
+        }
+
+        private void LoadShiftGrid(User _loggedUser)
+        {
+            List<Shift> _objectList = new List<Shift>();
+            _objectList = context.Shifts.Where(aa => aa.CompanyID == _loggedUser.CompanyID).ToList();
+            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
+            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
+            //grid_EmpType.DataBind();
+            grid_Shift.DataSource = _objectList;
+            grid_Shift.DataBind();
+        }
+
+        private void LoadEmpGrid(User _loggedUser)
+        {
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.MakeCustomizeQuery(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query + " and (Status=1)");
+            List<EmpView> _View = dt.ToList<EmpView>();
+            grid_Employee.DataSource = _View;
+            grid_Employee.DataBind();
+
+
+        }
+
+        private void LoadSectionGrid(User _loggedUser)
+        {
+            List<Section> _objectList = new List<Section>();
+            _objectList = context.Sections.Where(aa => aa.Department.CompanyID == _loggedUser.CompanyID).ToList();
+            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
+            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
+            //grid_EmpType.DataBind();
+            grid_Section.DataSource = _objectList;
+            grid_Section.DataBind();
+        }
+
+        private void LoadDeptGrid(User _loggedUser)
+        {
+            List<Department> _objectList = new List<Department>();
+            _objectList = context.Departments.Where(aa => aa.CompanyID == _loggedUser.CompanyID).ToList();
+            grid_Dept.DataSource = _objectList;
+            grid_Dept.DataBind();
+        }
+
+        private void LoadCrewGrid(User _loggedUser)
+        {
+            List<Crew> _objectList = new List<Crew>();
+            _objectList = context.Crews.Where(aa => aa.CompanyID == _loggedUser.CompanyID).ToList();
+            grid_Crew.DataSource = _objectList;
+            grid_Crew.DataBind();
+        }
+
+        //private DataSet GetValuesFromDatabase(string _query, string _tableName)
+        //{
+        //    string connectionString = WebConfigurationManager.ConnectionStrings["TAS2013ConnectionString"].ConnectionString;
+        //    SqlConnection con = new SqlConnection(connectionString);
+        //    SqlCommand cmd = new SqlCommand(_query, con);
+        //    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+        //    DataSet ds = new DataSet();
+
+        //    adapter.Fill(ds, _tableName);
+        //    return ds;
+        //}
+
+        #endregion
+
         protected void grid_Employee_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             GridView gridView = (GridView)sender;
@@ -474,9 +585,15 @@ namespace WMS.Reports
             DivLocGrid.Visible = false;
             DivTypeGrid.Visible = false;
             ReportViewer1.Visible = true;
-            List<ViewLeaveData> _ViewList = new List<ViewLeaveData>();
+            
             List<ViewLeaveData> _TempViewList = new List<ViewLeaveData>();
-            _ViewList = context.ViewLeaveDatas.Where(aa => aa.LvDate >= DateFrom.Date && aa.LvDate <= DateTo.Date).ToList();
+            User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.MakeCustomizeQuery(LoggedInUser);
+            string _dateTo = "'" + DateTo.Date.Year.ToString() + "-" + DateTo.Date.Month.ToString() + "-" + DateTo.Date.Day.ToString() + "'";
+            string _dateFrom = "'" + DateFrom.Date.Year.ToString() + "-" + DateFrom.Date.Month.ToString() + "-" + DateFrom.Date.Day.ToString() + "'";
+            DataTable dt = qb.GetValuesfromDB("select * from ViewLeaveData " + query + " and (AttDate >= " + _dateFrom + " and AttDate <= " + _dateTo + " )" + " and LvStatus=0 ");
+            List<ViewLeaveData> _ViewList = dt.ToList<ViewLeaveData>();
             if (SelectedEmps.Count > 0)
             {
                 foreach (var emp in SelectedEmps)
