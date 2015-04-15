@@ -116,12 +116,11 @@ namespace WMS.Reports
 
         private void LoadSectionGrid(User _loggedUser)
         {
-            List<Section> _objectList = new List<Section>();
-            _objectList = context.Sections.Where(aa => aa.Department.CompanyID == _loggedUser.CompanyID).ToList();
-            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
-            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
-            //grid_EmpType.DataBind();
-            grid_Section.DataSource = _objectList;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForCompanySegeration(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from ViewSection " + query);
+            List<ViewSection> _View = dt.ToList<ViewSection>();
+            grid_Section.DataSource = _View;
             grid_Section.DataBind();
         }
 
@@ -625,7 +624,7 @@ namespace WMS.Reports
             {
                 foreach (var sec in SelectedSections)
                 {
-                    _TempViewList.AddRange(_ViewList.Where(aa => aa.SectionName == sec.SectionName).ToList());
+                    _TempViewList.AddRange(_ViewList.Where(aa => aa.SecID == sec.SectionID).ToList());
                 }
                 _ViewList = _TempViewList.ToList();
             }
