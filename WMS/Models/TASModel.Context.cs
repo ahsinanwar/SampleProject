@@ -41,6 +41,9 @@ namespace WMS.Models
         public DbSet<City> Cities { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Crew> Crews { get; set; }
+        public DbSet<DailySumDept> DailySumDepts { get; set; }
+        public DbSet<DailySumSection> DailySumSections { get; set; }
+        public DbSet<DailySumShift> DailySumShifts { get; set; }
         public DbSet<DaysName> DaysNames { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Designation> Designations { get; set; }
@@ -48,6 +51,8 @@ namespace WMS.Models
         public DbSet<DownloadTime> DownloadTimes { get; set; }
         public DbSet<DutyCode> DutyCodes { get; set; }
         public DbSet<DutyTime> DutyTimes { get; set; }
+        public DbSet<Emergency> Emergencies { get; set; }
+        public DbSet<EmergencyDetail> EmergencyDetails { get; set; }
         public DbSet<Emp> Emps { get; set; }
         public DbSet<EmpAccess> EmpAccesses { get; set; }
         public DbSet<EmpFace> EmpFaces { get; set; }
@@ -71,7 +76,6 @@ namespace WMS.Models
         public DbSet<LvType> LvTypes { get; set; }
         public DbSet<Option> Options { get; set; }
         public DbSet<PollData> PollDatas { get; set; }
-        public DbSet<PollDataUnIdentified> PollDataUnIdentifieds { get; set; }
         public DbSet<RdrDutyCode> RdrDutyCodes { get; set; }
         public DbSet<RdrEventLog> RdrEventLogs { get; set; }
         public DbSet<Reader> Readers { get; set; }
@@ -89,21 +93,22 @@ namespace WMS.Models
         public DbSet<Site> Sites { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<UserModule> UserModules { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<ZTable> ZTables { get; set; }
         public DbSet<EmpView> EmpViews { get; set; }
-        public DbSet<TestView> TestViews { get; set; }
         public DbSet<ViewAbsent> ViewAbsents { get; set; }
         public DbSet<ViewAuditLog> ViewAuditLogs { get; set; }
         public DbSet<ViewCard> ViewCards { get; set; }
+        public DbSet<ViewCrew> ViewCrews { get; set; }
+        public DbSet<ViewDepartment> ViewDepartments { get; set; }
         public DbSet<ViewEarlyIN> ViewEarlyINs { get; set; }
         public DbSet<ViewEarlyOut> ViewEarlyOuts { get; set; }
         public DbSet<ViewEditAttendance> ViewEditAttendances { get; set; }
+        public DbSet<ViewEmergencyDetail> ViewEmergencyDetails { get; set; }
         public DbSet<ViewEmpPic> ViewEmpPics { get; set; }
+        public DbSet<ViewEmpType> ViewEmpTypes { get; set; }
         public DbSet<ViewLateComer> ViewLateComers { get; set; }
         public DbSet<ViewLateOut> ViewLateOuts { get; set; }
-        public DbSet<ViewLeave> ViewLeaves { get; set; }
         public DbSet<ViewLeaveData> ViewLeaveDatas { get; set; }
         public DbSet<ViewLeaveQuota> ViewLeaveQuotas { get; set; }
         public DbSet<ViewLvConsumed> ViewLvConsumeds { get; set; }
@@ -114,6 +119,7 @@ namespace WMS.Models
         public DbSet<ViewOverTime> ViewOverTimes { get; set; }
         public DbSet<ViewPollData> ViewPollDatas { get; set; }
         public DbSet<ViewPresentEmp> ViewPresentEmps { get; set; }
+        public DbSet<ViewSection> ViewSections { get; set; }
         public DbSet<ViewSLData> ViewSLDatas { get; set; }
         public DbSet<ViewSummary> ViewSummaries { get; set; }
     }

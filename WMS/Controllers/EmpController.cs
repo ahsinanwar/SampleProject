@@ -299,20 +299,20 @@ namespace WMS.Controllers
                 return HttpNotFound();
             }
             User LoggedInUser = Session["LoggedUser"] as User;
-            ViewBag.CompanyID = new SelectList(db.Companies.Where(aa => aa.CompID == LoggedInUser.CompanyID), "CompID", "CompName");
-            ViewBag.CrewID = new SelectList(db.Crews.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "CrewID", "CrewName");
-            ViewBag.DesigID = new SelectList(db.Designations.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "DesignationID", "DesignationName");
-            ViewBag.GradeID = new SelectList(db.Grades.Where(aa => aa.CompID == LoggedInUser.CompanyID), "GradeID", "GradeName");
-            ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1");
-            ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
-            ViewBag.SecID = new SelectList(db.Sections.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "SectionID", "SectionName");
-            ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName");
-            ViewBag.TypeID = new SelectList(db.EmpTypes.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "TypeID", "TypeName");
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName",emp.CompanyID);
+            ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName",emp.CrewID);
+            ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName",emp.DesigID);
+            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName",emp.GradeID);
+            ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1",emp.JobID);
+            ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName",emp.LocID);
+            ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName",emp.SecID);
+            ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName",emp.ShiftID);
+            ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName",emp.TypeID);
             ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
             ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
             ViewBag.EmpID = new SelectList(db.LvQuotas, "EmpID", "EmpID");
-            ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
-            ViewBag.DeptID = new SelectList(db.Departments.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "DeptID", "DeptName");
+            ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName",emp.EmpType.CatID);
+            ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName",emp.Section.DeptID);
             return View(emp);
         }
 
@@ -324,83 +324,88 @@ namespace WMS.Controllers
         [CustomActionAttribute]
         public ActionResult Edit([Bind(Include="EmpID,EmpNo,EmpName,DesigID,JobID,Gender,ShiftID,LocID,TypeID,GradeID,SecID,CardNo,FpID,PinCode,NicNo,FatherName,BloodGroup,BirthDate,MarStatus,JoinDate,ValidDate,IssueDate,ResignDate,HomeAdd,ProcessAtt,ProcessIn,Status,PhoneNo,Remarks,Email,CellNo,CrewID,FlagFP,FlagFace,FlagCard,EmpImageID,CompanyID")] Emp emp)
         {
-            HttpPostedFileBase file = Request.Files["ImageData"];
-            if (file != null)
+            try
             {
-                ImageConversion _Image = new ImageConversion();
-                if (_Image.UploadImageInDataBase(file, emp))
+                ViewBag.Message = "";
+                HttpPostedFileBase file = Request.Files["ImageData"];
+                if (file != null)
                 {
+                    ImageConversion _Image = new ImageConversion();
+                    if (_Image.UploadImageInDataBase(file, emp))
+                    {
 
+                    }
+                    else
+                    {
+
+                    }
                 }
-                else
+                if (string.IsNullOrEmpty(emp.EmpNo))
+                    ModelState.AddModelError("EmpNo", "Emp No field is required!");
+                if (string.IsNullOrEmpty(emp.EmpName))
+                    ModelState.AddModelError("EmpName", "Namefield is required!");
+                if (emp.EmpNo != null)
                 {
-
+                    if (emp.EmpNo.Length > 15)
+                        ModelState.AddModelError("EmpNo", "String length exceeds!");
                 }
+                if (emp.EmpName != null)
+                {
+                    if (emp.EmpName.Length > 40)
+                        ModelState.AddModelError("EmpName", "String length exceeds!");
+                }
+                if (emp.SecID == null)
+                    ModelState.AddModelError("SecID", "Please Specify section!");
+                if (emp.TypeID == null)
+                    ModelState.AddModelError("TypeID", "Please Specify Type!");
+                if (emp.GradeID == null)
+                    ModelState.AddModelError("GradeID", "Please Specify Grade!");
+                if (ModelState.IsValid)
+                {
+                    emp.EmpNo = emp.EmpNo.ToUpper();
+                    db.Entry(emp).State = EntityState.Modified;
+                    db.SaveChanges();
+                    int _userID = Convert.ToInt32(Session["LogedUserID"].ToString());
+                    HelperClass.MyHelper.SaveAuditLog(_userID, (byte)MyEnums.FormName.Employee, (byte)MyEnums.Operation.Edit, DateTime.Now);
+                    return RedirectToAction("Index");
+                }
+                User LoggedInUser = Session["LoggedUser"] as User;
+                ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
+                ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName");
+                ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName");
+                ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
+                ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1");
+                ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
+                ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName");
+                ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName");
+                ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName");
+                ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
+                ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
+                ViewBag.EmpID = new SelectList(db.LvQuotas, "EmpID", "EmpID");
+                ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
+                ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName");
+                return View(emp);
             }
-            if (string.IsNullOrEmpty(emp.EmpNo))
-                ModelState.AddModelError("EmpNo", "Emp No field is required!");
-            if (string.IsNullOrEmpty(emp.EmpName))
-                ModelState.AddModelError("EmpName", "Namefield is required!");
-            if (emp.EmpNo != null)
+            catch (Exception ex)
             {
-                if (emp.EmpNo.Length > 15)
-                    ModelState.AddModelError("EmpNo", "String length exceeds!");
+                ViewBag.Message = ex.InnerException.InnerException.ToString();
+                User LoggedInUser = Session["LoggedUser"] as User;
+                ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
+                ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName");
+                ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName");
+                ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
+                ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1");
+                ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
+                ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName");
+                ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName");
+                ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName");
+                ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
+                ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
+                ViewBag.EmpID = new SelectList(db.LvQuotas, "EmpID", "EmpID");
+                ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
+                ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName");
+                return View(emp);
             }
-            if (emp.EmpName != null)
-            {
-                if (emp.EmpName.Length > 40)
-                    ModelState.AddModelError("EmpName", "String length exceeds!");
-            }
-            if (emp.SecID == null)
-                ModelState.AddModelError("SecID", "Please Specify section!");
-            if (emp.TypeID == null)
-                ModelState.AddModelError("TypeID", "Please Specify Type!");
-            if (emp.GradeID == null)
-                ModelState.AddModelError("GradeID", "Please Specify Grade!");
-            if (ModelState.IsValid)
-            {
-                emp.EmpNo = emp.EmpNo.ToUpper();
-                db.Entry(emp).State = EntityState.Modified;
-                db.SaveChanges();
-                int _userID = Convert.ToInt32(Session["LogedUserID"].ToString());
-                HelperClass.MyHelper.SaveAuditLog(_userID, (byte)MyEnums.FormName.Employee, (byte)MyEnums.Operation.Edit, DateTime.Now);
-                return RedirectToAction("Index");
-            }
-            User LoggedInUser = Session["LoggedUser"] as User;
-            ViewBag.CompanyID = new SelectList(db.Companies.Where(aa => aa.CompID == LoggedInUser.CompanyID), "CompID", "CompName");
-            ViewBag.CrewID = new SelectList(db.Crews.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "CrewID", "CrewName");
-            ViewBag.DesigID = new SelectList(db.Designations.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "DesignationID", "DesignationName");
-            ViewBag.GradeID = new SelectList(db.Grades.Where(aa => aa.CompID == LoggedInUser.CompanyID), "GradeID", "GradeName");
-            ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1");
-            ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
-            ViewBag.SecID = new SelectList(db.Sections.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "SectionID", "SectionName");
-            ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName");
-            ViewBag.TypeID = new SelectList(db.EmpTypes.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "TypeID", "TypeName");
-            ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
-            ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
-            ViewBag.EmpID = new SelectList(db.LvQuotas, "EmpID", "EmpID");
-            ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
-            ViewBag.DeptID = new SelectList(db.Departments.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "DeptID", "DeptName");
-            return View(emp);
-            //if (ModelState.IsValid)
-            //{
-            //    db.Entry(emp).State = EntityState.Modified;
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
-            //ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", emp.CompanyID);
-            //ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName", emp.CrewID);
-            //ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName", emp.DesigID);
-            //ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName", emp.GradeID);
-            //ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1", emp.JobID);
-            //ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName", emp.LocID);
-            //ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName", emp.SecID);
-            //ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName", emp.ShiftID);
-            //ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName", emp.TypeID);
-            //ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1", emp.EmpID);
-            //ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1", emp.EmpID);
-            //ViewBag.EmpID = new SelectList(db.LvQuotas, "EmpID", "EmpID", emp.EmpID);
-            //return View(emp);
         }
 
         // GET: /Emp/Delete/5

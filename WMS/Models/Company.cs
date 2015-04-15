@@ -16,8 +16,10 @@ namespace WMS.Models
     {
         public Company()
         {
+            this.Emps = new HashSet<Emp>();
             this.Grades = new HashSet<Grade>();
             this.Readers = new HashSet<Reader>();
+            this.Users = new HashSet<User>();
         }
     
         public short CompID { get; set; }
@@ -26,7 +28,9 @@ namespace WMS.Models
         public string TelNo { get; set; }
         public string Email { get; set; }
     
+        public virtual ICollection<Emp> Emps { get; set; }
         public virtual ICollection<Grade> Grades { get; set; }
         public virtual ICollection<Reader> Readers { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

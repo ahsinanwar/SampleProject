@@ -18,6 +18,7 @@ namespace WMS.Models
         {
             this.Emps = new HashSet<Emp>();
             this.Readers = new HashSet<Reader>();
+            this.Users = new HashSet<User>();
         }
     
         public short LocID { get; set; }
@@ -27,5 +28,6 @@ namespace WMS.Models
         public virtual ICollection<Emp> Emps { get; set; }
         public virtual Site Site { get; set; }
         public virtual ICollection<Reader> Readers { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

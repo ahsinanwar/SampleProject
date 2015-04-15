@@ -14,9 +14,9 @@
         <th>
             Start
         </th>
-         @*<th>
+         <th>
             End
-        </th>*@
+        </th>
         <th>
             Criteria
         </th>
@@ -36,6 +36,7 @@
             Shift
         </th>
         <th>Details</th>
+        <th>Continue</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -43,9 +44,9 @@
         <td>
             @item.DateStarted.Value.ToString("dd-MMM-yyyy")
         </td>
-        @*<td>
+        <td>
            @item.DateEnded.Value.ToString("dd-MMM-yyyy")
-        </td>*@
+        </td>
         <td>
             @switch (item.RosterCriteria)
             {
@@ -80,6 +81,9 @@
         </td>
         <td>
             @Html.ActionLink("Details", "RosterDetail", new { id=item.RotaApplD })
+        </td>
+        <td>
+            @Html.ActionLink("Continue", "RosterContinue", new { id=item.RotaApplD })
         </td>
     </tr>
 }

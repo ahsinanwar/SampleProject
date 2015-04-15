@@ -14,7 +14,7 @@ namespace WMS.Models
     
     public partial class ViewMonthlyData
     {
-        public Nullable<int> EmpID { get; set; }
+        public int EmpID { get; set; }
         public string Period { get; set; }
         public string EmpMonth { get; set; }
         public string EmpNo { get; set; }
@@ -159,12 +159,12 @@ namespace WMS.Models
         public string L31 { get; set; }
         public Nullable<double> HalfLeavesDay { get; set; }
         public Nullable<short> LocID { get; set; }
-        public Nullable<int> DesignationID { get; set; }
         public Nullable<short> CrewID { get; set; }
         public Nullable<byte> GradeID { get; set; }
-        public Nullable<short> SectionID { get; set; }
         public Nullable<short> DeptID { get; set; }
         public Nullable<byte> ShiftID { get; set; }
-        public Nullable<short> DivisionID { get; set; }
+        public Nullable<short> SecID { get; set; }
+        public Nullable<short> DivID { get; set; }
+        public Nullable<int> DesigID { get; set; }
     }
 }

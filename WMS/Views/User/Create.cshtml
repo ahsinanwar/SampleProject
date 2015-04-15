@@ -13,13 +13,14 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    <div class="form-horizontal">
+    <div class="form-horizontal"  ng-app="UserLocation">
     @Html.ValidationSummary(true)
+      <div ng-controller="myCtrl" data-ng-init="initFunction()">
       
         <section class="col-md-4">
              <div class="form-group">
                <div class="control-label col-md-4">AD Username</div>
-                <div class="col-md-4">
+                <div class="col-md-8">
                     @Html.TextBoxFor(model => model.UserName,new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.UserName)
 @*@Html.ActionLink("View AD Users", "ListOfADUser",null,new { @class = "" })*@
@@ -39,14 +40,6 @@
                   @Html.TextBox("EmpNo" , null ,new { @class = "form-control" })
                 </div>
             </div>
-             @*<div class="form-group">
-                <div class="control-label col-md-4">Name</div>
-                <div class="col-md-4">
-                    @Html.TextBoxFor(model => model.Name,new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Name)
-                </div>
-            </div>*@
-
             <div class="form-group">
                <div class="control-label col-md-4">Status</div>
                 <div class="col-md-4">
@@ -74,13 +67,50 @@
                 @Html.ValidationMessageFor(model => model.RoleID)
             </div>
         </div> 
-        <div class="form-group">
+        @*<div class="form-group">
             <div class="control-label col-md-4">Location</div>
             <div class="col-md-4">
                 @Html.DropDownList("LocationID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
                 @Html.ValidationMessageFor(model => model.LocationID)
             </div>
-        </div>
+        </div>*@
+          <div class="form-group">
+            <div class="control-label col-md-4">Location</div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input disabled type="text" placeholder="e.g Software" data-ng-model="speciality.name" class="form-control">
+                    <span class="input-group-btn">
+                        <button type="button" ng-click="removeSpeciality($index)" class="btn btn-default"><i class="fa fa-times"></i></button>
+                    </span>
+                </div>
+            </div>
+              <div  ng-show="isAddingLocation">
+                    <input type="text" placeholder="Add a Location" data-ng-model="newLocation.name" class="form-control">
+                    <a class="btn btn-default btn-sm" ng-click="addLocation()">Add</a>
+                    <a href="" ng-click="isAddingLocation = false">Done Adding</a>
+             </div>
+                  <p><a href="" ng-click="isAddingLocation = true">+ Add Location</a></p>
+          </div>
+
+
+<div class="col-md-4">
+                          <section class="listThingy" class="row" ng-repeat="speciality in company.specialities">
+                            <div class="input-group">
+                              <input disabled type="text" placeholder="e.g Software" data-ng-model="speciality.name" class="form-control">
+                              <span class="input-group-btn">
+                                <button type="button" ng-click="removeSpeciality($index)" class="btn btn-default"><i class="fa fa-times"></i></button>
+                              </span>
+                            </div>
+                          </section>
+                          <div class="addThingy" ng-show="isAddingSpeciality">
+                              <input type="text" placeholder="Add a speciality" data-ng-model="newSpeciality.name" class="form-control">
+                              <a class="btn btn-default btn-sm" ng-click="addSpeciality()">Add</a>
+                              <a href="" ng-click="isAddingSpeciality = false">Done Adding</a>
+                          </div>
+                          <p><a href="" ng-click="isAddingSpeciality = true">+ Add Speciality</a></p>
+                        </div>
+
+
         <div class="form-group">
             <div class="control-label col-md-4">Permanent Staff</div>
             <div class="col-md-4">
@@ -166,7 +196,7 @@
         </div>     
      </section>
        
-     <section class="col-md-4">
+        <section class="col-md-4">
         <center><h3>Application Module</h3></center> 
               <div class="form-group">
                   <div class="control-label col-md-4">User</div>
@@ -235,7 +265,7 @@
                  </div>
        </section>
 
-       <section class="col-md-4">
+        <section class="col-md-4">
             <h3>Reports Module</h3>
                  <div class="form-group">
                     <div class="control-label col-md-4">Leave</div>
@@ -327,19 +357,41 @@
                         { new SelectListItem { Text = "No", Value = "0", Selected=true},
                             new SelectListItem { Text = "Yes", Value = "1"}
                             },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidthSmall"}) 
+                       @*@Html.CheckBoxFor(m=>m.MRSummary.Value,new{Text="Space"}),*@
                     </div>
                 </div>
 
         </section>
         
 
-       <div class="form-group">
+         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default btn-success" />
                  @Html.ActionLink("Back to List", "Index",null,new { @class = "btn btn-primary " })
             </div>
         </div>
-</div>
+      </div>
+    </div>
 }
+@*<div>
+    <div ng-controller="myCtrl" data-ng-init="initFunction()">
+ 	<p>Name: <input type="text" ng-model="name"></p>
+ 	<p>{{name}}</p>
+        
+</div>
+    </div>*@
+<script type="text/javascript">
+    var app = angular.module('UserLocation', []);
+    app.controller('myCtrl', function ($scope,$http) {
+        $scope.name = "Ahsin";
+        $scope.initFunction = function ()
+        {
+            $http.get('/User/UserLocation').success(function (res) {
+                $scope.Locations = res;
+                console.log(res);
+            });
+                    }
+    });
+</script>
 
 

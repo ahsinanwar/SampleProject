@@ -17,8 +17,8 @@ namespace WMS.Models
         public string CriteriaValueDate { get; set; }
         public Nullable<int> RosterAppID { get; set; }
         public string DutyCode { get; set; }
-        public Nullable<System.TimeSpan> DutyTime { get; set; }
-        public Nullable<short> WorkMin { get; set; }
+        public System.TimeSpan DutyTime { get; set; }
+        public short WorkMin { get; set; }
         public string Remarks { get; set; }
         public Nullable<short> CompanyID { get; set; }
         public Nullable<bool> OpenShift { get; set; }

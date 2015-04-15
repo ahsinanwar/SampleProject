@@ -16,7 +16,7 @@ namespace WMS.Models
     {
         public string EmpDate { get; set; }
         public long JobDataID { get; set; }
-        public int EmpID { get; set; }
+        public Nullable<int> EmpID { get; set; }
         public Nullable<System.DateTime> Dated { get; set; }
         public Nullable<int> SubmittedFrom { get; set; }
         public Nullable<short> WrkCardID { get; set; }

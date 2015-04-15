@@ -24,7 +24,7 @@ namespace WMS.Controllers.EditAttendance
                 if (JobCardStatus == false)
                 {
                     SaveOldAttData(_OldAttData, _UserID);
-                    if (SaveNewAttData(NewTimeIn, NewTimeOut, NewDutyCode, _NewDutyTime, _Remarks))
+                    if (SaveNewAttData(NewTimeIn, NewTimeOut, NewDutyCode, _NewDutyTime, _Remarks,_ShiftMins))
                     {
 
                         _OldAttData.TimeIn = NewTimeIn;
@@ -69,7 +69,7 @@ namespace WMS.Controllers.EditAttendance
         }
 
         //Save Old and New Attendance Data in Manual Attendance Table
-        private bool SaveNewAttData(DateTime _NewTimeIn, DateTime _NewTimeOut, string _NewDutyCode, TimeSpan _NewDutyTime, string _remarks)
+        private bool SaveNewAttData(DateTime _NewTimeIn, DateTime _NewTimeOut, string _NewDutyCode, TimeSpan _NewDutyTime, string _remarks,short _ShiftMins)
         {
             bool check = false;
             _ManualEditData.NewTimeIn = _NewTimeIn;
@@ -78,6 +78,7 @@ namespace WMS.Controllers.EditAttendance
             _ManualEditData.EditDateTime = DateTime.Now;
             _ManualEditData.NewDutyTime = _NewDutyTime;
             _ManualEditData.NewRemarks = "[" + _remarks + "]";
+            _ManualEditData.NewShiftMin = _ShiftMins;
             try
             {
                 context.AttDataManEdits.Add(_ManualEditData);

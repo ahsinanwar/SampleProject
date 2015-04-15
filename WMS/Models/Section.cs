@@ -16,6 +16,7 @@ namespace WMS.Models
     {
         public Section()
         {
+            this.DailySumSections = new HashSet<DailySumSection>();
             this.Emps = new HashSet<Emp>();
         }
     
@@ -24,6 +25,7 @@ namespace WMS.Models
         public Nullable<short> DeptID { get; set; }
         public Nullable<short> CompanyID { get; set; }
     
+        public virtual ICollection<DailySumSection> DailySumSections { get; set; }
         public virtual Department Department { get; set; }
         public virtual ICollection<Emp> Emps { get; set; }
     }

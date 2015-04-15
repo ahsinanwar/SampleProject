@@ -70,7 +70,7 @@ namespace WMS.Models
         public string Remarks { get; set; }
         public Nullable<int> FpID { get; set; }
         public Nullable<short> CatID { get; set; }
-        public byte TypeID { get; set; }
+        public Nullable<byte> TypeID { get; set; }
         public Nullable<short> CompanyID { get; set; }
     }
 }

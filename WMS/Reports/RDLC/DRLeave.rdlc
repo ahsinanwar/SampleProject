@@ -367,14 +367,14 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="LvDate1">
+                    <Textbox Name="FromDate1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!LvDate.Value</Value>
+                              <Value>=Fields!FromDate.Value</Value>
                               <Style>
                                 <FontFamily>arial</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -387,7 +387,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>LvDate1</rd:DefaultName>
+                      <rd:DefaultName>FromDate1</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -895,7 +895,7 @@
             <TablixMember>
               <Group Name="LvDate">
                 <GroupExpressions>
-                  <GroupExpression>=Fields!LvDate.Value</GroupExpression>
+                  <GroupExpression>=Fields!FromDate.Value</GroupExpression>
                 </GroupExpressions>
               </Group>
               <SortExpressions>
@@ -1382,6 +1382,38 @@
         </Field>
         <Field Name="CatID">
           <DataField>CatID</DataField>
+          <rd:TypeName>System.Int16</rd:TypeName>
+        </Field>
+        <Field Name="DesigID">
+          <DataField>DesigID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="SecID">
+          <DataField>SecID</DataField>
+          <rd:TypeName>System.Int16</rd:TypeName>
+        </Field>
+        <Field Name="LocID">
+          <DataField>LocID</DataField>
+          <rd:TypeName>System.Int16</rd:TypeName>
+        </Field>
+        <Field Name="ShiftID">
+          <DataField>ShiftID</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="GradeID">
+          <DataField>GradeID</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="DeptID">
+          <DataField>DeptID</DataField>
+          <rd:TypeName>System.Int16</rd:TypeName>
+        </Field>
+        <Field Name="DivID">
+          <DataField>DivID</DataField>
+          <rd:TypeName>System.Int16</rd:TypeName>
+        </Field>
+        <Field Name="CrewID">
+          <DataField>CrewID</DataField>
           <rd:TypeName>System.Int16</rd:TypeName>
         </Field>
       </Fields>

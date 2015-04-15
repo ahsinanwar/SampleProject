@@ -66,7 +66,8 @@ namespace WMS.Controllers
         {
             ADUsersModel _objstudentmodel = new ADUsersModel();
             _objstudentmodel._ADUsersAttributes = new List<ADUsersAttributes>();
-            using (var context = new PrincipalContext(ContextType.Domain, "fatima-group.com", "ffl.ithelpdesk@fatima-group.com", "fatima@0202"))
+            //using (var context = new PrincipalContext(ContextType.Domain, "fatima-group.com", "ffl.ithelpdesk@fatima-group.com", "fatima@0202"))
+            using (var context = new PrincipalContext(ContextType.Domain, "fatima-group.com", "ffl.ithelpdesk@fatima-group.com", "fatima@123.com"))
             {
                 using (var searcher = new PrincipalSearcher(new UserPrincipal(context)))
                 {
@@ -435,6 +436,16 @@ namespace WMS.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult UserLocation()
+        {
+            var states = db.Locations.ToList();
+                return Json(new SelectList(
+                                states.ToArray(),
+                                "LocID",
+                                "LocName")
+                           , JsonRequestBehavior.AllowGet);
         }
     }
 
