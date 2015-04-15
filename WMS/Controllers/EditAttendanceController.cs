@@ -466,6 +466,9 @@ namespace WMS.Controllers
                         case 7://Normal Day 480
                             AddJCNorrmalDayAttData(_empDate, _empID, _Date, _userID, _WorkCardID, _CompID);
                             break;
+                        case 8://Late In Margin
+                            AddLateInMarginAttData(_empDate, _empID, _Date, _userID, _WorkCardID, _CompID);
+                            break;
                     }
                 }
                 _Date = _Date.AddDays(1);
@@ -705,6 +708,38 @@ namespace WMS.Controllers
                         _attdata.StatusLI = null;
                         _attdata.StatusLO = null;
                         _attdata.StatusP = null;
+                    }
+                    context.SaveChanges();
+                    if (context.SaveChanges() > 0)
+                        check = true;
+                    context.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return check;
+        }
+
+        private bool AddLateInMarginAttData(string _empDate, int _empID, DateTime _Date, int _userID, short _WorkCardID, short _CompID)
+        {
+            bool check = false;
+            try
+            {
+                //Late In Job Card
+                short LateInMins = 0;
+                using (var context = new TAS2013Entities())
+                {
+                    AttData _attdata = context.AttDatas.FirstOrDefault(aa => aa.EmpDate == _empDate);
+                    if (_attdata != null)
+                    {
+                        _attdata.StatusAB = false;
+                        _attdata.Remarks.Replace("[LI]", "");
+                        _attdata.Remarks = _attdata.Remarks + "[LI Job Card]";
+                        _attdata.LateIn = 0;
+                        _attdata.WorkMin = (short)(_attdata.WorkMin + (short)LateInMins);
+                        _attdata.StatusLI = false;
                     }
                     context.SaveChanges();
                     if (context.SaveChanges() > 0)

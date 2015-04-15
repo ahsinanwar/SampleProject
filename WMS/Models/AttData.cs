@@ -85,7 +85,6 @@ namespace WMS.Models
         public Nullable<System.DateTime> Tout14 { get; set; }
         public Nullable<System.DateTime> Tin15 { get; set; }
         public Nullable<System.DateTime> Tout15 { get; set; }
-        public Nullable<short> CompanyID { get; set; }
     
         public virtual Emp Emp { get; set; }
     }

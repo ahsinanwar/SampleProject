@@ -106,6 +106,10 @@ namespace WMS.CustomClass
                 case 5:
                     break;
             }
+            if (query != "")
+            {
+                query = " where " + query;
+            }
             return query;
         }
     }

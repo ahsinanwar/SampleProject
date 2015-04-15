@@ -184,15 +184,6 @@ namespace WMS.Reports {
         protected global::System.Web.UI.WebControls.GridView grid_Section;
         
         /// <summary>
-        /// ObjectDataSource2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSource2;
-        
-        /// <summary>
         /// DivGridDept control.
         /// </summary>
         /// <remarks>
@@ -209,15 +200,6 @@ namespace WMS.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grid_Dept;
-        
-        /// <summary>
-        /// ObjectDataSource3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSource3;
         
         /// <summary>
         /// DivLocGrid control.
@@ -238,15 +220,6 @@ namespace WMS.Reports {
         protected global::System.Web.UI.WebControls.GridView grid_Location;
         
         /// <summary>
-        /// ObjectDataSource4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSource4;
-        
-        /// <summary>
         /// DivGridCrew control.
         /// </summary>
         /// <remarks>
@@ -263,15 +236,6 @@ namespace WMS.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grid_Crew;
-        
-        /// <summary>
-        /// ObjectDataSource5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSource5;
         
         /// <summary>
         /// DivTypeGrid control.
@@ -308,15 +272,6 @@ namespace WMS.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grid_Shift;
-        
-        /// <summary>
-        /// ObjectDataSource7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSource7;
         
         /// <summary>
         /// ReportViewer1 control.

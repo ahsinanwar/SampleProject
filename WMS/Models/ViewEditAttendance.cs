@@ -29,7 +29,7 @@ namespace WMS.Models
         public Nullable<int> UserID { get; set; }
         public string UserName { get; set; }
         public string Name { get; set; }
-        public bool Status { get; set; }
+        public Nullable<bool> Status { get; set; }
         public string DesignationName { get; set; }
         public string GradeName { get; set; }
         public string JobTitle { get; set; }

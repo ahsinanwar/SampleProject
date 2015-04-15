@@ -75,5 +75,9 @@ namespace WMS.Models
         public Nullable<byte> GradeID { get; set; }
         public Nullable<short> CrewID { get; set; }
         public Nullable<short> LocID { get; set; }
+        public Nullable<short> SecID { get; set; }
+        public string DivisionName { get; set; }
+        public Nullable<short> DivID { get; set; }
+        public int EmpID { get; set; }
     }
 }

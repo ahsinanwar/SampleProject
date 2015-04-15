@@ -23,7 +23,8 @@ namespace WMS.Controllers
             return View();
             //return View();
         }
-        public ActionResult RosterAppIndex()
+
+        public ActionResult RosterAppIndex(FormCollection form)
         {
             var rosterapps = db.RosterApps.Where(aa=>aa.Status==true);
             List<RosterApplication> _RosterApplicationsList = new List<RosterApplication>();
@@ -35,6 +36,7 @@ namespace WMS.Controllers
                 RosterApplication _RosterApplication = new RosterApplication();
                 _RosterApplication.RotaApplD = item.RotaApplD;
                 _RosterApplication.DateStarted = item.DateStarted;
+                _RosterApplication.DateEnded = item.DateEnded.Value.AddDays(-1);
                 _RosterApplication.RosterCriteria = item.RosterCriteria;
                 switch(item.RosterCriteria)
                 {
@@ -61,6 +63,7 @@ namespace WMS.Controllers
             }
             return View(_RosterApplicationsList);
         }
+
         public ActionResult RosterDetail(int? id)
         {
             if (id == null)
@@ -75,34 +78,33 @@ namespace WMS.Controllers
             var rosterdetails = db.RosterDetails.Where(aa=>aa.RosterAppID==id);
             return View(rosterdetails.ToList());
         }
+
+        public ActionResult RosterContinue(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //RosterDetailsCustom _RosterDetails = new RosterDetailsCustom();
+            //_RosterDetails.RosterDetails = db.RosterDetails.Where(aa => aa.RosterAppID == id).ToList();
+            //RosterApp _RosterApp = new RosterApp();
+            //_RosterApp = db.RosterApps.First(aa => aa.RotaApplD == id);
+            //_RosterDetails
+            RosterApp rosterApp = db.RosterApps.First(aa => aa.RotaApplD == id); 
+            return View(CalculateRosterFields((int)rosterApp.RotaTypeID, (DateTime)rosterApp.DateEnded, (int)rosterApp.WorkMin, (TimeSpan)rosterApp.DutyTime, rosterApp.RosterCriteria, (int)rosterApp.CriteriaData, (int)rosterApp.ShiftID, (int)rosterApp.RotaApplD));
+        }
         [HttpPost]
         public ActionResult Create(FormCollection form)
         {
             int _Shift = Convert.ToInt32(Request.Form["ShiftList"].ToString());
             int _RosterType = Convert.ToInt32(Request.Form["RosterType"].ToString());
             DateTime _StartDate = Convert.ToDateTime(Request.Form["dateStart"]);
-            DateTime _EndDate = Convert.ToDateTime(Request.Form["dateEnd"]);
+            DateTime _EndDate = Convert.ToDateTime(Request.Form["dateEndHidden"]);
             TimeSpan _DutyTime = MyHelper.ConvertTime(Request.Form["dutyTime"]);
             int _WorkMin = Convert.ToInt16(Request.Form["mints"]);
             string Criteria = "";
             bool check = false;
             int RosterCriteriaValue = 0;
-            //string aa = Request.Form["JobEmpNo"].ToString();
-            //if (Request.Form["cars"].ToString() == "employee")
-            //{
-            //    if (Request.Form["JobEmpNo"].ToString() == "")
-            //    {
-            //        check = true;
-            //    }
-            //    else
-            //    {
-            //        RosterCriteriaValue = Convert.ToInt32(Request.Form["JobEmpNo"].ToString());
-            //        Criteria = "E";
-            //        check = false;
-            //    }
-            //}
-            //else
-            //{
                 switch (Request.Form["cars"].ToString())
                 {
                     case "shift":
@@ -121,13 +123,12 @@ namespace WMS.Controllers
                         
                         break;
                 }
-            //}
             if (check == false)
             {
                 RosterApp ra = new RosterApp()
                 {
                     DateStarted = _StartDate,
-                    DateEnded = _EndDate,
+                    DateEnded = _EndDate.AddDays(-1),
                     DateCreated = DateTime.Now,
                     RosterCriteria = Criteria,
                     CriteriaData = RosterCriteriaValue,
@@ -185,6 +186,10 @@ namespace WMS.Controllers
             ViewBag.SectionList = new SelectList(db.Sections, "SectionID", "SectionName");
             return View("Index");
         }
+
+
+
+
 
         private void CreateRosterEntries(Shift _selectedShift, string criteria, int criteriaValue, DateTime startDate, int noOfDays, List<RosterAttributes> rosters, int _RotaAppID)
         {
@@ -297,6 +302,9 @@ namespace WMS.Controllers
                     _objstudentmodel._RosterAttributes.Add(new RosterAttributes { ID = i, DateString = _date, Day = _day, DutyDate = _StartDate.Date, DutyTimeString = _DTime, DutyTime = _DutyTime, WorkMin = _WorkMin });
                     _StartDate = _StartDate.AddDays(1);
                 }
+                RosterApp rosterApp = db.RosterApps.First(aa => aa.RotaApplD == _RotaAppID);
+                rosterApp.DateEnded = _StartDate;
+                db.SaveChanges();
                 return _objstudentmodel;
             }
             catch (Exception ex)
@@ -325,6 +333,7 @@ namespace WMS.Controllers
             }
             return Criteria;
         }
+
         private string GetCriteriaValueName(string _Criteria, int criteriaValue)
         {
             String CriteriaValueName = "";
@@ -353,6 +362,7 @@ namespace WMS.Controllers
     {
         public int RotaApplD { get; set; }
         public Nullable<System.DateTime> DateStarted { get; set; }
+        public Nullable<System.DateTime> DateEnded { get; set; }
         public string RosterCriteria { get; set; }
         public string CriteriaData { get; set; }
         public Nullable<short> WorkMin { get; set; }

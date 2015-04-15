@@ -47,7 +47,7 @@ namespace WMS.Reports
                 User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
                 QueryBuilder qb = new QueryBuilder();
                 string query = qb.MakeCustomizeQuery(LoggedInUser);
-                DataTable dt = qb.GetValuesfromDB("select * from ViewSLData " + query + " and AttDate = '" + date.Date.Year.ToString() + "-" + date.Date.Month.ToString() + "-" + date.Date.Day.ToString() + "'" + " and Status = 1 ");
+                DataTable dt = qb.GetValuesfromDB("select * from ViewSLData " + query);
                 List<ViewSLData> _View = dt.ToList<ViewSLData>();
                 LoadReport(PathString, _View);
             }
@@ -105,15 +105,11 @@ namespace WMS.Reports
 
         private void LoadEmpTypeGrid(User _loggedUser)
         {
-            //string connectionString = WebConfigurationManager.ConnectionStrings["TAS2013ConnectionString"].ConnectionString;
-            //string selectSQL = "";
-            //string _Query = "";
-            List<EmpType> _empType = new List<EmpType>();
-            _empType = context.EmpTypes.ToList();
-            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
-            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
-            //grid_EmpType.DataBind();
-            grid_EmpType.DataSource = _empType;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForCompanySegeration(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from ViewEmpType " + query);
+            List<ViewEmpType> _View = dt.ToList<ViewEmpType>();
+            grid_EmpType.DataSource = _View;
             grid_EmpType.DataBind();
         }
 
@@ -153,42 +149,33 @@ namespace WMS.Reports
 
         private void LoadSectionGrid(User _loggedUser)
         {
-            List<Section> _objectList = new List<Section>();
-            _objectList = context.Sections.Where(aa => aa.Department.CompanyID == _loggedUser.CompanyID).ToList();
-            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
-            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
-            //grid_EmpType.DataBind();
-            grid_Section.DataSource = _objectList;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForCompanySegeration(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from ViewSection " + query);
+            List<ViewSection> _View = dt.ToList<ViewSection>();
+            grid_Section.DataSource = _View;
             grid_Section.DataBind();
         }
 
         private void LoadDeptGrid(User _loggedUser)
         {
-            List<Department> _objectList = new List<Department>();
-            _objectList = context.Departments.Where(aa => aa.CompanyID == _loggedUser.CompanyID).ToList();
-            grid_Dept.DataSource = _objectList;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForCompanySegeration(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from ViewDepartment " + query);
+            List<ViewDepartment> _View = dt.ToList<ViewDepartment>();
+            grid_Dept.DataSource = _View;
             grid_Dept.DataBind();
         }
 
         private void LoadCrewGrid(User _loggedUser)
         {
-            List<Crew> _objectList = new List<Crew>();
-            _objectList = context.Crews.Where(aa => aa.CompanyID == _loggedUser.CompanyID).ToList();
-            grid_Crew.DataSource = _objectList;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForCompanySegeration(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from ViewCrew " + query);
+            List<ViewCrew> _View = dt.ToList<ViewCrew>();
+            grid_Crew.DataSource = _View;
             grid_Crew.DataBind();
         }
-
-        //private DataSet GetValuesFromDatabase(string _query, string _tableName)
-        //{
-        //    string connectionString = WebConfigurationManager.ConnectionStrings["TAS2013ConnectionString"].ConnectionString;
-        //    SqlConnection con = new SqlConnection(connectionString);
-        //    SqlCommand cmd = new SqlCommand(_query, con);
-        //    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-        //    DataSet ds = new DataSet();
-
-        //    adapter.Fill(ds, _tableName);
-        //    return ds;
-        //}
 
         #endregion
 
@@ -591,7 +578,7 @@ namespace WMS.Reports
             string query = qb.MakeCustomizeQuery(LoggedInUser);
             string _dateTo = "'" + DateTo.Date.Year.ToString() + "-" + DateTo.Date.Month.ToString() + "-" + DateTo.Date.Day.ToString() + "'";
             string _dateFrom = "'" + DateFrom.Date.Year.ToString() + "-" + DateFrom.Date.Month.ToString() + "-" + DateFrom.Date.Day.ToString() + "'";
-            DataTable dt = qb.GetValuesfromDB("select * from ViewSLData " + query + " and (AttDate >= " + _dateFrom + " and AttDate <= " + _dateTo + " )" + " and Status=1 ");
+            DataTable dt = qb.GetValuesfromDB("select * from ViewSLData " + query);
             List<ViewSLData> _ViewList = dt.ToList<ViewSLData>();
             if (SelectedEmps.Count > 0)
             {

@@ -47,7 +47,7 @@ namespace WMS.Reports
                 User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
                 QueryBuilder qb = new QueryBuilder();
                 string query = qb.MakeCustomizeQuery(LoggedInUser);
-                DataTable dt = qb.GetValuesfromDB("select * from ViewLeaveData " + query + " and AttDate = '" + date.Date.Year.ToString() + "-" + date.Date.Month.ToString() + "-" + date.Date.Day.ToString() + "'" + " and LvStatus= 0");
+                DataTable dt = qb.GetValuesfromDB("select * from ViewLeaveData " + query + " and FromDate = '" + date.Date.Year.ToString() + "-" + date.Date.Month.ToString() + "-" + date.Date.Day.ToString() + "'");
                 List<ViewLeaveData> _View = dt.ToList<ViewLeaveData>();
                 LoadReport(PathString, _View);
             }
@@ -116,12 +116,11 @@ namespace WMS.Reports
 
         private void LoadSectionGrid(User _loggedUser)
         {
-            List<Section> _objectList = new List<Section>();
-            _objectList = context.Sections.Where(aa => aa.Department.CompanyID == _loggedUser.CompanyID).ToList();
-            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
-            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
-            //grid_EmpType.DataBind();
-            grid_Section.DataSource = _objectList;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForCompanySegeration(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from ViewSection " + query);
+            List<ViewSection> _View = dt.ToList<ViewSection>();
+            grid_Section.DataSource = _View;
             grid_Section.DataBind();
         }
 
@@ -592,7 +591,7 @@ namespace WMS.Reports
             string query = qb.MakeCustomizeQuery(LoggedInUser);
             string _dateTo = "'" + DateTo.Date.Year.ToString() + "-" + DateTo.Date.Month.ToString() + "-" + DateTo.Date.Day.ToString() + "'";
             string _dateFrom = "'" + DateFrom.Date.Year.ToString() + "-" + DateFrom.Date.Month.ToString() + "-" + DateFrom.Date.Day.ToString() + "'";
-            DataTable dt = qb.GetValuesfromDB("select * from ViewLeaveData " + query + " and (AttDate >= " + _dateFrom + " and AttDate <= " + _dateTo + " )" + " and LvStatus=0 ");
+            DataTable dt = qb.GetValuesfromDB("select * from ViewLeaveData " + query + " and (FromDate >= " + _dateFrom + " and FromDate <= " + _dateTo + " )");
             List<ViewLeaveData> _ViewList = dt.ToList<ViewLeaveData>();
             if (SelectedEmps.Count > 0)
             {
@@ -625,7 +624,7 @@ namespace WMS.Reports
             {
                 foreach (var sec in SelectedSections)
                 {
-                    _TempViewList.AddRange(_ViewList.Where(aa => aa.SectionName == sec.SectionName).ToList());
+                    _TempViewList.AddRange(_ViewList.Where(aa => aa.SecID == sec.SectionID).ToList());
                 }
                 _ViewList = _TempViewList.ToList();
             }

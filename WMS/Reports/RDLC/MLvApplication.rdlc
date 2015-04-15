@@ -735,7 +735,7 @@
                           <Color>Black</Color>
                         </TopBorder>
                         <BottomBorder>
-                          <Color>Black</Color>
+                          <Color>LightGrey</Color>
                         </BottomBorder>
                         <LeftBorder>
                           <Color>Black</Color>
@@ -781,7 +781,7 @@
                           <Color>Black</Color>
                         </TopBorder>
                         <BottomBorder>
-                          <Color>Black</Color>
+                          <Color>LightGrey</Color>
                         </BottomBorder>
                         <LeftBorder>
                           <Color>Black</Color>
@@ -827,7 +827,7 @@
                           <Color>Black</Color>
                         </TopBorder>
                         <BottomBorder>
-                          <Color>Black</Color>
+                          <Color>LightGrey</Color>
                         </BottomBorder>
                         <LeftBorder>
                           <Color>Black</Color>
@@ -873,7 +873,7 @@
                           <Color>Black</Color>
                         </TopBorder>
                         <BottomBorder>
-                          <Color>Black</Color>
+                          <Color>LightGrey</Color>
                         </BottomBorder>
                         <LeftBorder>
                           <Color>Black</Color>
@@ -919,7 +919,7 @@
                           <Color>Black</Color>
                         </TopBorder>
                         <BottomBorder>
-                          <Color>Black</Color>
+                          <Color>LightGrey</Color>
                         </BottomBorder>
                         <LeftBorder>
                           <Color>Black</Color>
@@ -965,7 +965,7 @@
                           <Color>Black</Color>
                         </TopBorder>
                         <BottomBorder>
-                          <Color>Black</Color>
+                          <Color>LightGrey</Color>
                         </BottomBorder>
                         <LeftBorder>
                           <Color>Black</Color>
@@ -1768,23 +1768,7 @@
       </Tablix>
     </ReportItems>
     <Height>1.13542in</Height>
-    <Style>
-      <Border>
-        <Style>None</Style>
-      </Border>
-      <TopBorder>
-        <Color>Silver</Color>
-      </TopBorder>
-      <BottomBorder>
-        <Color>LightGrey</Color>
-      </BottomBorder>
-      <LeftBorder>
-        <Color>LightGrey</Color>
-      </LeftBorder>
-      <RightBorder>
-        <Color>LightGrey</Color>
-      </RightBorder>
-    </Style>
+    <Style />
   </Body>
   <Width>12.91749in</Width>
   <Page>

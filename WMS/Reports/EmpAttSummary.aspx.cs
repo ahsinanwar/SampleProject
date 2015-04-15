@@ -711,7 +711,7 @@ namespace WMS.Reports
             }
             else
             {
-                DateToFor = "From : " + DateFrom.Date.ToString("d") + " To: " + DateTo.Date.ToString("dd-MMM-yyyy");
+                DateToFor = "From : " + DateFrom.Date.ToString("dd-MMM-yyyy") + " To: " + DateTo.Date.ToString("dd-MMM-yyyy");
             }
 
             string _Header = context.Options.FirstOrDefault().CompanyName + " - Employee Detail Attendance Report";

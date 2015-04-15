@@ -16,6 +16,7 @@ namespace WMS.Models
     {
         public Shift()
         {
+            this.DailySumShifts = new HashSet<DailySumShift>();
             this.Emps = new HashSet<Emp>();
             this.RosterApps = new HashSet<RosterApp>();
         }
@@ -46,6 +47,7 @@ namespace WMS.Models
         public Nullable<bool> OpenShift { get; set; }
         public Nullable<short> CompanyID { get; set; }
     
+        public virtual ICollection<DailySumShift> DailySumShifts { get; set; }
         public virtual DaysName DaysName { get; set; }
         public virtual DaysName DaysName1 { get; set; }
         public virtual ICollection<Emp> Emps { get; set; }

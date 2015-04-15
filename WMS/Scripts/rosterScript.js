@@ -75,6 +75,7 @@ $(document).ready(function () {
 
         var someFormattedDate = mm + '/' + dd + '/' + y;
         document.getElementById('dateEnd').value = someFormattedDate;
+        document.getElementById('dateEndHidden').value = document.getElementById('dateEnd').value;
     }
 
 

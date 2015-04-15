@@ -160,6 +160,7 @@
     <Content Include="Reports\MSheetC.aspx" />
     <Content Include="Reports\MSummary.aspx" />
     <Content Include="Reports\MSummaryC.aspx" />
+    <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\companyGradeCreate.js" />
     <Content Include="Scripts\dx.chartjs.js" />
     <Content Include="Scripts\empTypeCategory.js" />
@@ -322,11 +323,10 @@
     <Compile Include="Controllers\JobCardEmpRController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\LeaveController.cs" />
+    <Compile Include="Controllers\LeaveQuotaController.cs" />
     <Compile Include="Controllers\LeaveSettingsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\LvAppController.cs" />
-    <Compile Include="Controllers\LvConsumedController.cs" />
-    <Compile Include="Controllers\LvQuotaController.cs" />
     <Compile Include="Controllers\LvShortController.cs" />
     <Compile Include="Controllers\ReaderController.cs" />
     <Compile Include="Controllers\ReaderTypeController.cs" />
@@ -390,6 +390,15 @@
     <Compile Include="Models\Crew.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DailySumDept.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DailySumSection.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DailySumShift.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DaysName.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
@@ -409,6 +418,12 @@
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DutyTime.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Emergency.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmergencyDetail.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Emp.cs">
@@ -483,9 +498,6 @@
     <Compile Include="Models\PollData.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PollDataUnIdentified.cs">
-      <DependentUpon>TASModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\RdrDutyCode.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
@@ -549,13 +561,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TASModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\TestView.cs">
-      <DependentUpon>TASModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>TASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserModule.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserRole.cs">
@@ -570,6 +576,12 @@
     <Compile Include="Models\ViewCard.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewCrew.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewDepartment.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewEarlyIN.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
@@ -579,16 +591,19 @@
     <Compile Include="Models\ViewEditAttendance.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewEmergencyDetail.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewEmpPic.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewEmpType.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewLateComer.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewLateOut.cs">
-      <DependentUpon>TASModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ViewLeave.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewLeaveData.cs">
@@ -619,6 +634,9 @@
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewPresentEmp.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewSection.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewSLData.cs">
@@ -852,7 +870,6 @@
     <Compile Include="Reports\ReportHome.aspx.designer.cs">
       <DependentUpon>ReportHome.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Reports\ViewLateOuts.cs" />
     <Compile Include="Site1.Master.cs">
       <DependentUpon>Site1.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -948,11 +965,6 @@
     <Content Include="Views\LvShort\Details.cshtml" />
     <Content Include="Views\LvShort\Edit.cshtml" />
     <Content Include="Views\LvShort\Index.cshtml" />
-    <Content Include="Views\LvQuota\Create.cshtml" />
-    <Content Include="Views\LvQuota\Delete.cshtml" />
-    <Content Include="Views\LvQuota\Details.cshtml" />
-    <Content Include="Views\LvQuota\Edit.cshtml" />
-    <Content Include="Views\LvQuota\Index.cshtml" />
     <Content Include="Site1.Master" />
     <Content Include="Views\Dept\Create.cshtml" />
     <Content Include="Views\Dept\Delete.cshtml" />
@@ -993,11 +1005,6 @@
     <Content Include="Views\Roster\Create.cshtml" />
     <Content Include="Views\User\ListOfADUser.cshtml" />
     <Content Include="Views\Roster\RosterAppIndex.cshtml" />
-    <Content Include="Views\LvConsumed\Create.cshtml" />
-    <Content Include="Views\LvConsumed\Delete.cshtml" />
-    <Content Include="Views\LvConsumed\Details.cshtml" />
-    <Content Include="Views\LvConsumed\Edit.cshtml" />
-    <Content Include="Views\LvConsumed\Index.cshtml" />
     <Content Include="Views\JobCardAppR\Create.cshtml" />
     <Content Include="Views\JobCardAppR\Delete.cshtml" />
     <Content Include="Views\JobCardAppR\Details.cshtml" />
@@ -1009,6 +1016,8 @@
     <Content Include="Views\JobCardEmpR\Edit.cshtml" />
     <Content Include="Views\JobCardEmpR\Index.cshtml" />
     <Content Include="Views\Roster\RosterDetail.cshtml" />
+    <Content Include="Views\Roster\RosterContinue.cshtml" />
+    <Content Include="Views\LeaveQuota\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1027,6 +1036,7 @@
     <EmbeddedResource Include="Reports\RDLC\DRShortLeave.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\EmpAttSummary.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\Employee.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\MLvApplication.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\MRLeaveBal.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\MYLeaveSummary.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\RAuditLog.rdlc" />

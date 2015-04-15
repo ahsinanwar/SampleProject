@@ -72,15 +72,16 @@
                         </asp:TemplateField>
                      <asp:BoundField DataField="EmpID" HeaderText="EmpID"
                          SortExpression ="EmpID" />
-                     <asp:BoundField DataField="EmpNo" HeaderText="EmpNo" SortExpression="EmpNo" />
-                     <asp:BoundField DataField="EmpName" HeaderText="EmpName" SortExpression="EmpName" />
+                     <asp:BoundField DataField="EmpNo" HeaderText="Emp No" SortExpression="EmpNo" />
+                     <asp:BoundField DataField="EmpName" HeaderText="Name" SortExpression="EmpName" />
                       <asp:BoundField DataField="DesignationName" HeaderText="DesignationName" SortExpression="DesignationName" />
                      <asp:BoundField DataField="CardNo" HeaderText="CardNo" SortExpression="CardNo" />
-                     <asp:BoundField DataField="CrewName" HeaderText="CrewName" SortExpression="CrewName" />
-                     <asp:BoundField DataField="TypeName" HeaderText="TypeName" SortExpression="TypeName" />
-                     <asp:BoundField DataField="CatName" HeaderText="CatName" SortExpression="CatName" />
-                     <asp:BoundField DataField="ShiftName" HeaderText="ShiftName" SortExpression="ShiftName" />
-                     <asp:BoundField DataField="SectionName" HeaderText="SectionName" SortExpression="SectionName" />
+                     <asp:BoundField DataField="CrewName" HeaderText="Crew" SortExpression="CrewName" />
+                     <asp:BoundField DataField="TypeName" HeaderText="Type" SortExpression="TypeName" />
+                     <asp:BoundField DataField="CatName" HeaderText="Category" SortExpression="CatName" />
+                     <asp:BoundField DataField="ShiftName" HeaderText="Shift" SortExpression="ShiftName" />
+                     <asp:BoundField DataField="SectionName" HeaderText="Section" SortExpression="SectionName" />
+                      <asp:BoundField DataField="CompName" HeaderText="Company" SortExpression="CompName" />
                      
                  </Columns>
              </asp:GridView>
@@ -97,8 +98,10 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                      <asp:BoundField DataField="SectionID" HeaderText="SectionID" InsertVisible="False" ReadOnly="True" SortExpression="SectionID" />
-                     <asp:BoundField DataField="SectionName" HeaderText="SectionName" SortExpression="SectionName" />
-                     <asp:BoundField DataField="DeptID" HeaderText="DeptID" SortExpression="DeptID" />
+                     <asp:BoundField DataField="SectionName" HeaderText="Section" SortExpression="SectionName" />
+                     <asp:BoundField DataField="DeptName" HeaderText="Department" SortExpression="DeptName" />
+                     <asp:BoundField DataField="DivisionName" HeaderText="Division" SortExpression="DivisionName" />
+                     <asp:BoundField DataField="CompName" HeaderText="Company" SortExpression="CompName" />
                  </Columns>
              </asp:GridView>
                 
@@ -115,8 +118,9 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                          <asp:BoundField DataField="DeptID" HeaderText="DeptID" InsertVisible="False" ReadOnly="True" SortExpression="DeptID" />
-                         <asp:BoundField DataField="DeptName" HeaderText="DeptName" SortExpression="DeptName" />
-                         <asp:BoundField DataField="DivID" HeaderText="DivID" SortExpression="DivID" />
+                         <asp:BoundField DataField="DeptName" HeaderText="Department" SortExpression="DeptName" />
+                          <asp:BoundField DataField="DivisionName" HeaderText="Division" SortExpression="DivisionName" />
+                         <asp:BoundField DataField="CompName" HeaderText="Company" SortExpression="CompName" />
                      </Columns>
                  </asp:GridView>
                  
@@ -151,6 +155,7 @@
                         </asp:TemplateField>
                          <asp:BoundField DataField="CrewID" HeaderText="CrewID" InsertVisible="False" ReadOnly="True" SortExpression="CrewID" />
                          <asp:BoundField DataField="CrewName" HeaderText="CrewName" SortExpression="CrewName" />
+                         <asp:BoundField DataField="CompName" HeaderText="Company" SortExpression="CompName" />
                      </Columns>
                  </asp:GridView>
              </div>
@@ -167,7 +172,8 @@
                         </asp:TemplateField>
                          <asp:BoundField DataField="TypeID" HeaderText="TypeID" ReadOnly="True" SortExpression="TypeID" />
                          <asp:BoundField DataField="TypeName" HeaderText="TypeName" SortExpression="TypeName" />
-                         <asp:BoundField DataField="CatID" HeaderText="CatID" SortExpression="CatID" />
+                         <asp:BoundField DataField="CatName" HeaderText="Category" SortExpression="CatName" />
+                         <asp:BoundField DataField="CompName" HeaderText="Company" SortExpression="CompName" />
                      </Columns>
                  </asp:GridView>
              </div>

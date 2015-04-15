@@ -49,7 +49,8 @@ namespace WMS.Reports
                 User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
                 QueryBuilder qb = new QueryBuilder();
                 string query = qb.MakeCustomizeQuery(LoggedInUser);
-                DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                //DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query);
+                DataTable dt = qb.GetValuesfromDB("select * from EmpView ");
                 List<EmpView> _emp = dt.ToList<EmpView>();
                 LoadReport(PathString, GetLV(_emp, DateTime.Now.Month));
             }
@@ -785,137 +786,137 @@ namespace WMS.Reports
                         {
                             case 1:
                                 // casual
-                                BeforeCL = (int)eCL.TotalForYear;
-                                UsedCL = (int)eCL.JanConsumed;
+                                BeforeCL = (float)eCL.TotalForYear;
+                                UsedCL = (float)eCL.JanConsumed;
                                 //Sick
-                                BeforeSL = (int)eSL.TotalForYear;
-                                UsedSL = (int)eSL.JanConsumed;
+                                BeforeSL = (float)eSL.TotalForYear;
+                                UsedSL = (float)eSL.JanConsumed;
                                 //Anual
-                                BeforeAL = (int)eAL.TotalForYear;
-                                UsedAL = (int)eAL.JanConsumed;
+                                BeforeAL = (float)eAL.TotalForYear;
+                                UsedAL = (float)eAL.JanConsumed;
                                 _month = "January";
                                 break;
                             case 2:
                                 // casual
-                                BeforeCL = (int)eCL.TotalForYear - (int)eCL.JanConsumed;
-                                UsedCL = (int)eCL.FebConsumed;
+                                BeforeCL = (float)eCL.TotalForYear - (float)eCL.JanConsumed;
+                                UsedCL = (float)eCL.FebConsumed;
                                 //Sick
-                                BeforeSL = (int)eSL.TotalForYear - (int)eSL.JanConsumed;
-                                UsedSL = (int)eSL.FebConsumed;
+                                BeforeSL = (float)eSL.TotalForYear - (float)eSL.JanConsumed;
+                                UsedSL = (float)eSL.FebConsumed;
                                 //Anual
-                                BeforeAL = (int)eAL.TotalForYear - (int)eAL.JanConsumed;
-                                UsedAL = (int)eAL.FebConsumed;
+                                BeforeAL = (float)eAL.TotalForYear - (float)eAL.JanConsumed;
+                                UsedAL = (float)eAL.FebConsumed;
                                 break;
                                 _month = "Febu";
                             case 3:
                                 // casual
-                                BeforeCL = (int)eCL.TotalForYear - ((int)eCL.JanConsumed + (int)eCL.FebConsumed);
-                                UsedCL = (int)eCL.MarchConsumed;
+                                BeforeCL = (float)eCL.TotalForYear - ((float)eCL.JanConsumed + (float)eCL.FebConsumed);
+                                UsedCL = (float)eCL.MarchConsumed;
                                 //Sick
-                                BeforeSL = (int)eSL.TotalForYear - ((int)eSL.JanConsumed + (int)eSL.FebConsumed);
-                                UsedSL = (int)eSL.FebConsumed;
+                                BeforeSL = (float)eSL.TotalForYear - ((float)eSL.JanConsumed + (float)eSL.FebConsumed);
+                                UsedSL = (float)eSL.MarchConsumed;
                                 //Anual
-                                BeforeAL = (int)eAL.TotalForYear - ((int)eAL.JanConsumed + (int)eAL.FebConsumed);
-                                UsedAL = (int)eAL.FebConsumed;
+                                BeforeAL = (float)eAL.TotalForYear - ((float)eAL.JanConsumed + (float)eAL.FebConsumed);
+                                UsedAL = (float)eAL.MarchConsumed;
                                 break;
                             case 4:
                                 // casual
-                                BeforeCL = (int)eCL.TotalForYear - ((int)eCL.JanConsumed + (int)eCL.FebConsumed + (int)eCL.MarchConsumed);
-                                UsedCL = (int)eCL.AprConsumed;
+                                BeforeCL = (float)eCL.TotalForYear - ((float)eCL.JanConsumed + (float)eCL.FebConsumed + (float)eCL.MarchConsumed);
+                                UsedCL = (float)eCL.AprConsumed;
                                 //Sick
-                                BeforeSL = (int)eSL.TotalForYear - ((int)eSL.JanConsumed + (int)eSL.FebConsumed + (int)eSL.MarchConsumed);
-                                UsedSL = (int)eSL.AprConsumed;
+                                BeforeSL = (float)eSL.TotalForYear - ((float)eSL.JanConsumed + (float)eSL.FebConsumed + (float)eSL.MarchConsumed);
+                                UsedSL = (float)eSL.AprConsumed;
                                 //Anual
-                                BeforeAL = (int)eAL.TotalForYear - ((int)eAL.JanConsumed + (int)eAL.FebConsumed + (int)eAL.MarchConsumed);
-                                UsedAL = (int)eAL.AprConsumed;
+                                BeforeAL = (float)eAL.TotalForYear - ((float)eAL.JanConsumed + (float)eAL.FebConsumed + (float)eAL.MarchConsumed);
+                                UsedAL = (float)eAL.AprConsumed;
                                 break;
                             case 5:
                                 // casual
-                                BeforeCL = (int)eCL.TotalForYear - ((int)eCL.JanConsumed + (int)eCL.FebConsumed + (int)eCL.MarchConsumed + (int)eCL.AprConsumed);
-                                UsedCL = (int)eCL.MayConsumed;
+                                BeforeCL = (float)eCL.TotalForYear - ((float)eCL.JanConsumed + (float)eCL.FebConsumed + (float)eCL.MarchConsumed + (float)eCL.AprConsumed);
+                                UsedCL = (float)eCL.MayConsumed;
                                 //Sick
-                                BeforeSL = (int)eSL.TotalForYear - ((int)eSL.JanConsumed + (int)eSL.FebConsumed + (int)eSL.MarchConsumed + (int)eSL.AprConsumed);
-                                UsedSL = (int)eSL.MayConsumed;
+                                BeforeSL = (float)eSL.TotalForYear - ((float)eSL.JanConsumed + (float)eSL.FebConsumed + (float)eSL.MarchConsumed + (float)eSL.AprConsumed);
+                                UsedSL = (float)eSL.MayConsumed;
                                 //Anual
-                                BeforeAL = (int)eAL.TotalForYear - ((int)eAL.JanConsumed + (int)eAL.FebConsumed + (int)eAL.MarchConsumed + (int)eAL.AprConsumed);
-                                UsedAL = (int)eAL.MayConsumed;
+                                BeforeAL = (float)eAL.TotalForYear - ((float)eAL.JanConsumed + (float)eAL.FebConsumed + (float)eAL.MarchConsumed + (float)eAL.AprConsumed);
+                                UsedAL = (float)eAL.MayConsumed;
                                 break;
                             case 6:
                                 // casual
-                                BeforeCL = (int)eCL.TotalForYear - ((int)eCL.JanConsumed + (int)eCL.FebConsumed + (int)eCL.MarchConsumed + (int)eCL.AprConsumed + (int)eCL.MayConsumed);
-                                UsedCL = (int)eCL.JuneConsumed;
+                                BeforeCL = (float)eCL.TotalForYear - ((float)eCL.JanConsumed + (float)eCL.FebConsumed + (float)eCL.MarchConsumed + (float)eCL.AprConsumed + (float)eCL.MayConsumed);
+                                UsedCL = (float)eCL.JuneConsumed;
                                 //Sick
-                                BeforeSL = (int)eSL.TotalForYear - ((int)eSL.JanConsumed + (int)eSL.FebConsumed + (int)eSL.MarchConsumed + (int)eSL.AprConsumed + (int)eSL.MayConsumed);
-                                UsedSL = (int)eSL.JuneConsumed;
+                                BeforeSL = (float)eSL.TotalForYear - ((float)eSL.JanConsumed + (float)eSL.FebConsumed + (float)eSL.MarchConsumed + (float)eSL.AprConsumed + (float)eSL.MayConsumed);
+                                UsedSL = (float)eSL.JuneConsumed;
                                 //Anual
-                                BeforeAL = (int)eAL.TotalForYear - ((int)eAL.JanConsumed + (int)eAL.FebConsumed + (int)eAL.MarchConsumed + (int)eAL.AprConsumed + (int)eAL.MayConsumed);
-                                UsedAL = (int)eAL.JuneConsumed;
+                                BeforeAL = (float)eAL.TotalForYear - ((float)eAL.JanConsumed + (float)eAL.FebConsumed + (float)eAL.MarchConsumed + (float)eAL.AprConsumed + (float)eAL.MayConsumed);
+                                UsedAL = (float)eAL.JuneConsumed;
                                 break;
                             case 7:
                                 // casual
-                                BeforeCL = (int)eCL.TotalForYear - ((int)eCL.JanConsumed + (int)eCL.FebConsumed + (int)eCL.MarchConsumed + (int)eCL.AprConsumed + (int)eCL.MayConsumed + (int)eCL.JuneConsumed);
-                                UsedCL = (int)eCL.JulyConsumed;
+                                BeforeCL = (float)eCL.TotalForYear - ((float)eCL.JanConsumed + (float)eCL.FebConsumed + (float)eCL.MarchConsumed + (float)eCL.AprConsumed + (float)eCL.MayConsumed + (float)eCL.JuneConsumed);
+                                UsedCL = (float)eCL.JulyConsumed;
                                 //Sick
-                                BeforeSL = (int)eSL.TotalForYear - ((int)eSL.JanConsumed + (int)eSL.FebConsumed + (int)eSL.MarchConsumed + (int)eSL.AprConsumed + (int)eSL.MayConsumed + (int)eSL.JuneConsumed);
-                                UsedSL = (int)eSL.JulyConsumed;
+                                BeforeSL = (float)eSL.TotalForYear - ((float)eSL.JanConsumed + (float)eSL.FebConsumed + (float)eSL.MarchConsumed + (float)eSL.AprConsumed + (float)eSL.MayConsumed + (float)eSL.JuneConsumed);
+                                UsedSL = (float)eSL.JulyConsumed;
                                 //Anual
-                                BeforeAL = (int)eAL.TotalForYear - ((int)eAL.JanConsumed + (int)eAL.FebConsumed + (int)eAL.MarchConsumed + (int)eAL.AprConsumed + (int)eAL.MayConsumed + (int)eAL.JuneConsumed);
-                                UsedAL = (int)eAL.JulyConsumed;
+                                BeforeAL = (float)eAL.TotalForYear - ((float)eAL.JanConsumed + (float)eAL.FebConsumed + (float)eAL.MarchConsumed + (float)eAL.AprConsumed + (float)eAL.MayConsumed + (float)eAL.JuneConsumed);
+                                UsedAL = (float)eAL.JulyConsumed;
                                 break;
                             case 8:
                                 // casual
-                                BeforeCL = (int)eCL.TotalForYear - ((int)eCL.JanConsumed + (int)eCL.FebConsumed + (int)eCL.MarchConsumed + (int)eCL.AprConsumed + (int)eCL.MayConsumed + (int)eCL.JuneConsumed + (int)eCL.JulyConsumed);
-                                UsedCL = (int)eCL.AugustConsumed;
+                                BeforeCL = (float)eCL.TotalForYear - ((float)eCL.JanConsumed + (float)eCL.FebConsumed + (float)eCL.MarchConsumed + (float)eCL.AprConsumed + (float)eCL.MayConsumed + (float)eCL.JuneConsumed + (float)eCL.JulyConsumed);
+                                UsedCL = (float)eCL.AugustConsumed;
                                 //Sick
-                                BeforeSL = (int)eSL.TotalForYear - ((int)eSL.JanConsumed + (int)eSL.FebConsumed + (int)eSL.MarchConsumed + (int)eSL.AprConsumed + (int)eSL.MayConsumed + (int)eSL.JuneConsumed + (int)eSL.JulyConsumed);
-                                UsedSL = (int)eSL.AugustConsumed;
+                                BeforeSL = (float)eSL.TotalForYear - ((float)eSL.JanConsumed + (float)eSL.FebConsumed + (float)eSL.MarchConsumed + (float)eSL.AprConsumed + (float)eSL.MayConsumed + (float)eSL.JuneConsumed + (float)eSL.JulyConsumed);
+                                UsedSL = (float)eSL.AugustConsumed;
                                 //Anual
-                                BeforeAL = (int)eAL.TotalForYear - ((int)eAL.JanConsumed + (int)eAL.FebConsumed + (int)eAL.MarchConsumed + (int)eAL.AprConsumed + (int)eAL.MayConsumed + (int)eAL.JuneConsumed + (int)eAL.JulyConsumed);
-                                UsedAL = (int)eAL.AugustConsumed;
+                                BeforeAL = (float)eAL.TotalForYear - ((float)eAL.JanConsumed + (float)eAL.FebConsumed + (float)eAL.MarchConsumed + (float)eAL.AprConsumed + (float)eAL.MayConsumed + (float)eAL.JuneConsumed + (float)eAL.JulyConsumed);
+                                UsedAL = (float)eAL.AugustConsumed;
                                 break;
                             case 9:
                                 // casual
-                                BeforeCL = (int)eCL.TotalForYear - ((int)eCL.JanConsumed + (int)eCL.FebConsumed + (int)eCL.MarchConsumed + (int)eCL.AprConsumed + (int)eCL.MayConsumed + (int)eCL.JuneConsumed + (int)eCL.JulyConsumed + (int)eCL.AugustConsumed);
-                                UsedCL = (int)eCL.SepConsumed;
+                                BeforeCL = (float)eCL.TotalForYear - ((float)eCL.JanConsumed + (float)eCL.FebConsumed + (float)eCL.MarchConsumed + (float)eCL.AprConsumed + (float)eCL.MayConsumed + (float)eCL.JuneConsumed + (float)eCL.JulyConsumed + (float)eCL.AugustConsumed);
+                                UsedCL = (float)eCL.SepConsumed;
                                 //Sick
-                                BeforeSL = (int)eSL.TotalForYear - ((int)eSL.JanConsumed + (int)eSL.FebConsumed + (int)eSL.MarchConsumed + (int)eSL.AprConsumed + (int)eSL.MayConsumed + (int)eSL.JuneConsumed + (int)eSL.JulyConsumed + (int)eSL.AugustConsumed);
-                                UsedSL = (int)eSL.SepConsumed;
+                                BeforeSL = (float)eSL.TotalForYear - ((float)eSL.JanConsumed + (float)eSL.FebConsumed + (float)eSL.MarchConsumed + (float)eSL.AprConsumed + (float)eSL.MayConsumed + (float)eSL.JuneConsumed + (float)eSL.JulyConsumed + (float)eSL.AugustConsumed);
+                                UsedSL = (float)eSL.SepConsumed;
                                 //Anual
-                                BeforeAL = (int)eAL.TotalForYear - ((int)eAL.JanConsumed + (int)eAL.FebConsumed + (int)eAL.MarchConsumed + (int)eAL.AprConsumed + (int)eAL.MayConsumed + (int)eAL.JuneConsumed + (int)eAL.JulyConsumed + (int)eAL.AugustConsumed);
-                                UsedAL = (int)eAL.SepConsumed;
+                                BeforeAL = (float)eAL.TotalForYear - ((float)eAL.JanConsumed + (float)eAL.FebConsumed + (float)eAL.MarchConsumed + (float)eAL.AprConsumed + (float)eAL.MayConsumed + (float)eAL.JuneConsumed + (float)eAL.JulyConsumed + (float)eAL.AugustConsumed);
+                                UsedAL = (float)eAL.SepConsumed;
                                 break;
                             case 10:
                                 // casual
-                                BeforeCL = (int)eCL.TotalForYear - ((int)eCL.JanConsumed + (int)eCL.FebConsumed + (int)eCL.MarchConsumed + (int)eCL.AprConsumed + (int)eCL.MayConsumed + (int)eCL.JuneConsumed + (int)eCL.JulyConsumed + (int)eCL.AugustConsumed + (int)eCL.SepConsumed);
-                                UsedCL = (int)eCL.OctConsumed;
+                                BeforeCL = (float)eCL.TotalForYear - ((float)eCL.JanConsumed + (float)eCL.FebConsumed + (float)eCL.MarchConsumed + (float)eCL.AprConsumed + (float)eCL.MayConsumed + (float)eCL.JuneConsumed + (float)eCL.JulyConsumed + (float)eCL.AugustConsumed + (float)eCL.SepConsumed);
+                                UsedCL = (float)eCL.OctConsumed;
                                 //Sick
-                                BeforeSL = (int)eSL.TotalForYear - ((int)eSL.JanConsumed + (int)eSL.FebConsumed + (int)eSL.MarchConsumed + (int)eSL.AprConsumed + (int)eSL.MayConsumed + (int)eSL.JuneConsumed + (int)eSL.JulyConsumed + (int)eSL.AugustConsumed + (int)eSL.SepConsumed);
-                                UsedSL = (int)eSL.OctConsumed;
+                                BeforeSL = (float)eSL.TotalForYear - ((float)eSL.JanConsumed + (float)eSL.FebConsumed + (float)eSL.MarchConsumed + (float)eSL.AprConsumed + (float)eSL.MayConsumed + (float)eSL.JuneConsumed + (float)eSL.JulyConsumed + (float)eSL.AugustConsumed + (float)eSL.SepConsumed);
+                                UsedSL = (float)eSL.OctConsumed;
                                 //Anual
-                                BeforeAL = (int)eAL.TotalForYear - ((int)eAL.JanConsumed + (int)eAL.FebConsumed + (int)eAL.MarchConsumed + (int)eAL.AprConsumed + (int)eAL.MayConsumed + (int)eAL.JuneConsumed + (int)eAL.JulyConsumed + (int)eAL.AugustConsumed + (int)eAL.AugustConsumed);
-                                UsedAL = (int)eAL.SepConsumed;
+                                BeforeAL = (float)eAL.TotalForYear - ((float)eAL.JanConsumed + (float)eAL.FebConsumed + (float)eAL.MarchConsumed + (float)eAL.AprConsumed + (float)eAL.MayConsumed + (float)eAL.JuneConsumed + (float)eAL.JulyConsumed + (float)eAL.AugustConsumed + (float)eAL.AugustConsumed);
+                                UsedAL = (float)eAL.SepConsumed;
                                 break;
                             case 11:
                                 // casual
-                                BeforeCL = (int)eCL.TotalForYear - ((int)eCL.JanConsumed + (int)eCL.FebConsumed + (int)eCL.MarchConsumed + (int)eCL.AprConsumed + (int)eCL.MayConsumed + (int)eCL.JuneConsumed + (int)eCL.JulyConsumed + (int)eCL.AugustConsumed + (int)eCL.SepConsumed + (int)eCL.OctConsumed);
-                                UsedCL = (int)eCL.NovConsumed;
+                                BeforeCL = (float)eCL.TotalForYear - ((float)eCL.JanConsumed + (float)eCL.FebConsumed + (float)eCL.MarchConsumed + (float)eCL.AprConsumed + (float)eCL.MayConsumed + (float)eCL.JuneConsumed + (float)eCL.JulyConsumed + (float)eCL.AugustConsumed + (float)eCL.SepConsumed + (float)eCL.OctConsumed);
+                                UsedCL = (float)eCL.NovConsumed;
                                 //Sick
-                                BeforeSL = (int)eSL.TotalForYear - ((int)eSL.JanConsumed + (int)eSL.FebConsumed + (int)eSL.MarchConsumed + (int)eSL.AprConsumed + (int)eSL.MayConsumed + (int)eSL.JuneConsumed + (int)eSL.JulyConsumed + (int)eSL.AugustConsumed + (int)eSL.SepConsumed + (int)eSL.OctConsumed);
-                                UsedSL = (int)eSL.NovConsumed;
+                                BeforeSL = (float)eSL.TotalForYear - ((float)eSL.JanConsumed + (float)eSL.FebConsumed + (float)eSL.MarchConsumed + (float)eSL.AprConsumed + (float)eSL.MayConsumed + (float)eSL.JuneConsumed + (float)eSL.JulyConsumed + (float)eSL.AugustConsumed + (float)eSL.SepConsumed + (float)eSL.OctConsumed);
+                                UsedSL = (float)eSL.NovConsumed;
                                 //Anual
-                                BeforeAL = (int)eAL.TotalForYear - ((int)eAL.JanConsumed + (int)eAL.FebConsumed + (int)eAL.MarchConsumed + (int)eAL.AprConsumed + (int)eAL.MayConsumed + (int)eAL.JuneConsumed + (int)eAL.JulyConsumed + (int)eAL.AugustConsumed + (int)eAL.AugustConsumed + (int)eAL.OctConsumed);
-                                UsedAL = (int)eAL.NovConsumed;
+                                BeforeAL = (float)eAL.TotalForYear - ((float)eAL.JanConsumed + (float)eAL.FebConsumed + (float)eAL.MarchConsumed + (float)eAL.AprConsumed + (float)eAL.MayConsumed + (float)eAL.JuneConsumed + (float)eAL.JulyConsumed + (float)eAL.AugustConsumed + (float)eAL.AugustConsumed + (float)eAL.OctConsumed);
+                                UsedAL = (float)eAL.NovConsumed;
                                 break;
                             case 12:
                                 // casual
-                                BeforeCL = (int)eCL.TotalForYear - ((int)eCL.JanConsumed + (int)eCL.FebConsumed + (int)eCL.MarchConsumed + (int)eCL.AprConsumed + (int)eCL.MayConsumed + (int)eCL.JuneConsumed + (int)eCL.JulyConsumed + (int)eCL.AugustConsumed + (int)eCL.SepConsumed + (int)eCL.OctConsumed + (int)eCL.NovConsumed);
-                                UsedCL = (int)eCL.DecConsumed;
+                                BeforeCL = (float)eCL.TotalForYear - ((float)eCL.JanConsumed + (float)eCL.FebConsumed + (float)eCL.MarchConsumed + (float)eCL.AprConsumed + (float)eCL.MayConsumed + (float)eCL.JuneConsumed + (float)eCL.JulyConsumed + (float)eCL.AugustConsumed + (float)eCL.SepConsumed + (float)eCL.OctConsumed + (float)eCL.NovConsumed);
+                                UsedCL = (float)eCL.DecConsumed;
                                 //Sick
-                                BeforeSL = (int)eSL.TotalForYear - ((int)eSL.JanConsumed + (int)eSL.FebConsumed + (int)eSL.MarchConsumed + (int)eSL.AprConsumed + (int)eSL.MayConsumed + (int)eSL.JuneConsumed + (int)eSL.JulyConsumed + (int)eSL.AugustConsumed + (int)eSL.SepConsumed + (int)eSL.OctConsumed + (int)eSL.NovConsumed);
-                                UsedSL = (int)eSL.DecConsumed;
+                                BeforeSL = (float)eSL.TotalForYear - ((float)eSL.JanConsumed + (float)eSL.FebConsumed + (float)eSL.MarchConsumed + (float)eSL.AprConsumed + (float)eSL.MayConsumed + (float)eSL.JuneConsumed + (float)eSL.JulyConsumed + (float)eSL.AugustConsumed + (float)eSL.SepConsumed + (float)eSL.OctConsumed + (float)eSL.NovConsumed);
+                                UsedSL = (float)eSL.DecConsumed;
                                 //Anual
-                                BeforeAL = (int)eAL.TotalForYear - ((int)eAL.JanConsumed + (int)eAL.FebConsumed + (int)eAL.MarchConsumed + (int)eAL.AprConsumed + (int)eAL.MayConsumed + (int)eAL.JuneConsumed + (int)eAL.JulyConsumed + (int)eAL.AugustConsumed + (int)eAL.AugustConsumed + (int)eAL.OctConsumed + (int)eAL.NovConsumed);
-                                UsedAL = (int)eAL.DecConsumed;
+                                BeforeAL = (float)eAL.TotalForYear - ((float)eAL.JanConsumed + (float)eAL.FebConsumed + (float)eAL.MarchConsumed + (float)eAL.AprConsumed + (float)eAL.MayConsumed + (float)eAL.JuneConsumed + (float)eAL.JulyConsumed + (float)eAL.AugustConsumed + (float)eAL.AugustConsumed + (float)eAL.OctConsumed + (float)eAL.NovConsumed);
+                                UsedAL = (float)eAL.DecConsumed;
                                 break;
 
                         }

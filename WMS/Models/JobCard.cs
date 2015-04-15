@@ -21,6 +21,5 @@ namespace WMS.Models
         public Nullable<short> WorkMin { get; set; }
         public Nullable<bool> WorkMinEnable { get; set; }
         public string DutyCodeID { get; set; }
-        public Nullable<short> CompanyID { get; set; }
     }
 }
