@@ -418,6 +418,30 @@ namespace WMS.Controllers.EditAttendance
                                 attendanceRecord.Remarks.Replace("[N-OT]", "");
                             }
                         }
+                        //Mark Absent if less than 4 hours
+                        if (attendanceRecord.AttDate.Value.DayOfWeek != DayOfWeek.Friday)
+                        {
+                            if (attendanceRecord.DutyCode == "D")
+                            {
+                                short MinShiftMin = (short)shift.MinHrs;
+                                if (attendanceRecord.WorkMin < MinShiftMin)
+                                {
+                                    attendanceRecord.StatusAB = true;
+                                    attendanceRecord.StatusP = false;
+                                    attendanceRecord.Remarks = attendanceRecord.Remarks + "[Absent]";
+                                    attendanceRecord.Remarks.Replace("[LI]", "");
+                                    attendanceRecord.Remarks.Replace("[EI]", "");
+                                    attendanceRecord.Remarks.Replace("[EO]", "");
+                                    attendanceRecord.Remarks.Replace("[LO]", "");
+                                }
+                                else
+                                {
+                                    attendanceRecord.StatusAB = false;
+                                    attendanceRecord.StatusP = true;
+                                    attendanceRecord.Remarks.Replace("[Absent]", "");
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -492,6 +516,30 @@ namespace WMS.Controllers.EditAttendance
                                 if (attendanceRecord.WorkMin > CalculateShiftMinutes(shift, attendanceRecord.AttDate.Value.DayOfWeek) && (attendanceRecord.WorkMin <= (CalculateShiftMinutes(shift, attendanceRecord.AttDate.Value.DayOfWeek) + shift.OverTimeMin)))
                                 {
                                     attendanceRecord.WorkMin = CalculateShiftMinutes(shift, attendanceRecord.AttDate.Value.DayOfWeek);
+                                }
+                                //Mark Absent if less than 4 hours
+                                if (attendanceRecord.AttDate.Value.DayOfWeek != DayOfWeek.Friday)
+                                {
+                                    if (attendanceRecord.DutyCode == "D")
+                                    {
+                                        short MinShiftMin = (short)shift.MinHrs;
+                                        if (attendanceRecord.WorkMin < MinShiftMin)
+                                        {
+                                            attendanceRecord.StatusAB = true;
+                                            attendanceRecord.StatusP = false;
+                                            attendanceRecord.Remarks = attendanceRecord.Remarks + "[Absent]";
+                                            attendanceRecord.Remarks.Replace("[LI]", "");
+                                            attendanceRecord.Remarks.Replace("[EI]", "");
+                                            attendanceRecord.Remarks.Replace("[EO]", "");
+                                            attendanceRecord.Remarks.Replace("[LO]", "");
+                                        }
+                                        else
+                                        {
+                                            attendanceRecord.StatusAB = false;
+                                            attendanceRecord.StatusP = true;
+                                            attendanceRecord.Remarks.Replace("[Absent]", "");
+                                        }
+                                    }
                                 }
                             }
                         }
