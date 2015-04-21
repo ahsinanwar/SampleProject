@@ -28,14 +28,14 @@
         @Html.HiddenFor(model => model.EmpID)
            <div style="color:red">@ViewBag.Message</div>
          <div class="form-group">
-            <label class="control-label col-md-3">Employee No</label>
+            <label class="control-label col-md-3">Employee No<span style="color:red;"> *</span></label>
             <div class="col-md-3">
                 @Html.TextBoxFor(model => model.EmpNo, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.EmpNo)
             </div>
         </div>
          <div class="form-group">
-            <label class="control-label col-md-3">Employee Name</label>
+            <label class="control-label col-md-3">Employee Name<span style="color:red;"> *</span></label>
             <div class="col-md-3">
                 @Html.TextBoxFor(model => model.EmpName, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.EmpName)
@@ -70,13 +70,16 @@
                             <div class="col-md-4">
                                 @Html.DropDownList("CompanyID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
                                 @Html.ValidationMessageFor(model => model.CompanyID)
+                                 @Html.HiddenFor(model => model.CompanyID , new { id = "selectedCompIDHidden" })
                             </div>
                         </div>
 
                          <div class="form-group">
                             <label class="control-label col-md-3">Employee Type</label>
                             <div class="col-md-4">
-                                @Html.DropDownList("CatID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+                               @* @Html.DropDownList("CatID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})*@
+                                <select class="btn btn-default dropdown-toggle dropdown ComboBoxWidth" id="CatID" name="CatID"></select>
+                                @Html.HiddenFor(model => model.EmpType.CatID , new { id = "selectedCatIdHidden" })  
                             </div>
                         </div>
                         <div class="form-group" id="EmpTypeDivID">
@@ -91,8 +94,10 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Designation</label>
                             <div class="col-md-3">
-                                @Html.DropDownList("DesigID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
-                                @Html.ValidationMessageFor(model => model.DesigID)
+                                @*@Html.DropDownList("DesigID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+                                @Html.ValidationMessageFor(model => model.DesigID)*@
+                                <select class="btn btn-default dropdown-toggle dropdown ComboBoxWidth" id="DesigID" name="DesigID"></select>
+                        @Html.HiddenFor(model => model.DesigID , new { id = "selectedDesigIDHidden" })     
                             </div>
                          </div>
                         <div class="form-group" id="GradesDivID">
@@ -119,7 +124,9 @@
                                 <label for="Deptartment">Department</label>
                             </div>
                             <div class="col-md-3 ">
-                               @Html.DropDownList("DeptID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+                               @*@Html.DropDownList("DeptID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})*@
+                                <select class="btn btn-default dropdown-toggle dropdown ComboBoxWidth" id="DeptID" name="DeptID"></select>
+                        @Html.HiddenFor(model => model.Section.DeptID , new { id = "selectedDeptIDHidden" })      
                             </div>
                         </div>
 
@@ -148,8 +155,10 @@
                          <div class="form-group">
                             <label class="control-label col-md-3">Crew Name</label>
                             <div class="col-md-3">
-                                @Html.DropDownList("CrewID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
-                                @Html.ValidationMessageFor(model => model.CrewID)
+                               @* @Html.DropDownList("CrewID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
+                                @Html.ValidationMessageFor(model => model.CrewID)*@
+                                <select class="btn btn-default dropdown-toggle dropdown ComboBoxWidth" id="CrewID" name="CrewID"></select>
+                        @Html.HiddenFor(model => model.CrewID , new { id = "selectedCrewIdHidden" })         
                             </div>
                         </div>
 
@@ -340,3 +349,9 @@
 <script src="@Url.Content("~/Scripts/companyGrade.js")"></script>
 <script src="@Url.Content("~/Scripts/wingSection.js")"></script>
 <script src="@Url.Content("~/Scripts/empTypeCategory.js")"></script>
+<script src="@Url.Content("~/Scripts/crewCompany.js")"></script>
+<script src="@Url.Content("~/Scripts/desigCompany.js")"></script>
+
+<script type="text/javascript">
+
+</script>

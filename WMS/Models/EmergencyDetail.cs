@@ -17,6 +17,7 @@ namespace WMS.Models
         public int EmgDetailID { get; set; }
         public Nullable<int> EmpID { get; set; }
         public Nullable<int> EmgID { get; set; }
-        public Nullable<bool> Status { get; set; }
+        public Nullable<bool> SafeStatus { get; set; }
+        public Nullable<short> SafeLocID { get; set; }
     }
 }

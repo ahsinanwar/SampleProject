@@ -18,19 +18,19 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true)
 
+         <div class="form-group">
+            <label class="control-label col-md-2">Emp No</label>
+            <div class="col-md-10">
+                @*@Html.TextBoxFor(model => model.EmpID)*@
+                @Html.TextBox("EmpNo",null,new { @class = "form-control"})
+            </div>
+        </div>
+
         <div class="form-group">
             <label class="control-label col-md-2">Leave Type</label>
             <div class="col-md-4">
                 @Html.DropDownList("LvType",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})
                 @Html.ValidationMessageFor(model => model.LvType)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2">Emp No</label>
-            <div class="col-md-10">
-                @*@Html.TextBoxFor(model => model.EmpID)*@
-                @Html.TextBox("EmpNo",null,new { @class = "form-control"})
             </div>
         </div>
 
@@ -59,6 +59,17 @@
                                         new SelectListItem { Text = "Yes", Value = "true"}
                                     },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"}) 
                 @Html.ValidationMessageFor(model => model.IsHalf)
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Time</label>
+            <div class="col-md-10">
+                @Html.DropDownList("FirstHalf", new List<SelectListItem>
+                                    { 
+                                        new SelectListItem { Text = "Second Half", Value = "false", Selected=true},
+                                        new SelectListItem { Text = "First Half", Value = "true"}
+                                    },new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"}) 
+                @Html.ValidationMessageFor(model => model.FirstHalf)
             </div>
         </div>
 

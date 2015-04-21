@@ -105,14 +105,14 @@ namespace WMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomActionAttribute]
-        public ActionResult Create([Bind(Include = "LvID,LvDate,LvType,EmpID,FromDate,ToDate,NoOfDays,IsHalf,HalfAbsent,LvReason,LvAddress,CreatedBy,ApprovedBy,Status")] LvApplication lvapplication)
+        public ActionResult Create([Bind(Include = "LvID,LvDate,LvType,EmpID,FromDate,ToDate,NoOfDays,IsHalf,FirstHalf,HalfAbsent,LvReason,LvAddress,CreatedBy,ApprovedBy,Status")] LvApplication lvapplication)
         {
             User LoggedInUser = Session["LoggedUser"] as User;
             if (lvapplication.FromDate.Date > lvapplication.ToDate.Date)
                 ModelState.AddModelError("FromDate", "From Date should be smaller than To Date");
 
             string _EmpNo = Request.Form["EmpNo"].ToString();
-            List<Emp> _emp = db.Emps.Where(aa => aa.EmpNo == _EmpNo && aa.CompanyID == LoggedInUser.CompanyID).ToList();
+            List<Emp> _emp = db.Emps.Where(aa => aa.EmpNo == _EmpNo).ToList();
             if (_emp.Count == 0 )
             {
                 ModelState.AddModelError("EmpNo", "Emp No not exist");
@@ -137,7 +137,7 @@ namespace WMS.Controllers
                             lvapplication.LvDate = DateTime.Today;
                             int _userID = Convert.ToInt32(Session["LogedUserID"].ToString());
                             lvapplication.CreatedBy = _userID;
-                            lvapplication.CompanyID = LoggedInUser.CompanyID;
+                            lvapplication.CompanyID = _emp.FirstOrDefault().CompanyID;
                             lvapplication.Active = true;
                             db.LvApplications.Add(lvapplication);
                             if (db.SaveChanges() > 0)
@@ -145,7 +145,9 @@ namespace WMS.Controllers
                                 HelperClass.MyHelper.SaveAuditLog(_userID, (byte)MyEnums.FormName.Leave, (byte)MyEnums.Operation.Add, DateTime.Now);
                                 LvProcessController.AddLeaveToLeaveData(lvapplication);
                                 LvProcessController.AddLeaveToLeaveAttData(lvapplication);
-                                return RedirectToAction("Index");
+                                ViewBag.EmpID = new SelectList(db.Emps, "EmpID", "EmpNo");
+                                ViewBag.LvType = new SelectList(db.LvTypes.Where(aa => aa.Enable == true).ToList(), "LvType1", "LvDesc");
+                                return RedirectToAction("Create");
                             }
                             else
                             {
@@ -171,7 +173,7 @@ namespace WMS.Controllers
                                 lvapplication.LvDate = DateTime.Today;
                                 int _userID = Convert.ToInt32(Session["LogedUserID"].ToString());
                                 lvapplication.CreatedBy = _userID;
-                                lvapplication.CompanyID = LoggedInUser.CompanyID;
+                                lvapplication.CompanyID = _emp.FirstOrDefault().CompanyID;
                                 lvapplication.Active = true;
                                 db.LvApplications.Add(lvapplication);
                                 if (db.SaveChanges() > 0)
@@ -179,9 +181,10 @@ namespace WMS.Controllers
                                     HelperClass.MyHelper.SaveAuditLog(_userID, (byte)MyEnums.FormName.Leave, (byte)MyEnums.Operation.Add, DateTime.Now);
                                     LvProcessController.AddHalfLeaveToLeaveData(lvapplication);
                                     LvProcessController.AddHalfLeaveToAttData(lvapplication);
+                                    ViewBag.EmpID = new SelectList(db.Emps, "EmpID", "EmpNo");
+                                    ViewBag.LvType = new SelectList(db.LvTypes.Where(aa => aa.Enable == true).ToList(), "LvType1", "LvDesc");
+                                    return RedirectToAction("Create");
                                 }
-
-                                return RedirectToAction("Index");
                             }
                             else
                                 ModelState.AddModelError("LvType", "Leave Balance Exceeds, Please check the balance");

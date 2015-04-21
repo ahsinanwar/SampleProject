@@ -49,18 +49,20 @@ namespace WMS.CustomClass
             {
                 _CriteriaForOr.Add(" CatID = 4  ");
             }
-            _CriteriaForOr.Add(" CatID=1 or CatID=5 ");
+            _CriteriaForOr.Add(" CatID=1 ");
             
             switch (_user.RoleID)
             {
                 case 1:
-                    
+                    _CriteriaForOr.Add("CatID >= 7 ");
                     break;
                 case 2:
                     _Criteria.Add(" CompanyID= 1 or CompanyID = 2 ");
+                    _CriteriaForOr.Add("CatID = 7 ");
                     break;
                 case 3:
                     _Criteria.Add(" CompanyID>= 3");
+                    _CriteriaForOr.Add("CatID >= 8 ");
                     break;
                 case 4:
                     _Criteria.Add(" CompanyID = "+_user.CompanyID.ToString());

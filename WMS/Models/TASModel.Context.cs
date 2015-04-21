@@ -29,6 +29,7 @@ namespace WMS.Models
         public DbSet<AttCode> AttCodes { get; set; }
         public DbSet<AttData> AttDatas { get; set; }
         public DbSet<AttDataManEdit> AttDataManEdits { get; set; }
+        public DbSet<AttDataMonth> AttDataMonths { get; set; }
         public DbSet<AttMnData> AttMnDatas { get; set; }
         public DbSet<AttMnDataPer> AttMnDataPers { get; set; }
         public DbSet<AttProcess> AttProcesses { get; set; }
@@ -51,6 +52,7 @@ namespace WMS.Models
         public DbSet<DownloadTime> DownloadTimes { get; set; }
         public DbSet<DutyCode> DutyCodes { get; set; }
         public DbSet<DutyTime> DutyTimes { get; set; }
+        public DbSet<EmailPerson> EmailPersons { get; set; }
         public DbSet<Emergency> Emergencies { get; set; }
         public DbSet<EmergencyDetail> EmergencyDetails { get; set; }
         public DbSet<Emp> Emps { get; set; }

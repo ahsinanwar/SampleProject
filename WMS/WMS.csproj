@@ -162,6 +162,10 @@
     <Content Include="Reports\MSummaryC.aspx" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\companyGradeCreate.js" />
+    <Content Include="Scripts\crewCompany.js" />
+    <Content Include="Scripts\crewCompanyCreate.js" />
+    <Content Include="Scripts\desigCompany.js" />
+    <Content Include="Scripts\desigCompanyCreate.js" />
     <Content Include="Scripts\dx.chartjs.js" />
     <Content Include="Scripts\empTypeCategory.js" />
     <Content Include="Scripts\empTypeCategoryCreate.js" />
@@ -354,6 +358,9 @@
     <Compile Include="Models\AttDataManEdit.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AttDataMonth.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AttMnData.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
@@ -418,6 +425,9 @@
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DutyTime.cs">
+      <DependentUpon>TASModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmailPerson.cs">
       <DependentUpon>TASModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Emergency.cs">
