@@ -24,6 +24,9 @@
         <th>
             @Html.ActionLink("Grade", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
+        <th>
+            Company Name
+        </th>
         <th>Edit|View|Delete</th>
     </tr>
 
@@ -31,6 +34,9 @@
     <tr >
         <td>
             @Html.DisplayFor(modelItem => item.GradeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company.CompName)
         </td>
         <td>
             @Html.ActionLink(" ", "Edit", new { id=item.GradeID }, new { @class = "glyphicon glyphicon-pencil btn btn-warning btn-sm" }) 

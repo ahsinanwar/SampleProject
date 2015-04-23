@@ -75,6 +75,7 @@ namespace WMS.Controllers
         public ActionResult Create()
         {
             ViewBag.DivID = new SelectList(db.Divisions, "DivisionID", "DivisionName");
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
             return View();
         }
 
@@ -84,7 +85,7 @@ namespace WMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomActionAttribute]
-        public ActionResult Create([Bind(Include="DeptID,DeptName,DivID")] Department department)
+           public ActionResult Create([Bind(Include = "DeptID,DeptName,DivID,CompanyID")] Department department)
         {
             if (ModelState.IsValid)
             {
@@ -96,6 +97,7 @@ namespace WMS.Controllers
             }
 
             ViewBag.DivID = new SelectList(db.Divisions, "DivisionID", "DivisionName", department.DivID);
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", department.CompanyID);
             return View(department);
         }
 
@@ -113,6 +115,7 @@ namespace WMS.Controllers
                 return HttpNotFound();
             }
             ViewBag.DivID = new SelectList(db.Divisions, "DivisionID", "DivisionName", department.DivID);
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
             return View(department);
         }
 
@@ -122,7 +125,7 @@ namespace WMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomActionAttribute]
-        public ActionResult Edit([Bind(Include="DeptID,DeptName,DivID")] Department department)
+           public ActionResult Edit([Bind(Include = "DeptID,DeptName,DivID,CompanyID")] Department department)
         {
             if (ModelState.IsValid)
             {
@@ -133,6 +136,7 @@ namespace WMS.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.DivID = new SelectList(db.Divisions, "DivisionID", "DivisionName", department.DivID);
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", department.CompanyID);
             return View(department);
         }
 

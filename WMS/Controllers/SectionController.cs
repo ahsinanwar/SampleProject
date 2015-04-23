@@ -80,6 +80,7 @@ namespace WMS.Controllers
         public ActionResult Create()
         {
             ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName");
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
             return View();
         }
 
@@ -89,7 +90,7 @@ namespace WMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomActionAttribute]
-        public ActionResult Create([Bind(Include="SectionID,SectionName,DeptID")] Section section)
+        public ActionResult Create([Bind(Include = "SectionID,SectionName,DeptID,CompanyID")] Section section)
         {
             if (ModelState.IsValid)
             {
@@ -97,8 +98,12 @@ namespace WMS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            if (section.CompanyID == null)
+            {
+                ModelState.AddModelError("CompanyID", "This CompanyID not come");
+            }
             ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName", section.DeptID);
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
             return View(section);
         }
 
@@ -106,6 +111,8 @@ namespace WMS.Controllers
         [CustomActionAttribute]
         public ActionResult Edit(short? id)
         {
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
+            ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -115,7 +122,7 @@ namespace WMS.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName", section.DeptID);
+            
             return View(section);
         }
 
@@ -125,7 +132,7 @@ namespace WMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomActionAttribute]
-        public ActionResult Edit([Bind(Include="SectionID,SectionName,DeptID")] Section section)
+        public ActionResult Edit([Bind(Include = "SectionID,SectionName,DeptID,CompanyID")] Section section)
         {
             if (ModelState.IsValid)
             {
@@ -134,6 +141,7 @@ namespace WMS.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName", section.DeptID);
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", section.CompanyID);
             return View(section);
         }
 

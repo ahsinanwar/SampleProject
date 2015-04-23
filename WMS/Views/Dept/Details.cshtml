@@ -25,6 +25,12 @@
         <dd>
             @Html.DisplayFor(model => model.Division.DivisionName)
         </dd>
+        <dt>
+            Company Name:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Company.CompName)
+        </dd>
         <dd>
              @Html.ActionLink(" Edit ", "Edit", new { id = Model.DeptID } , new { @class = "btn btn-warning" })
              @Html.ActionLink("Back to List", "Index",null,new { @class = "btn btn-primary " })

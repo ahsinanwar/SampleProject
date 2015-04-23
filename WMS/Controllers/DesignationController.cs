@@ -80,6 +80,7 @@ namespace WMS.Controllers
          [CustomActionAttribute]
         public ActionResult Create()
         {
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
             return View();
         }
 
@@ -89,7 +90,7 @@ namespace WMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomActionAttribute]
-        public ActionResult Create([Bind(Include = "DesignationID,DesignationName")] Designation designation)
+        public ActionResult Create([Bind(Include = "DesignationID,DesignationName,CompanyID")] Designation designation)
         {
             if (string.IsNullOrEmpty(designation.DesignationName))
                 ModelState.AddModelError("DesignationName", "This field is required!");
@@ -102,7 +103,10 @@ namespace WMS.Controllers
                     ModelState.AddModelError("DesignationName", "This field only contain Alphabets");
                 }
                 if (CheckDuplicate(designation.DesignationName))
+                {
                     ModelState.AddModelError("DesignationName", "This Designation already exist in record, Please select an unique name");
+                }
+                // on test basis
             }
 
             if (ModelState.IsValid)
@@ -132,6 +136,7 @@ namespace WMS.Controllers
          [CustomActionAttribute]
         public ActionResult Edit(int? id)
         {
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -150,8 +155,9 @@ namespace WMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomActionAttribute]
-        public ActionResult Edit([Bind(Include = "DesignationID,DesignationName")] Designation designation)
+        public ActionResult Edit([Bind(Include = "DesignationID,DesignationName,CompanyID")] Designation designation)
         {
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", designation.CompanyID);
             if (string.IsNullOrEmpty(designation.DesignationName))
                 ModelState.AddModelError("DesignationName", "This field is required!");
             if (designation.DesignationName != null)

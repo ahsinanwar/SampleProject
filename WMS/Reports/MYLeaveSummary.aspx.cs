@@ -97,38 +97,88 @@ namespace WMS.Reports
         private void LoadGridViews()
         {
             User _loggedUser = HttpContext.Current.Session["LoggedUser"] as User;
-            LoadEmpView(_loggedUser);
-            LoadShiftView(_loggedUser);
-            LoadLocationView(_loggedUser);
-            LoadEmpTypeView(_loggedUser);
+            LoadEmpTypeGrid(_loggedUser);
+            LoadLocationGrid(_loggedUser);
+            LoadShiftGrid(_loggedUser);
+            LoadEmpGrid(_loggedUser);
+            LoadSectionGrid(_loggedUser);
+            LoadDeptGrid(_loggedUser);
+            LoadCrewGrid(_loggedUser);
         }
 
-        private void LoadEmpTypeView(User _loggedUser)
+        private void LoadEmpTypeGrid(User _loggedUser)
         {
-
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForCompanySegeration(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from ViewEmpType " + query);
+            List<ViewEmpType> _View = dt.ToList<ViewEmpType>();
+            grid_EmpType.DataSource = _View;
+            grid_EmpType.DataBind();
         }
 
-        private void LoadLocationView(User _loggedUser)
+        private void LoadLocationGrid(User _loggedUser)
         {
-
+            List<Location> _objectList = new List<Location>();
+            _objectList = context.Locations.ToList();
+            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
+            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
+            //grid_EmpType.DataBind();
+            grid_Location.DataSource = _objectList;
+            grid_Location.DataBind();
         }
 
-        private void LoadShiftView(User _loggedUser)
+        private void LoadShiftGrid(User _loggedUser)
         {
-
+            List<Shift> _objectList = new List<Shift>();
+            _objectList = context.Shifts.Where(aa => aa.CompanyID == _loggedUser.CompanyID).ToList();
+            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
+            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
+            //grid_EmpType.DataBind();
+            grid_Shift.DataSource = _objectList;
+            grid_Shift.DataBind();
         }
-        private void LoadEmpView(User _loggedUser)
+
+        private void LoadEmpGrid(User _loggedUser)
         {
-            //QueryBuilder qb = new QueryBuilder();
-            //string query = qb.MakeCustomizeQuery(_loggedUser);
-            //DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query);
-            //List<EmpView> _View = dt.ToList<EmpView>();
-            //grid_Employee.DataSource = _View;
-            //grid_Employee.DataBind();
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.MakeCustomizeQuery(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query + " and (Status=1)");
+            List<EmpView> _View = dt.ToList<EmpView>();
+            grid_Employee.DataSource = _View;
+            grid_Employee.DataBind();
 
 
         }
 
+        private void LoadSectionGrid(User _loggedUser)
+        {
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForCompanySegeration(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from ViewSection " + query);
+            List<ViewSection> _View = dt.ToList<ViewSection>();
+            grid_Section.DataSource = _View;
+            grid_Section.DataBind();
+        }
+
+        private void LoadDeptGrid(User _loggedUser)
+        {
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForCompanySegeration(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from ViewDepartment " + query);
+            List<ViewDepartment> _View = dt.ToList<ViewDepartment>();
+            grid_Dept.DataSource = _View;
+            grid_Dept.DataBind();
+        }
+
+        private void LoadCrewGrid(User _loggedUser)
+        {
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForCompanySegeration(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from ViewCrew " + query);
+            List<ViewCrew> _View = dt.ToList<ViewCrew>();
+            grid_Crew.DataSource = _View;
+            grid_Crew.DataBind();
+        }
         //private DataSet GetValuesFromDatabase(string _query, string _tableName)
         //{
         //    string connectionString = WebConfigurationManager.ConnectionStrings["TAS2013ConnectionString"].ConnectionString;
@@ -140,6 +190,7 @@ namespace WMS.Reports
         //    adapter.Fill(ds, _tableName);
         //    return ds;
         //}
+
         #endregion
 
         #region --Filters Button--
