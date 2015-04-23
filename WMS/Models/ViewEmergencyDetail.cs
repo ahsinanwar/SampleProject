@@ -14,13 +14,36 @@ namespace WMS.Models
     
     public partial class ViewEmergencyDetail
     {
+        public Nullable<int> EmpID { get; set; }
         public string DesignationName { get; set; }
-        public string DeptName { get; set; }
-        public Nullable<bool> Status { get; set; }
-        public string EmpName { get; set; }
+        public string GradeName { get; set; }
+        public string CompName { get; set; }
+        public string JobTitle { get; set; }
+        public string CityName { get; set; }
+        public string RegionName { get; set; }
+        public string SiteName { get; set; }
+        public string LocName { get; set; }
+        public string CrewName { get; set; }
+        public string TypeName { get; set; }
+        public string CatName { get; set; }
+        public string ShiftName { get; set; }
         public string EmpNo { get; set; }
+        public string EmpName { get; set; }
         public string SectionName { get; set; }
+        public string DeptName { get; set; }
+        public string DivisionName { get; set; }
+        public Nullable<short> SafeLocID { get; set; }
+        public Nullable<int> EmgID { get; set; }
+        public Nullable<int> EmgDetailID { get; set; }
+        public Nullable<bool> SafeStatus { get; set; }
+        public Nullable<bool> Status { get; set; }
         public string EmgNo { get; set; }
+        public Nullable<System.DateTime> StartDateTime { get; set; }
+        public Nullable<System.DateTime> CloseDateTime { get; set; }
+        public Nullable<int> TotalPresent { get; set; }
+        public Nullable<int> TotalMissing { get; set; }
+        public Nullable<int> TotalSaved { get; set; }
         public string EmgName { get; set; }
+        public int Expr1 { get; set; }
     }
 }

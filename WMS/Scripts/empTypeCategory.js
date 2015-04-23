@@ -1,9 +1,10 @@
 ﻿$(document).ready(function () {
 
     $('#TypeID').empty();
+    var convalue = $('#CatID').val() + "s" + $('#CompanyID').val();
     var URL = '/WMS/Emp/EmpTypeList';
     //var URL = '/Emp/EmpTypeList';
-    $.getJSON(URL + '/' + $('#CatID').val(), function (data) {
+    $.getJSON(URL + '/' + convalue, function (data) {
         var selectedItemID = document.getElementById("selectedTypeIdHidden").value;
         var items;
         $.each(data, function (i, state) {
@@ -21,9 +22,10 @@
 
     $('#CatID').change(function () {
         $('#TypeID').empty();
+        var convalue = $('#CatID').val() + "s" + $('#CompanyID').val();
         var URL = '/WMS/Emp/EmpTypeList';
         //var URL = '/Emp/EmpTypeList';
-        $.getJSON(URL + '/' + $('#CatID').val(), function (data) {
+        $.getJSON(URL + '/' + convalue, function (data) {
             var selectedItemID = document.getElementById("selectedTypeIdHidden").value;
             var items;
             $.each(data, function (i, state) {

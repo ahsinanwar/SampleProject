@@ -15,7 +15,7 @@
               <Width>1.95615in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.10457in</Width>
+              <Width>1.95874in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.47882in</Width>
@@ -1376,7 +1376,7 @@
         <Top>0.05in</Top>
         <Left>0.0625in</Left>
         <Height>1.25in</Height>
-        <Width>8.70097in</Width>
+        <Width>8.55514in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1387,7 +1387,7 @@
     <Height>2in</Height>
     <Style />
   </Body>
-  <Width>8.82454in</Width>
+  <Width>8.6593in</Width>
   <Page>
     <PageHeader>
       <Height>0.63542in</Height>
@@ -1524,7 +1524,7 @@
           <Top>0.02222in</Top>
           <Left>0.07813in</Left>
           <Height>0.25in</Height>
-          <Width>6.86459in</Width>
+          <Width>5.45729in</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
@@ -1557,7 +1557,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox90</rd:DefaultName>
           <Top>0.30278in</Top>
-          <Left>7.87805in</Left>
+          <Left>7.76347in</Left>
           <Height>0.25in</Height>
           <Width>0.85417in</Width>
           <ZIndex>2</ZIndex>
@@ -1578,11 +1578,12 @@
         </Border>
       </Style>
     </PageFooter>
-    <PageWidth>10in</PageWidth>
-    <LeftMargin>0.5in</LeftMargin>
-    <RightMargin>0.5in</RightMargin>
-    <TopMargin>0.75in</TopMargin>
-    <BottomMargin>0.75in</BottomMargin>
+    <PageHeight>8.27in</PageHeight>
+    <PageWidth>11.69in</PageWidth>
+    <LeftMargin>0.75in</LeftMargin>
+    <RightMargin>0.75in</RightMargin>
+    <TopMargin>0.5in</TopMargin>
+    <BottomMargin>0.5in</BottomMargin>
     <Style />
   </Page>
   <AutoRefresh>0</AutoRefresh>

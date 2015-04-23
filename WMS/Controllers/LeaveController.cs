@@ -138,6 +138,7 @@ namespace WMS.Controllers
                 _LVData.LvID = lvappl.LvID;
                 _LVData.AttDate = datetime.Date;
                 _LVData.LvCode = lvappl.LvType;
+                _LVData.CompanyID = lvappl.CompanyID;
                 try
                 {
                     using (var context = new TAS2013Entities())
@@ -454,6 +455,7 @@ namespace WMS.Controllers
             _LVData.LvID = lvappl.LvID;
             _LVData.AttDate = datetime.Date;
             _LVData.LvCode = lvappl.LvType;
+            _LVData.FirstHalf = lvappl.FirstHalf;
             try
             {
                 using (var db = new TAS2013Entities())
@@ -495,11 +497,19 @@ namespace WMS.Controllers
                     if (_EmpAttData.Remarks.Contains("[LI]"))
                         _EmpAttData.Remarks.Replace("[LI]", "");
                     _EmpAttData.StatusLeave = true;
+                    if (lvappl.FirstHalf == true)
+                    {
+                        _EmpAttData.LateIn = 0;
+                        _EmpAttData.StatusLI = false;
+                    }
+                    else
+                    {
+                        _EmpAttData.StatusEO = false;
+                        _EmpAttData.EarlyOut = 0;
+                    }
                     //_EmpAttData.statushl
-                    _EmpAttData.StatusEO = false;
-                    _EmpAttData.EarlyOut = 0;
-                    _EmpAttData.LateIn = 0;
-                    _EmpAttData.StatusLI = false;
+
+
                     db.SaveChanges();
                 } 
             }

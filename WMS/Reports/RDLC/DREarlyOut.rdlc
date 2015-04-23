@@ -1567,7 +1567,7 @@
     <Height>2in</Height>
     <Style />
   </Body>
-  <Width>11.64777in</Width>
+  <Width>10.08527in</Width>
   <Page>
     <PageHeader>
       <Height>0.63542in</Height>
@@ -1759,11 +1759,11 @@
       </Style>
     </PageFooter>
     <PageHeight>8.27in</PageHeight>
-    <PageWidth>11in</PageWidth>
+    <PageWidth>11.69in</PageWidth>
     <LeftMargin>0.5in</LeftMargin>
     <RightMargin>0.5in</RightMargin>
-    <TopMargin>0.5in</TopMargin>
-    <BottomMargin>0.5in</BottomMargin>
+    <TopMargin>0.25in</TopMargin>
+    <BottomMargin>0.25in</BottomMargin>
     <Style />
   </Page>
   <AutoRefresh>0</AutoRefresh>

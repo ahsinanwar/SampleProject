@@ -717,7 +717,7 @@ namespace WMS.Reports
         //}
         private void LoadReport(string path, List<EmpView> _Employee)
         {
-            string _Header = context.Options.FirstOrDefault().CompanyName + " - Employee Detail Report";
+            string _Header = "Employee Detail Report";
             ReportViewer1.ProcessingMode = ProcessingMode.Local;
             ReportViewer1.LocalReport.ReportPath = Server.MapPath(path);
             System.Security.PermissionSet sec = new System.Security.PermissionSet(System.Security.Permissions.PermissionState.Unrestricted);

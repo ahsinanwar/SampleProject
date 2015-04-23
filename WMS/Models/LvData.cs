@@ -22,8 +22,10 @@ namespace WMS.Models
         public byte LvStatus { get; set; }
         public string Remarks { get; set; }
         public Nullable<bool> Processed { get; set; }
+        public Nullable<bool> FirstHalf { get; set; }
         public Nullable<bool> HalfLeave { get; set; }
         public Nullable<bool> Active { get; set; }
+        public Nullable<short> CompanyID { get; set; }
     
         public virtual LvApplication LvApplication { get; set; }
         public virtual LvType LvType { get; set; }

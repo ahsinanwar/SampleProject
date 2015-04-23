@@ -23,6 +23,7 @@ namespace WMS.Models
         public string CrewName { get; set; }
         public Nullable<short> CompanyID { get; set; }
     
+        public virtual Company Company { get; set; }
         public virtual ICollection<Emp> Emps { get; set; }
     }
 }

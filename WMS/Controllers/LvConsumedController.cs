@@ -17,7 +17,7 @@ namespace WMS.Controllers
         // GET: /LvConsumed/
         public ActionResult Index()
         {
-            var lvconsumeds = db.LvConsumeds;
+            var lvconsumeds = db.LvConsumeds.Include(l => l.Emp);
             return View(lvconsumeds.ToList());
         }
 

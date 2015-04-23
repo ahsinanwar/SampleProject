@@ -728,7 +728,7 @@ namespace WMS.Reports
                 DateToFor = "From : " + DateFrom.Date.ToString("d") + " To: " + DateTo.Date.ToString("d");
             }
            
-            string _Header = context.Options.FirstOrDefault().CompanyName + " - Absent Employee Report";
+            string _Header = "Absent Employee Report";
             ReportViewer1.ProcessingMode = ProcessingMode.Local;
             ReportViewer1.LocalReport.ReportPath = Server.MapPath(path);
             System.Security.PermissionSet sec = new System.Security.PermissionSet(System.Security.Permissions.PermissionState.Unrestricted);

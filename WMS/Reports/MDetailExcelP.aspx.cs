@@ -71,30 +71,11 @@ namespace WMS.Reports
 
         private void LoadEmpTypeGrid(User _loggedUser)
         {
-            //string connectionString = WebConfigurationManager.ConnectionStrings["TAS2013ConnectionString"].ConnectionString;
-            //string selectSQL = "";
-            //string _Query = "";
-            List<EmpType> _empType = new List<EmpType>();
-            if (_loggedUser.ViewContractual == true && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == false)
-            {
-                _empType = context.EmpTypes.Where(aa => aa.CatID == 3).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == true && _loggedUser.ViewPermanentStaff == false)
-            {
-                _empType = context.EmpTypes.Where(aa => aa.CatID == 2).ToList();
-            }
-            else if (_loggedUser.ViewContractual == false && _loggedUser.ViewPermanentMgm == false && _loggedUser.ViewPermanentStaff == true)
-            {
-                _empType = context.EmpTypes.Where(aa => aa.CatID == 2).ToList();
-            }
-            else
-            {
-                _empType = context.EmpTypes.ToList();
-            }
-            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
-            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
-            //grid_EmpType.DataBind();
-            grid_EmpType.DataSource = _empType;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForCompanySegeration(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from ViewEmpType " + query);
+            List<ViewEmpType> _View = dt.ToList<ViewEmpType>();
+            grid_EmpType.DataSource = _View;
             grid_EmpType.DataBind();
         }
 
@@ -124,7 +105,7 @@ namespace WMS.Reports
         {
             QueryBuilder qb = new QueryBuilder();
             string query = qb.MakeCustomizeQuery(_loggedUser);
-            DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query);
+            DataTable dt = qb.GetValuesfromDB("select * from EmpView " + query + " and (Status=1)");
             List<EmpView> _View = dt.ToList<EmpView>();
             grid_Employee.DataSource = _View;
             grid_Employee.DataBind();
@@ -134,31 +115,33 @@ namespace WMS.Reports
 
         private void LoadSectionGrid(User _loggedUser)
         {
-            List<Section> _objectList = new List<Section>();
-            _objectList = context.Sections.Where(aa => aa.Department.CompanyID == _loggedUser.CompanyID).ToList();
-            //_Query = "SELECT * FROM TAS2013.dbo.EmpType where " + selectSQL;
-            //grid_EmpType.DataSource = GetValuesFromDatabase(_Query, "EmpType");
-            //grid_EmpType.DataBind();
-            grid_Section.DataSource = _objectList;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForCompanySegeration(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from ViewSection " + query);
+            List<ViewSection> _View = dt.ToList<ViewSection>();
+            grid_Section.DataSource = _View;
             grid_Section.DataBind();
         }
 
         private void LoadDeptGrid(User _loggedUser)
         {
-            List<Department> _objectList = new List<Department>();
-            _objectList = context.Departments.Where(aa => aa.CompanyID == _loggedUser.CompanyID).ToList();
-            grid_Dept.DataSource = _objectList;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForCompanySegeration(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from ViewDepartment " + query);
+            List<ViewDepartment> _View = dt.ToList<ViewDepartment>();
+            grid_Dept.DataSource = _View;
             grid_Dept.DataBind();
         }
 
         private void LoadCrewGrid(User _loggedUser)
         {
-            List<Crew> _objectList = new List<Crew>();
-            _objectList = context.Crews.Where(aa => aa.CompanyID == _loggedUser.CompanyID).ToList();
-            grid_Crew.DataSource = _objectList;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.QueryForCompanySegeration(_loggedUser);
+            DataTable dt = qb.GetValuesfromDB("select * from ViewCrew " + query);
+            List<ViewCrew> _View = dt.ToList<ViewCrew>();
+            grid_Crew.DataSource = _View;
             grid_Crew.DataBind();
         }
-
         //private DataSet GetValuesFromDatabase(string _query, string _tableName)
         //{
         //    string connectionString = WebConfigurationManager.ConnectionStrings["TAS2013ConnectionString"].ConnectionString;
@@ -752,7 +735,7 @@ namespace WMS.Reports
         {
             this.ReportViewer1.KeepSessionAlive = false;
             this.ReportViewer1.AsyncRendering = false;
-            string _Header = context.Options.FirstOrDefault().CompanyName + " - Monthly Sheet Permanent Employees";
+            string _Header = "Monthly Sheet Permanent Employees";
             string _Date = "Month: " + DateTo.Date.ToString("MMMM") + " , " + DateTo.Year.ToString();
             ReportViewer1.ProcessingMode = ProcessingMode.Local;
             ReportViewer1.LocalReport.ReportPath = Server.MapPath(path);

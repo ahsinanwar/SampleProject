@@ -25,6 +25,7 @@ namespace WMS.Models
         public Nullable<short> DivID { get; set; }
         public Nullable<short> CompanyID { get; set; }
     
+        public virtual Company Company { get; set; }
         public virtual ICollection<DailySumDept> DailySumDepts { get; set; }
         public virtual Division Division { get; set; }
         public virtual ICollection<Section> Sections { get; set; }

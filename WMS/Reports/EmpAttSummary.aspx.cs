@@ -714,7 +714,7 @@ namespace WMS.Reports
                 DateToFor = "From : " + DateFrom.Date.ToString("dd-MMM-yyyy") + " To: " + DateTo.Date.ToString("dd-MMM-yyyy");
             }
 
-            string _Header = context.Options.FirstOrDefault().CompanyName + " - Employee Detail Attendance Report";
+            string _Header = "Employee Detail Attendance Report";
             ReportViewer1.ProcessingMode = ProcessingMode.Local;
             ReportViewer1.LocalReport.ReportPath = Server.MapPath(path);
             System.Security.PermissionSet sec = new System.Security.PermissionSet(System.Security.Permissions.PermissionState.Unrestricted);

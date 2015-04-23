@@ -27,6 +27,7 @@ namespace WMS.Models
         public System.DateTime ToDate { get; set; }
         public float NoOfDays { get; set; }
         public Nullable<bool> IsHalf { get; set; }
+        public Nullable<bool> FirstHalf { get; set; }
         public Nullable<bool> HalfAbsent { get; set; }
         public string LvReason { get; set; }
         public string LvAddress { get; set; }

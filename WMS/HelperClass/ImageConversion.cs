@@ -9,12 +9,13 @@ namespace WMS.HelperClass
 {
     public class ImageConversion
     {
-        public bool UploadImageInDataBase(HttpPostedFileBase file, Emp _Emp)
+        public int UploadImageInDataBase(HttpPostedFileBase file, Emp _Emp)
         {
             using (var context = new TAS2013Entities())
             {
                 List<EmpPhoto> _empPhotoList = new List<EmpPhoto>();
                 EmpPhoto _EmpPhoto = new EmpPhoto();
+                int empPhotoID = 0;
                 _empPhotoList = context.EmpPhotoes.Where(aa => aa.EmpID == _Emp.EmpID).ToList();
                 _EmpPhoto.EmpPic = ConvertToBytes(file);
                 if (_empPhotoList.Count > 0)
@@ -31,12 +32,13 @@ namespace WMS.HelperClass
                 }
                 try
                 {
+                    empPhotoID = _EmpPhoto.PhotoID;
                     context.SaveChanges();
-                    return true;
+                    return empPhotoID;
                 }
                 catch (Exception ex)
                 {
-                    return false;
+                    return empPhotoID;
                 } 
             }
 
@@ -50,13 +52,14 @@ namespace WMS.HelperClass
             return imageBytes;
         }
 
-        public bool UploadImageInDataBase(HttpPostedFileBase file, string _empNo)
+        public int UploadImageInDataBase(HttpPostedFileBase file, string _empNo)
         {
             using (var context = new TAS2013Entities())
             {
                 List<EmpPhoto> _empPhotoList = new List<EmpPhoto>();
                 EmpPhoto _EmpPhoto = new EmpPhoto();
                 Emp _Emp = new Emp();
+                int empPhotoID = 0;
                 _Emp = context.Emps.First(aa => aa.EmpNo == _empNo);
                 _empPhotoList = context.EmpPhotoes.Where(aa => aa.EmpID == _Emp.EmpID).ToList();
                 _EmpPhoto.EmpPic = ConvertToBytes(file);
@@ -74,12 +77,13 @@ namespace WMS.HelperClass
                 }
                 try
                 {
+                    empPhotoID = _EmpPhoto.PhotoID;
                     context.SaveChanges();
-                    return true;
+                    return empPhotoID;
                 }
                 catch (Exception ex)
                 {
-                    return false;
+                    return empPhotoID;
                 }
             }
         }

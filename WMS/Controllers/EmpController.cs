@@ -156,21 +156,20 @@ namespace WMS.Controllers
             {
                 _wings = context.Divisions.ToList();
             }
-            User LoggedInUser = Session["LoggedUser"] as User;
-            ViewBag.CompanyID = new SelectList(db.Companies.Where(aa=>aa.CompID==LoggedInUser.CompanyID), "CompID", "CompName");
-            ViewBag.CrewID = new SelectList(db.Crews.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "CrewID", "CrewName");
-            ViewBag.DesigID = new SelectList(db.Designations.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "DesignationID", "DesignationName");
-            ViewBag.GradeID = new SelectList(db.Grades.Where(aa => aa.CompID == LoggedInUser.CompanyID), "GradeID", "GradeName");
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
+            ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName");
+            ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName");
+            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
             ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1");
             ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
-            ViewBag.SecID = new SelectList(db.Sections.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "SectionID", "SectionName");
+            ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName");
             ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName");
-            ViewBag.TypeID = new SelectList(db.EmpTypes.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "TypeID", "TypeName");
+            ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName");
             ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
             ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
             ViewBag.EmpID = new SelectList(db.LvQuotas, "EmpID", "EmpID");
             ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
-            ViewBag.DeptID = new SelectList(db.Departments.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "DeptID", "DeptName");
+            ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName");
             return View();
         }
 
@@ -182,6 +181,7 @@ namespace WMS.Controllers
         [CustomActionAttribute]
         public ActionResult Create([Bind(Include="EmpID,EmpNo,EmpName,DesigID,JobID,Gender,ShiftID,LocID,TypeID,GradeID,SecID,CardNo,FpID,PinCode,NicNo,FatherName,BloodGroup,BirthDate,MarStatus,JoinDate,ValidDate,IssueDate,ResignDate,HomeAdd,ProcessAtt,ProcessIn,Status,PhoneNo,Remarks,Email,CellNo,CrewID,FlagFP,FlagFace,FlagCard,EmpImageID,CompanyID")] Emp emp)
         {
+            string empNo = "";
             if (string.IsNullOrEmpty(emp.EmpNo))
                 ModelState.AddModelError("EmpNo", "Emp No field is required!");
             if (string.IsNullOrEmpty(emp.EmpName))
@@ -222,6 +222,7 @@ namespace WMS.Controllers
                 emp.ProcessAtt = true;
                 emp.ProcessIn = true;
                 emp.EmpNo = emp.EmpNo.ToUpper();
+                empNo = emp.EmpNo;
                 db.Emps.Add(emp);
                 db.SaveChanges();
                 int _userID = Convert.ToInt32(Session["LogedUserID"].ToString());
@@ -230,9 +231,19 @@ namespace WMS.Controllers
                 if (file != null)
                 {
                     ImageConversion _Image = new ImageConversion();
-                    if (_Image.UploadImageInDataBase(file, emp.EmpNo))
+                    int imageID = _Image.UploadImageInDataBase(file, emp.EmpNo);
+                    if (imageID!=0)
                     {
-
+                        using (var ctx = new TAS2013Entities())
+                        {
+                            var _emp = ctx.Emps.Where(aa => aa.EmpNo == empNo).ToList();
+                            if (_emp.Count > 0)
+                            {
+                                _emp.FirstOrDefault().EmpImageID = imageID;
+                                ctx.SaveChanges();
+                                ctx.Dispose();
+                            }
+                        }
                     }
                     else
                     {
@@ -247,20 +258,20 @@ namespace WMS.Controllers
                 _wings = context.Divisions.ToList();
             ViewBag.Wing = new SelectList(_wings, "WingID", "WingName");
             User LoggedInUser = Session["LoggedUser"] as User;
-            ViewBag.CompanyID = new SelectList(db.Companies.Where(aa => aa.CompID == LoggedInUser.CompanyID), "CompID", "CompName");
-            ViewBag.CrewID = new SelectList(db.Crews.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "CrewID", "CrewName");
-            ViewBag.DesigID = new SelectList(db.Designations.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "DesignationID", "DesignationName");
-            ViewBag.GradeID = new SelectList(db.Grades.Where(aa => aa.CompID == LoggedInUser.CompanyID), "GradeID", "GradeName");
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
+            ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName");
+            ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName");
+            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
             ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1");
             ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName");
-            ViewBag.SecID = new SelectList(db.Sections.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "SectionID", "SectionName");
+            ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName");
             ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName");
-            ViewBag.TypeID = new SelectList(db.EmpTypes.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "TypeID", "TypeName");
+            ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName");
             ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
             ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
             ViewBag.EmpID = new SelectList(db.LvQuotas, "EmpID", "EmpID");
             ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName");
-            ViewBag.DeptID = new SelectList(db.Departments.Where(aa => aa.CompanyID == LoggedInUser.CompanyID), "DeptID", "DeptName");
+            ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName");
             }
             return View(emp);
             //if (ModelState.IsValid)
@@ -331,9 +342,10 @@ namespace WMS.Controllers
                 if (file != null)
                 {
                     ImageConversion _Image = new ImageConversion();
-                    if (_Image.UploadImageInDataBase(file, emp))
+                    int imageid = _Image.UploadImageInDataBase(file, emp);
+                    if (imageid!=0)
                     {
-
+                        emp.EmpImageID= imageid;
                     }
                     else
                     {
@@ -388,7 +400,7 @@ namespace WMS.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Message = ex.InnerException.InnerException.ToString();
+                ViewBag.Message = ex.InnerException.ToString();
                 User LoggedInUser = Session["LoggedUser"] as User;
                 ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
                 ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName");
@@ -477,13 +489,71 @@ namespace WMS.Controllers
 
         public ActionResult EmpTypeList(string ID)
         {
-            short Code = Convert.ToInt16(ID);
-            var secs = db.EmpTypes.Where(aa => aa.CatID == Code);
+            string[] words = ID.Split('s');
+            short CatID = Convert.ToInt16(words[0]);
+            short compID = Convert.ToInt16(words[1]);
+            var secs = db.EmpTypes.Where(aa => aa.CatID == CatID && aa.CompanyID==compID);
             if (HttpContext.Request.IsAjaxRequest())
                 return Json(new SelectList(
                                 secs.ToArray(),
                                 "TypeID",
                                 "TypeName")
+                           , JsonRequestBehavior.AllowGet);
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult CategoryList(string ID)
+        {
+            short Code = Convert.ToInt16(ID);
+            var secs = db.Categories.Where(aa => aa.CompanyID == Code);
+            if (HttpContext.Request.IsAjaxRequest())
+                return Json(new SelectList(
+                                secs.ToArray(),
+                                "CatID",
+                                "CatName")
+                           , JsonRequestBehavior.AllowGet);
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult DesignationList(string ID)
+        {
+            short Code = Convert.ToInt16(ID);
+            var secs = db.Designations.Where(aa => aa.CompanyID == Code);
+            if (HttpContext.Request.IsAjaxRequest())
+                return Json(new SelectList(
+                                secs.ToArray(),
+                                "DesignationID",
+                                "DesignationName")
+                           , JsonRequestBehavior.AllowGet);
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult DepartmentList(string ID)
+        {
+            short Code = Convert.ToInt16(ID);
+            var secs = db.Departments.Where(aa => aa.CompanyID == Code);
+            if (HttpContext.Request.IsAjaxRequest())
+                return Json(new SelectList(
+                                secs.ToArray(),
+                                "DeptID",
+                                "DeptName")
+                           , JsonRequestBehavior.AllowGet);
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult CrewList(string ID)
+        {
+            short Code = Convert.ToInt16(ID);
+            var secs = db.Crews.Where(aa => aa.CompanyID == Code);
+            if (HttpContext.Request.IsAjaxRequest())
+                return Json(new SelectList(
+                                secs.ToArray(),
+                                "CrewID",
+                                "CrewName")
                            , JsonRequestBehavior.AllowGet);
 
             return RedirectToAction("Index");

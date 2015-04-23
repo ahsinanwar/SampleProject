@@ -93,8 +93,10 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                      <asp:BoundField DataField="SectionID" HeaderText="SectionID" InsertVisible="False" ReadOnly="True" SortExpression="SectionID" />
-                     <asp:BoundField DataField="SectionName" HeaderText="SectionName" SortExpression="SectionName" />
-                     <asp:BoundField DataField="DeptID" HeaderText="DeptID" SortExpression="DeptID" />
+                     <asp:BoundField DataField="SectionName" HeaderText="Section" SortExpression="SectionName" />
+                     <asp:BoundField DataField="DeptName" HeaderText="Department" SortExpression="DeptName" />
+                     <asp:BoundField DataField="DivisionName" HeaderText="Division" SortExpression="DivisionName" />
+                     <asp:BoundField DataField="CompName" HeaderText="Company" SortExpression="CompName" />
                  </Columns>
              </asp:GridView>
              </div>
@@ -102,15 +104,17 @@
              <%-- Department Grid --%>
              <div runat="server" id="DivGridDept" style="margin: 20px;">
                  <div style="font-size: 15px;margin: 10px;font-weight: bold;">Press Ctrl+F to Find a Department </div>
-                 <asp:GridView ID="grid_Dept" runat="server" AutoGenerateColumns="False" DataKeyNames="DeptID" >
+                 <asp:GridView ID="grid_Dept" runat="server" AutoGenerateColumns="False" DataKeyNames="DeptID">
                      <Columns>
                          <asp:TemplateField>
                             <ItemTemplate>
-                                <asp:CheckBox ID="chkCtrlDept" runat="server"  oncheckedchanged="chkCtrlDept_CheckedChanged"/>
+                                <asp:CheckBox ID="chkCtrlDept" runat="server" oncheckedchanged="chkCtrlDept_CheckedChanged"/>
                             </ItemTemplate>
                         </asp:TemplateField>
                          <asp:BoundField DataField="DeptID" HeaderText="DeptID" InsertVisible="False" ReadOnly="True" SortExpression="DeptID" />
-                         <asp:BoundField DataField="DeptName" HeaderText="DeptName" SortExpression="DeptName" />
+                         <asp:BoundField DataField="DeptName" HeaderText="Department" SortExpression="DeptName" />
+                          <asp:BoundField DataField="DivisionName" HeaderText="Division" SortExpression="DivisionName" />
+                         <asp:BoundField DataField="CompName" HeaderText="Company" SortExpression="CompName" />
                      </Columns>
                  </asp:GridView>
              </div>
@@ -134,7 +138,7 @@
              <%-- Crew Grid --%>
              <div runat="server" id="DivGridCrew" style="margin: 20px;">
                  <div style="font-size: 15px;margin: 10px;font-weight: bold;">Press Ctrl+F to Find a Crew </div>
-                 <asp:GridView ID="grid_Crew" runat="server" AutoGenerateColumns="False" DataKeyNames="CrewID" >
+                <asp:GridView ID="grid_Crew" runat="server" AutoGenerateColumns="False" DataKeyNames="CrewID">
                      <Columns>
                          <asp:TemplateField>
                             <ItemTemplate>
@@ -143,6 +147,7 @@
                         </asp:TemplateField>
                          <asp:BoundField DataField="CrewID" HeaderText="CrewID" InsertVisible="False" ReadOnly="True" SortExpression="CrewID" />
                          <asp:BoundField DataField="CrewName" HeaderText="CrewName" SortExpression="CrewName" />
+                         <asp:BoundField DataField="CompName" HeaderText="Company" SortExpression="CompName" />
                      </Columns>
                  </asp:GridView>
              </div>
@@ -150,7 +155,7 @@
              <%-- EmpType Grid --%>
              <div runat="server" id="DivTypeGrid" style="margin: 20px;">
                  <div style="font-size: 15px;margin: 10px;font-weight: bold;">Press Ctrl+F to Find a Type </div>
-                 <asp:GridView ID="grid_EmpType" runat="server" AutoGenerateColumns="False" DataKeyNames="TypeID">
+                <asp:GridView ID="grid_EmpType" runat="server" AutoGenerateColumns="False" DataKeyNames="TypeID">
                      <Columns>
                          <asp:TemplateField>
                                 <ItemTemplate>
@@ -159,7 +164,8 @@
                         </asp:TemplateField>
                          <asp:BoundField DataField="TypeID" HeaderText="TypeID" ReadOnly="True" SortExpression="TypeID" />
                          <asp:BoundField DataField="TypeName" HeaderText="TypeName" SortExpression="TypeName" />
-                         <asp:BoundField DataField="CatID" HeaderText="CatID" SortExpression="CatID" />
+                         <asp:BoundField DataField="CatName" HeaderText="Category" SortExpression="CatName" />
+                         <asp:BoundField DataField="CompName" HeaderText="Company" SortExpression="CompName" />
                      </Columns>
                  </asp:GridView>
              </div>

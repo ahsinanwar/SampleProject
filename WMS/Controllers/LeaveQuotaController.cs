@@ -45,7 +45,7 @@ namespace WMS.Controllers
                 else
                 {
                     LeaveQuotaModel lvModel = new LeaveQuotaModel();
-                    lvModel.EmpID = item.EmpID;
+                    lvModel.EmpID = item.Emp.EmpID;
                     lvModel.EmpNo = item.Emp.EmpNo;
                     lvModel.EmpName = item.Emp.EmpName;
                     lvModel.SectionName = item.Emp.Section.SectionName;

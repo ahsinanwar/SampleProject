@@ -16,9 +16,13 @@ namespace WMS.Models
     {
         public Company()
         {
+            this.Crews = new HashSet<Crew>();
+            this.Departments = new HashSet<Department>();
+            this.Designations = new HashSet<Designation>();
             this.Emps = new HashSet<Emp>();
             this.Grades = new HashSet<Grade>();
             this.Readers = new HashSet<Reader>();
+            this.Sections = new HashSet<Section>();
             this.Users = new HashSet<User>();
         }
     
@@ -28,9 +32,13 @@ namespace WMS.Models
         public string TelNo { get; set; }
         public string Email { get; set; }
     
+        public virtual ICollection<Crew> Crews { get; set; }
+        public virtual ICollection<Department> Departments { get; set; }
+        public virtual ICollection<Designation> Designations { get; set; }
         public virtual ICollection<Emp> Emps { get; set; }
         public virtual ICollection<Grade> Grades { get; set; }
         public virtual ICollection<Reader> Readers { get; set; }
+        public virtual ICollection<Section> Sections { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }
 }

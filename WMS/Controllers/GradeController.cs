@@ -74,6 +74,7 @@ namespace WMS.Controllers
           [CustomActionAttribute]
         public ActionResult Create()
         {
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
             return View();
         }
 
@@ -83,7 +84,7 @@ namespace WMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomActionAttribute]
-        public ActionResult Create([Bind(Include = "GradeID,GradeName")] Grade grade)
+          public ActionResult Create([Bind(Include = "GradeID,GradeName,CompanyID")] Grade grade)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +92,11 @@ namespace WMS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            if (grade.Company.CompName == null)
+            {
+                ModelState.AddModelError("CompanyID", "This CompanyID is not existing");
+            }
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName",grade.Company.CompName);
             return View(grade);
         }
 
@@ -108,6 +113,7 @@ namespace WMS.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName");
             return View(grade);
         }
 
@@ -117,7 +123,7 @@ namespace WMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomActionAttribute]
-        public ActionResult Edit([Bind(Include = "GradeID,GradeName")] Grade grade)
+          public ActionResult Edit([Bind(Include = "GradeID,GradeName,CompanyID")] Grade grade)
         {
             if (ModelState.IsValid)
             {
@@ -125,6 +131,7 @@ namespace WMS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.CompanyID = new SelectList(db.Companies, "CompanyID", "CompName", grade.Company.CompName);
             return View(grade);
         }
 
