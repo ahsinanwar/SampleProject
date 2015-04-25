@@ -309,21 +309,27 @@ namespace WMS.Controllers
             {
                 return HttpNotFound();
             }
-            User LoggedInUser = Session["LoggedUser"] as User;
-            ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName",emp.CompanyID);
-            ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName",emp.CrewID);
-            ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName",emp.DesigID);
-            ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName",emp.GradeID);
-            ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1",emp.JobID);
-            ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName",emp.LocID);
-            ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName",emp.SecID);
-            ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName",emp.ShiftID);
-            ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName",emp.TypeID);
-            ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
-            ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
-            ViewBag.EmpID = new SelectList(db.LvQuotas, "EmpID", "EmpID");
-            ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName",emp.EmpType.CatID);
-            ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName",emp.Section.DeptID);
+            try
+            {
+                ViewBag.CompanyID = new SelectList(db.Companies, "CompID", "CompName", emp.CompanyID);
+                ViewBag.CatID = new SelectList(db.Categories, "CatID", "CatName", emp.EmpType.CatID);
+                ViewBag.CrewID = new SelectList(db.Crews, "CrewID", "CrewName", emp.CrewID);
+                ViewBag.DesigID = new SelectList(db.Designations, "DesignationID", "DesignationName", emp.DesigID);
+                ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName", emp.GradeID);
+                ViewBag.JobID = new SelectList(db.JobTitles, "JobID", "JobTitle1", emp.JobID);
+                ViewBag.LocID = new SelectList(db.Locations, "LocID", "LocName", emp.LocID);
+                ViewBag.SecID = new SelectList(db.Sections, "SectionID", "SectionName", emp.SecID);
+                ViewBag.ShiftID = new SelectList(db.Shifts, "ShiftID", "ShiftName", emp.ShiftID);
+                ViewBag.TypeID = new SelectList(db.EmpTypes, "TypeID", "TypeName", emp.TypeID);
+                ViewBag.EmpID = new SelectList(db.EmpFaces, "EmpID", "Face1");
+                ViewBag.EmpID = new SelectList(db.EmpFps, "EmpID", "Fp1");
+                ViewBag.EmpID = new SelectList(db.LvQuotas, "EmpID", "EmpID");
+                ViewBag.DeptID = new SelectList(db.Departments, "DeptID", "DeptName", emp.Section.DeptID);
+            }
+             catch(Exception ex)
+            {
+
+             }
             return View(emp);
         }
 

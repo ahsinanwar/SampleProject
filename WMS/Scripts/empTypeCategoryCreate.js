@@ -18,8 +18,8 @@
     $('#CatID').change(function () {
         $('#TypeID').empty();
         var URL = '/WMS/Emp/EmpTypeList';
-        //var convalue = $('#CatID').val() + "s" + $('#CompanyID').val();
-        var URL = '/Emp/EmpTypeList';
+        //var URL = '/Emp/EmpTypeList';
+        var convalue = $('#CatID').val() + "s" + $('#CompanyID').val();
         $.getJSON(URL + '/' + convalue, function (data) {
             var items;
             $.each(data, function (i, state) {

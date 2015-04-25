@@ -78,7 +78,7 @@
                             <label class="control-label col-md-3">Employee Type</label>
                             <div class="col-md-4">
                                @* @Html.DropDownList("CatID",null,new { @class = "btn btn-default dropdown-toggle dropdown ComboBoxWidth"})*@
-                                <select class="btn btn-default dropdown-toggle dropdown ComboBoxWidth" id="CatID" name="CatID"></select>
+                                @*<select class="btn btn-default dropdown-toggle dropdown ComboBoxWidth" id="CatID" name="CatID"></select>*@
                                 @Html.HiddenFor(model => model.EmpType.CatID , new { id = "selectedCatIdHidden" })  
                             </div>
                         </div>

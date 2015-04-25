@@ -51,8 +51,13 @@ namespace WMS.Reports
                 }
                 else
                     PathString = "/WMS/Reports/RDLC/MRDetailExcelP.rdlc";
-
-                LoadReport(PathString, context.ViewMonthlyDataPers.Where(aa => aa.Period == _period).ToList());
+                List<ViewMonthlyDataPer> _ViewList = new List<ViewMonthlyDataPer>();
+                User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
+                QueryBuilder qb = new QueryBuilder();
+                string query = qb.MakeCustomizeQuery(LoggedInUser);
+                DataTable dt = qb.GetValuesfromDB("select * from ViewMonthlyDataPer " + query + " and Period" + _period);
+                _ViewList = dt.ToList<ViewMonthlyDataPer>();
+                LoadReport(PathString, _ViewList);
             }
         }
 
@@ -616,7 +621,11 @@ namespace WMS.Reports
             List<ViewMonthlyDataPer> _ViewList = new List<ViewMonthlyDataPer>();
             List<ViewMonthlyDataPer> _TempViewList = new List<ViewMonthlyDataPer>();
             string _period = DateTo.Month.ToString() + DateTo.Year.ToString();
-            _ViewList = context.ViewMonthlyDataPers.Where(aa => aa.Period == _period).ToList();
+            User LoggedInUser = HttpContext.Current.Session["LoggedUser"] as User;
+            QueryBuilder qb = new QueryBuilder();
+            string query = qb.MakeCustomizeQuery(LoggedInUser);
+            DataTable dt = qb.GetValuesfromDB("select * from ViewMonthlyDataPer " + query + " and Period" + _period);
+            _ViewList = dt.ToList<ViewMonthlyDataPer>();
             if (SelectedEmps.Count > 0)
             {
                 foreach (var emp in SelectedEmps)
